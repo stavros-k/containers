@@ -46,7 +46,9 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
-RUN set -ex; \
-    \
-    touch /usr/local/etc/php/conf.d/redis-session.ini; \
-    chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
+# RUN set -ex; \
+#     \
+#     touch /usr/local/etc/php/conf.d/redis-session.ini; \
+#     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
+
+# COPY --chmod=755 ./scritps/ /entrypoint.d/
