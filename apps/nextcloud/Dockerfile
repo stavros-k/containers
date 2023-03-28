@@ -67,7 +67,7 @@ RUN set -ex; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
 # Copy all scripts in the entrypoint.d/
-COPY --chmod=755 ./scritps/ /entrypoint.d/
+COPY --chmod=755 ./scripts/ /entrypoint.d/
 
 # Remove the exec "$@" from the original entrypoint
 # and move it in the entrypoint.d/ with 00- prefix.
