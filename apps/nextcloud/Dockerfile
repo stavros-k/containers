@@ -70,10 +70,13 @@ RUN set -ex; \
 COPY --chmod=755 ./scripts/ /entrypoint.d/
 
 # Remove the exec "$@" from the original entrypoint
-# and move it in the entrypoint.d/ with 00- prefix.
+# and move it in the entrypoint.d/ with 10- prefix.
+# This is to allow adding scripts < 10. In case we want
+# them to run before the original entrypoint. For example
+# For creating an autoconfig file.
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
-    mv /entrypoint.sh /scripts/00-original-entrypoint.sh
+    # mv /entrypoint.sh /scripts/10-original-entrypoint.sh
 
 # Copy the "new" entrypoint as the normal entrypoint.sh
 COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
