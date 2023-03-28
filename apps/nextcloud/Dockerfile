@@ -1,5 +1,3 @@
-FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a2603596ba1032e25c048f379660e6e
-
 RUN set -ex; \
     \
     apt-get update; \
@@ -9,14 +7,13 @@ RUN set -ex; \
         procps \
         ffmpeg \
         libheif1 \
-        smbclinet \
+        smbclient \
         libde265-0 \
         heif-gdk-pixbuf \
         libmagickcore-dev \
         imagemagick-common \
         libmagickcore-6.q16-6-extra \
     ; \
-
     savedAptMark="$(apt-mark showmanual)"; \
 
     apt-get update; \
@@ -32,12 +29,10 @@ RUN set -ex; \
         bz2 \
         imap \
     ; \
-
     pecl install smbclient; \
     docker-php-ext-enable smbclient; \
 
-    # Copied from Nextcloud examples
-    # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
+    # Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
     apt-mark auto '.*' > /dev/null; \
     apt-mark manual $savedAptMark; \
     ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
@@ -50,3 +45,8 @@ RUN set -ex; \
 
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
+
+RUN set -ex; \
+    \
+    touch /usr/local/etc/php/conf.d/redis-session.ini; \
+    chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
