@@ -76,7 +76,8 @@ COPY --chmod=755 ./scripts/ /entrypoint.d/
 # For creating an autoconfig file.
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
-    cat /entrypoint.sh > /entrypoint.d/10-original-entrypoint.sh
+    mv /entrypoint.sh /entrypoint.d/10-original-entrypoint.sh; \
+    chmod -R +x /entrypoint.d
 
-# Overwrite the "old" entrypoint with the "new"
+# Copy the "new" entrypoint in place
 COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
