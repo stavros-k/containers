@@ -23,6 +23,9 @@ jobs:
           fail_on_error: true
 
   build:
+    permissions:
+      packages: write
+      contents: read
     name: Build
     runs-on: ubuntu-22.04
     needs:
@@ -31,7 +34,6 @@ jobs:
       matrix:
         containers:
           - app: nextcloud
-
     steps:
       - name: Checkout
         uses: actions/checkout@8f4b7f84864484a7bf31766abe9204da3cbe65b3 # v3
@@ -41,17 +43,7 @@ jobs:
         shell: bash
         run: |
           VERSION=$(cat ${{ matrix.containers.app }}/VERSION)
-          echo "APP_VERSION=$VERSION" >> $GITHUB_ENV
-
-  push_to_registries:
-    name: Push Docker image to multiple registries
-    runs-on: ubuntu-latest
-    permissions:
-      packages: write
-      contents: read
-    steps:
-      - name: Check out the repo
-        uses: actions/checkout@v3
+          echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Log in to the Container registry
         uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
@@ -65,4 +57,4 @@ jobs:
         with:
           context: ${{ matrix.containers.app }}/
           push: true
-          tags: ${{ github.env.APP_VERSION }}
+          tags: ${{ steps.prepare.outputs.APP_VERSION }}
