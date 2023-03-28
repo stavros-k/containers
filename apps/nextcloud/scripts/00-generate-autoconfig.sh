@@ -8,9 +8,14 @@ get_single_value () {
   local variable="$1"
   local required="$2"
 
-  local conf_dir='/var/html/config'
+  local conf_dir='/var/www/html/config'
 
   echo "Fetching value for $variable..."
+  if [ ! -d $conf_dir ]; then
+    echo "Config directory $conf_dir not found, exiting..."
+    exit 1
+  fi
+
   for file in "$conf_dir"/*.php; do
     value=$(php -r "require('$file'); echo \$CONFIG['$variable'];")
     if [ -n "$value" ]; then
@@ -48,7 +53,8 @@ fetch_values () {
 
 create_config () {
   echo 'Generating autoconfig...'
-  local auto_conf_path='/var/html/config/autoconfig.php'
+  local auto_conf_path='/var/www/html/config/autoconfig.php'
+  mkdir -p "$(dirname "$auto_conf_path")"
   {
     echo '<?php'
     echo '$AUTOCONFIG = ['
