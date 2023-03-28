@@ -10,30 +10,31 @@ get_single_value () {
 
   local conf_dir='/var/www/html/config'
 
-  echo "Fetching value for $variable..."
+  echo "Fetching value for $variable..." >&2
   if [ ! -d $conf_dir ]; then
-    echo "Config directory $conf_dir not found, exiting..."
+    echo "Config directory $conf_dir not found, exiting..." >&2
     exit 1
   fi
 
   for file in "$conf_dir"/*.php; do
     value=$(php -r "require('$file'); echo \$CONFIG['$variable'];")
     if [ -n "$value" ]; then
-      echo "Found value for $variable in $file"
+      echo "Found value for $variable in $file" >&2
       break
     fi
   done
 
   if [ -z "$value" ]; then
     if [ "$required" = "true" ]; then
-      echo "Required value $variable not found, exiting..."
+      echo "Required value $variable not found, exiting..." >&2
       exit 1
     else
-      echo "Optional value $variable not found, skipping..."
+      echo "Optional value $variable not found, skipping..." >&2
       return 0
     fi
   fi
 
+  # All above echo's print to stderr, so the stdout is clean
   echo "$value"
 }
 

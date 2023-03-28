@@ -1,4 +1,4 @@
-FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a2603596ba1032e25c048f379660e6e AS builder
+FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a2603596ba1032e25c048f379660e6e
 
 RUN set -ex; \
     \
@@ -59,8 +59,6 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     # Remove the apt cache
     rm -rf /var/lib/apt/lists/*
-
-FROM builder
 
 # See https://github.com/nextcloud/docker/issues/763
 RUN set -ex; \
