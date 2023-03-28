@@ -1,19 +1,23 @@
+FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a2603596ba1032e25c048f379660e6e
+
 RUN set -ex; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-        jq \
         nano \
-        procps \
+        jq \
+        imagemagick-common \
         ffmpeg \
-        libheif1 \
-        smbclient \
+        libmagickcore-6.q16-6-extra \
+        libmagickcore-dev \
         libde265-0 \
         heif-gdk-pixbuf \
-        libmagickcore-dev \
-        imagemagick-common \
-        libmagickcore-6.q16-6-extra \
+        libheif1 \
+        procps \
+        smbclient \
     ; \
+
+    # Below installs / php installs / ldd are borrowed from Nextcloud examples.
     savedAptMark="$(apt-mark showmanual)"; \
 
     apt-get update; \
@@ -46,9 +50,20 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     rm -rf /var/lib/apt/lists/*
 
-# RUN set -ex; \
-#     \
-#     touch /usr/local/etc/php/conf.d/redis-session.ini; \
-#     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
+# See https://github.com/nextcloud/docker/issues/763
+RUN set -ex; \
+    \
+    touch /usr/local/etc/php/conf.d/redis-session.ini; \
+    chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
-# COPY --chmod=755 ./scritps/ /entrypoint.d/
+# Copy all scripts in the entrypoint.d/
+COPY --chmod=755 ./scritps/ /entrypoint.d/
+
+# Remove the exec "$@" from the original entrypoint
+# and move it in the entrypoint.d/ with 00- prefix.
+RUN set -ex; \
+    sed -i 's/exec "$@"//g' /entrypoint.sh; \
+    mv /entrypoint.sh /scripts/00-original-entrypoint.sh
+
+# Copy the "new" entrypoint as the normal entrypoint.sh
+COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
