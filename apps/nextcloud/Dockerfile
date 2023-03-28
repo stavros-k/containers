@@ -4,12 +4,11 @@ RUN set -ex; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
-        nano \
         jq \
+        nano \
         imagemagick-common \
         ffmpeg \
         libmagickcore-6.q16-6-extra \
-        libmagickcore-dev \
         libde265-0 \
         heif-gdk-pixbuf \
         libheif1 \
@@ -17,28 +16,37 @@ RUN set -ex; \
         smbclient \
     ; \
 
-    # Below installs / php installs / ldd are borrowed from Nextcloud examples.
+    # This command returns the list of manually installed packages
     savedAptMark="$(apt-mark showmanual)"; \
 
+    # Install the build dependencies
     apt-get update; \
     apt-get install -y --no-install-recommends \
         libbz2-dev \
-        libc-client-dev \
         libkrb5-dev \
+        libc-client-dev \
         libsmbclient-dev \
+        libmagickcore-dev \
     ; \
 
+    # Configure the IMAP extension to use Kerberos authentication and SSL.
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
+    # Install the PHP extensions
     docker-php-ext-install \
+        # Bzip2 Compression Algorithm
         bz2 \
         imap \
     ; \
+    # Install smbclient from PECL
     pecl install smbclient; \
+    # Enable smbclient extension
     docker-php-ext-enable smbclient; \
 
     # Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
     apt-mark auto '.*' > /dev/null; \
+    # Set the packages that were manually installed back to "manual"
     apt-mark manual $savedAptMark; \
+
     ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
         | awk '/=>/ { print $3 }' \
         | sort -u \
@@ -47,7 +55,9 @@ RUN set -ex; \
         | sort -u \
         | xargs -rt apt-mark manual; \
 
+    # Remove build dependencies and packages that are no longer needed
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
+    # Remove the apt cache
     rm -rf /var/lib/apt/lists/*
 
 # See https://github.com/nextcloud/docker/issues/763
