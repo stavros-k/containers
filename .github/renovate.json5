@@ -1,0 +1,54 @@
+{
+  // General
+  enabled: true,
+  dependencyDashboard: true,
+  dependencyDashboardTitle: "🤖 Renovate Dashboard",
+  timezone: "Europe/Athens",
+
+  // People
+  assigneesFromCodeOwners: true,
+  reviewersFromCodeOwners: true,
+  assignAutomerge: true,
+  gitAuthor: "stavros-k <s.kois@outlook.com>",
+
+  // Functinality
+  baseBranches: ["master"],
+  rebaseWhen: "conflicted",
+  pinDigests: true,
+  prConcurrentLimit: 100,
+  semanticCommits: "enabled",
+  commitMessageTopic: "{{depName}}",
+  commitMessageExtra: "to {{newVersion}}",
+  packageRules: [
+    {
+      matchManagers: ["dockerfile"],
+      updateTypes: ["patch", "minor", "major", "digest"],
+      enabled: true,
+    },
+    {
+      matchUpdateTypes: ["minor", "patch", "pin", "digest"],
+      automerge: true,
+    },
+    // Labels
+    {
+      matchBaseBranches: ["master"],
+      addLabels: ["master"],
+    },
+    {
+      matchDepTypes: ["action"],
+      addLabels: ["actions"],
+    },
+    {
+      matchUpdateTypes: ["major"],
+      addLabels: ["major"],
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      addLabels: ["minor"],
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      addLabels: ["patch"],
+    },
+  ],
+}
