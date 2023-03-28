@@ -14,7 +14,6 @@ RUN set -ex; \
         heif-gdk-pixbuf \
         libheif1 \
         procps \
-        smbclient \
     ; \
     savedAptMark="$(apt-mark showmanual)"; \
     \
@@ -23,7 +22,6 @@ RUN set -ex; \
         libbz2-dev \
         libc-client-dev \
         libkrb5-dev \
-        libsmbclient-dev \
     ; \
     \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
@@ -31,8 +29,6 @@ RUN set -ex; \
         bz2 \
         imap \
     ; \
-    pecl install smbclient; \
-    docker-php-ext-enable smbclient; \
     \
 
     # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
