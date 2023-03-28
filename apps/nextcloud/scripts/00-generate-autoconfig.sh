@@ -1,4 +1,5 @@
 #!/bin/bash
+set -ex;
 
 # Check if config.php "installed" == true
 # If not, generate the autoconfig.php file,
