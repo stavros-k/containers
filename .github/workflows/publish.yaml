@@ -5,7 +5,8 @@ on:
   push:
     branches:
       - master
-
+    paths:
+      - apps/**
 jobs:
   hadolint:
     name: Run hadolint
@@ -42,7 +43,7 @@ jobs:
         id: prepare
         shell: bash
         run: |
-          VERSION=$(cat ${{ matrix.containers.app }}/VERSION)
+          VERSION=$(cat apps/${{ matrix.containers.app }}/VERSION)
           echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Log in to the Container registry
@@ -55,6 +56,6 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
-          context: ${{ matrix.containers.app }}/
+          context: apps/${{ matrix.containers.app }}/
           push: true
           tags: ghcr.io/stavros-k/${{ matrix.containers.app }}:${{ steps.prepare.outputs.APP_VERSION }}
