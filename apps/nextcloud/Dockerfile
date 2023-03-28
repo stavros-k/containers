@@ -36,7 +36,6 @@ RUN set -ex; \
     pecl install smbclient; \
     docker-php-ext-enable smbclient; \
 
-
     # Copied from Nextcloud examples
     # reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
     apt-mark auto '.*' > /dev/null; \
