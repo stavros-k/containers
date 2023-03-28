@@ -1,5 +1,4 @@
 #!/bin/bash
-set -ex;
 
 # Check if config.php "installed" == true
 # If not, generate the autoconfig.php file,
@@ -31,7 +30,7 @@ get_single_value () {
       exit 1
     else
       echo "Optional value $variable not found, skipping..." >&2
-      return 0
+      exit 0
     fi
   fi
 
@@ -42,13 +41,13 @@ get_single_value () {
 fetch_values () {
   echo 'Fetching values from config files...'
 
-  auto_data_dir=$(get_single_value 'datadirectory' 'true')
-  auto_db_pass=$(get_single_value 'dbpassword' 'true')
-  auto_db_type=$(get_single_value 'dbtype' 'true')
-  auto_db_name=$(get_single_value 'dbname' 'true')
-  auto_db_user=$(get_single_value 'dbuser' 'true')
-  auto_admin_user=$(get_single_value 'adminlogin' 'false')
-  auto_admin_pass=$(get_single_value 'adminpass' 'false')
+  auto_data_dir=$(get_single_value 'datadirectory' 'true') || exit 1
+  auto_db_pass=$(get_single_value 'dbpassword' 'true') || exit 1
+  auto_db_type=$(get_single_value 'dbtype' 'true') || exit 1
+  auto_db_name=$(get_single_value 'dbname' 'true') || exit 1
+  auto_db_user=$(get_single_value 'dbuser' 'true') || exit 1
+  auto_admin_user=$(get_single_value 'adminlogin' 'false') || exit 1
+  auto_admin_pass=$(get_single_value 'adminpass' 'false') || exit 1
 
   echo 'Values fetched.'
 }
@@ -81,19 +80,19 @@ is_installed () {
   local conf_file='/var/html/config/config.php'
   if [ -f "$conf_file" ]; then
     if grep -q -E 'installed.*=>.*true' "$conf_file"; then
-      return 0
+      exit 0
     fi
   fi
 
-  return 1
+  exit 1
 }
 
 if is_installed; then
   echo 'Nextcloud is already installed, skipping autoconfig...'
 else
   echo 'Nextcloud is not installed...'
-  fetch_values
-  create_config
+  fetch_values || exit 1
+  create_config || exit 1
 fi
 
 exit 0
