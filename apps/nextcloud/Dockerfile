@@ -6,14 +6,14 @@ RUN set -ex; \
     apt-get install -y --no-install-recommends \
         jq \
         nano \
-        imagemagick-common \
+        procps \
         ffmpeg \
-        libmagickcore-6.q16-6-extra \
+        libheif1 \
+        smbclient \
         libde265-0 \
         heif-gdk-pixbuf \
-        libheif1 \
-        procps \
-        smbclient \
+        imagemagick-common \
+        libmagickcore-6.q16-6-extra \
     ; \
 
     # This command returns the list of manually installed packages
