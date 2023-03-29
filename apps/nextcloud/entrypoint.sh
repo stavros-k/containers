@@ -4,8 +4,9 @@
 # Scripts are executed in alphabetical order.
 echo "#################################"
 echo "### Running pre-start scripts ###"
-echo "#################################"
-for script in /entrypoint.d/pre-start*.sh; do
+echo "#################################\n"
+
+for script in /entrypoint.d/pre-start/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
     echo "## Running $script...\n"
     "$script"
@@ -17,7 +18,7 @@ done
 
 echo "###################################"
 echo "### Running original entrypoint ###"
-echo "###################################"
+echo "###################################\n"
 
 # Also pass the command passed to the entrypoint
 # As it's needed for some checks
@@ -25,8 +26,8 @@ echo "###################################"
 
 echo "##################################"
 echo "### Running post-start scripts ###"
-echo "##################################"
-for script in /entrypoint.d/post-start*.sh; do
+echo "##################################\n"
+for script in /entrypoint.d/post-start/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
     echo "## Running $script...\n"
     "$script"
