@@ -1,0 +1,22 @@
+#!/bin/bash
+
+local conf_dir='/var/www/html/config'
+
+if [ ! -d $conf_dir ]; then
+  echo "FATAL: Config directory $conf_dir not found, exiting..." && exit 1
+fi
+
+for file in "$conf_dir"/*.php; do
+  data_dir=$(php -r "require('$file'); echo \$CONFIG['datadirectory'] ?? '';")
+  if [ -n "$data_dir" ]; then
+    break
+  fi
+done
+
+run_as() {
+  if [ "$(id -u)" = 0 ]; then
+    su -p "$user" -s /bin/bash -c "php $data_dir/occ $*"
+  else
+    bash -c "php $data_dir/occ $*"
+  fi
+}
