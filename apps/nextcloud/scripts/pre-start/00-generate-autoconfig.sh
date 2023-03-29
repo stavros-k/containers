@@ -76,15 +76,15 @@ create_config () {
 }
 
 is_installed () {
-  local conf_file='/var/html/config/config.php'
+  local conf_file='/var/www/html/config/config.php'
 
   if [ -f "$conf_file" ]; then
     if grep -q -E 'installed.*=>.*true' "$conf_file"; then
-      exit 0
+      return 0
     fi
   fi
 
-  exit 1
+  return 1
 }
 
 echo 'Checking if Nextcloud is installed...'
