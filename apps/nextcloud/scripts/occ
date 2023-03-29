@@ -20,3 +20,5 @@ run_as() {
     bash -c "php $data_dir/occ $*"
   fi
 }
+
+run_as "$*"
