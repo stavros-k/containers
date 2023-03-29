@@ -41,11 +41,12 @@ set_single_value () {
 fetch_values () {
   echo 'INFO: Fetching values from config files...'
 
-  set_single_value 'datadirectory'  'true' || exit 1
-  set_single_value 'dbpassword'     'true' || exit 1
   set_single_value 'dbtype'         'true' || exit 1
   set_single_value 'dbname'         'true' || exit 1
   set_single_value 'dbuser'         'true' || exit 1
+  set_single_value 'dbhost'         'true' || exit 1
+  set_single_value 'dbpassword'     'true' || exit 1
+  set_single_value 'datadirectory'  'true' || exit 1
   set_single_value 'adminlogin'     'false' || exit 1
   set_single_value 'adminpass'      'false' || exit 1
 
@@ -65,6 +66,7 @@ create_config () {
     echo "  \"dbname\"          => \"${config_values['dbname']}\","
     echo "  \"dbuser\"          => \"${config_values['dbuser']}\","
     echo "  \"dbpass\"          => \"${config_values['dbpass']}\","
+    echo "  \"dbhost\"          => \"${config_values['dbhost']}\","
 
     if [ -n "${config_values['adminlogin']}" ] && [ -n "${config_values['adminpass']}" ]; then
 
