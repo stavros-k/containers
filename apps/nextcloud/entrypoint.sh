@@ -5,11 +5,15 @@
 
 echo '##################################################################################################'
 echo '## This container is expecting all configuration to be done via configuration files.            ##'
-echo '## Place your configuration files in /var/www/html/config. Those files will not be edited       ##'
+echo '## Place your configuration files in [/var/www/html/config/]. Those files will not be edited    ##'
 echo '## by this container, so you can safely mount them as a Secret/ConfigMap.                       ##'
-echo '## The file /var/www/html/config/config.php WILL be edited by Nextcloud, as it stores there     ##'
+echo '## The file [/var/www/html/config/config.php] WILL be edited by Nextcloud, as it stores there   ##'
 echo '## values like the instance id, the version of Nextcloud installed, and other generated values. ##'
 echo '## It must be persisted and writable by the web server.                                         ##'
+echo '## Another way to create the config files is to set environment variables with the config file  ##'
+echo '## contents, environment variable format is NEXTCLOUD_CONFIG_FILE_filename. The contents of the ##'
+echo '## variable, will be printed to [/var/www/html/config/<filename>.config.php]. If a file exists, ##'
+echo '## a backup will be created in the same directory with a .bak extension.                        ##'
 echo '##################################################################################################'
 
 echo ''

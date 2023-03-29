@@ -57,7 +57,7 @@ fetch_values () {
 # autoconfig.php - config.php:
 # directory   - datadirectory
 # dbpass      - dbpassword
-create_config () {
+create_autoconfig () {
   echo 'INFO: Generating autoconfig.php ...'
   local auto_conf_path='/var/www/html/config/autoconfig.php'
   mkdir -p "$(dirname "$auto_conf_path")"
@@ -85,6 +85,23 @@ create_config () {
   echo "INFO: Autoconfig generated at $auto_conf_path"
 }
 
+create_config_from_vars () {
+  env | grep NEXTCLOUD_CONFIG_FILE_ | while read -r line; do
+    variable_name=$(echo "$line" | cut -d '=' -f 1 )
+    file=$(echo "$filename" | sed 's/NEXTCLOUD_CONFIG_FILE_//g')
+
+    echo "INFO: Printing contents of [$variable_name] to [$file]..."
+
+    conf_path="/var/www/html/config/$file.config.php"
+    mkdir -p "$(dirname "$conf_path")"
+    if [ -f "$conf_path" ]; then
+      echo "INFO: File [$conf_path] already exists, creating backup..."
+      cp "$conf_path" "$conf_path.bak"
+    fi
+    eval "echo \"\$$variable_name\"" > "$conf_path"
+  done
+}
+
 is_installed () {
   local conf_file='/var/www/html/config/config.php'
 
@@ -102,6 +119,25 @@ if is_installed; then
   echo 'INFO: Skipping autoconfig generation...'
 else
   echo 'INFO: Nextcloud is not installed...'
+  create_config_from_vars || exit 1
   fetch_values || exit 1
-  create_config || exit 1
+  create_autoconfig || exit 1
 fi
+
+NEXTCLOUD_CONFIG_FILE_SKATA='
+<?php
+$CONFIG = array(
+  "apps_paths" => array(
+    0 => array(
+      "path" => "/var/www/html/apps",
+      "url" => "/apps",
+      "writable" => false,
+    ),
+    1 => array(
+      "path" => "/var/www/html/custom_apps",
+      "url" => "/custom_apps",
+      "writable" => true,
+    ),
+  ),
+);
+'
