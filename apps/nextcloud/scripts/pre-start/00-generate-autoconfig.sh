@@ -58,6 +58,7 @@ create_config () {
   mkdir -p "$(dirname "$auto_conf_path")"
   {
     echo '<?php'
+    # shellcheck disable=SC2016
     echo '$AUTOCONFIG = ['
     echo "  \"directory\"       => \"${config_values['datadirectory']}\","
     echo "  \"dbtype\"          => \"${config_values['dbtype']}\","
@@ -89,9 +90,9 @@ is_installed () {
 
 echo 'INFO: Checking if Nextcloud is installed...'
 if is_installed; then
-  echo "INFO: Nextcloud is already installed, skipping autoconfig...\n"
+  echo 'INFO: Nextcloud is already installed, skipping autoconfig...'
 else
-  echo "INFO: Nextcloud is not installed...\n"
+  echo 'INFO: Nextcloud is not installed...'
   fetch_values || exit 1
   create_config || exit 1
 fi

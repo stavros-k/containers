@@ -2,36 +2,44 @@
 
 # Run all executable scripts in the /entrypoint.d/ directory.
 # Scripts are executed in alphabetical order.
-echo "#################################"
-echo "### Running pre-start scripts ###"
-echo "#################################\n"
+echo '#################################'
+echo '### Running pre-start scripts ###'
+echo '#################################'
+echo ''
 
 for script in /entrypoint.d/pre-start/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
-    echo "## Running $script...\n"
+    echo "## Running $script..."
+    echo ''
     "$script" || exit 1
-    echo "## Done running $script.\n"
+    echo "## Done running $script."
+    echo ''
   else
     echo "WARN: kipping $script, it is not executable."
   fi
 done
 
-echo "###################################"
-echo "### Running original entrypoint ###"
-echo "###################################\n"
+echo '###################################'
+echo '### Running original entrypoint ###'
+echo '###################################'
+echo ''
 
 # Also pass the command passed to the entrypoint
 # As it's needed for some checks
-/entrypoint.d/00-original-entrypoint.sh $@
+/entrypoint.d/00-original-entrypoint.sh "$@"
 
-echo "##################################"
-echo "### Running post-start scripts ###"
-echo "##################################\n"
+echo '##################################'
+echo '### Running post-start scripts ###'
+echo '##################################'
+echo ''
+
 for script in /entrypoint.d/post-start/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
-    echo "## Running $script...\n"
+    echo "## Running $script..."
+    echo ''
     "$script" || exit 1
-    echo "## Done running $script.\n"
+    echo "## Done running $script."
+    echo ''
   else
     echo "WARN: Skipping $script, it is not executable."
   fi
