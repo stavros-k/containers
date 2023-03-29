@@ -59,16 +59,16 @@ create_config () {
   {
     echo '<?php'
     echo '$AUTOCONFIG = ['
-    echo "  \"directory\"       => \"$config_values['datadirectory']\","
-    echo "  \"dbtype\"          => \"$config_values['dbtype']\","
-    echo "  \"dbname\"          => \"$config_values['dbname']\","
-    echo "  \"dbuser\"          => \"$config_values['dbuser']\","
-    echo "  \"dbpass\"          => \"$config_values['dbpass']\","
+    echo "  \"directory\"       => \"${config_values['datadirectory']}\","
+    echo "  \"dbtype\"          => \"${config_values['dbtype']}\","
+    echo "  \"dbname\"          => \"${config_values['dbname']}\","
+    echo "  \"dbuser\"          => \"${config_values['dbuser']}\","
+    echo "  \"dbpass\"          => \"${config_values['dbpass']}\","
 
-    if [ -n "$config_values['adminlogin']" ] && [ -n "$config_values['adminpass']" ]; then
+    if [ -n "${config_values['adminlogin']}" ] && [ -n "${config_values['adminpass']}" ]; then
 
-    echo "  \"adminlogin\"      => \"$config_values['adminlogin']\","
-    echo "  \"adminpass\"       => \"$config_values['adminpass']\","
+    echo "  \"adminlogin\"      => \"${config_values['adminlogin']}\","
+    echo "  \"adminpass\"       => \"${config_values['adminpass']}\","
 
     fi
   } > "$auto_conf_path"
@@ -89,9 +89,9 @@ is_installed () {
 
 echo 'Checking if Nextcloud is installed...'
 if is_installed; then
-  echo 'Nextcloud is already installed, skipping autoconfig...\n'
+  echo "Nextcloud is already installed, skipping autoconfig...\n"
 else
-  echo 'Nextcloud is not installed...\n'
+  echo "Nextcloud is not installed...\n"
   fetch_values || exit 1
   create_config || exit 1
 fi
