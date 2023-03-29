@@ -88,11 +88,11 @@ create_autoconfig () {
 create_config_from_vars () {
   env | grep NEXTCLOUD_CONFIG_FILE_ | while read -r line; do
     variable_name=$(echo "$line" | cut -d '=' -f 1 )
-    file=$(echo "$filename" | sed 's/NEXTCLOUD_CONFIG_FILE_//g')
+    file_name=$(echo "$variable_name" | sed 's/NEXTCLOUD_CONFIG_FILE_//g' | tr '[:upper:]' '[:lower:]')
 
-    echo "INFO: Printing contents of [$variable_name] to [$file]..."
+    echo "INFO: Printing contents of [$variable_name] to [$file_name]..."
 
-    conf_path="/var/www/html/config/$file.config.php"
+    conf_path="/var/www/html/config/$file_name.config.php"
     mkdir -p "$(dirname "$conf_path")"
     if [ -f "$conf_path" ]; then
       echo "INFO: File [$conf_path] already exists, creating backup..."
@@ -123,21 +123,3 @@ else
   fetch_values || exit 1
   create_autoconfig || exit 1
 fi
-
-NEXTCLOUD_CONFIG_FILE_SKATA='
-<?php
-$CONFIG = array(
-  "apps_paths" => array(
-    0 => array(
-      "path" => "/var/www/html/apps",
-      "url" => "/apps",
-      "writable" => false,
-    ),
-    1 => array(
-      "path" => "/var/www/html/custom_apps",
-      "url" => "/custom_apps",
-      "writable" => true,
-    ),
-  ),
-);
-'
