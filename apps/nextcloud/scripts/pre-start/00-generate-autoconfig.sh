@@ -20,7 +20,7 @@ set_single_value () {
   fi
 
   for file in "$conf_dir"/*.php; do
-    value=$(php -r "require('$file'); echo \$CONFIG['$variable'];")
+    value=$(php -r "require('$file'); echo \$CONFIG['$variable'] ?? '';")
 
     if [ -n "$value" ]; then
       echo "INFO: Found value for $variable in $file"
@@ -53,7 +53,7 @@ fetch_values () {
 }
 
 create_config () {
-  echo 'INFO: Generating autoconfig...'
+  echo 'INFO: Generating autoconfig.php ...'
   local auto_conf_path='/var/www/html/config/autoconfig.php'
   mkdir -p "$(dirname "$auto_conf_path")"
   {
@@ -72,8 +72,9 @@ create_config () {
     echo "  \"adminpass\"       => \"${config_values['adminpass']}\","
 
     fi
+    echo "];"
   } > "$auto_conf_path"
-  echo "INFO: Autoconfig generated in $auto_conf_path"
+  echo "INFO: Autoconfig generated at $auto_conf_path"
 }
 
 is_installed () {
@@ -86,7 +87,8 @@ is_installed () {
 
 echo 'INFO: Checking if Nextcloud is installed...'
 if is_installed; then
-  echo 'INFO: Nextcloud is already installed, skipping autoconfig...'
+  echo 'INFO: Nextcloud is already installed'
+  echo 'INFO: Skipping autoconfig generation...'
 else
   echo 'INFO: Nextcloud is not installed...'
   fetch_values || exit 1
