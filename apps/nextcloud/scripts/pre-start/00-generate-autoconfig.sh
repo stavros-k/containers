@@ -13,17 +13,17 @@ set_single_value () {
 
   local conf_dir='/var/www/html/config'
 
-  echo "Fetching value for $variable..."
+  echo "INFO: Fetching value for $variable..."
 
   if [ ! -d $conf_dir ]; then
-    echo "Config directory $conf_dir not found, exiting..." && exit 1
+    echo "FATAL: Config directory $conf_dir not found, exiting..." && exit 1
   fi
 
   for file in "$conf_dir"/*.php; do
     value=$(php -r "require('$file'); echo \$CONFIG['$variable'];")
 
     if [ -n "$value" ]; then
-      echo "Found value for $variable in $file"
+      echo "INFO: Found value for $variable in $file"
       config_values["$variable"]="$value"
       break
     fi
@@ -31,15 +31,15 @@ set_single_value () {
 
   if [ -z "$value" ]; then
     if [ "$required" = "true" ]; then
-      echo "Required value $variable not found, exiting..." && exit 1
+      echo "FATAL: Required value $variable not found, exiting..." && exit 1
     else
-      echo "Optional value $variable not found, skipping..."
+      echo "INFO: Optional value $variable not found, skipping..."
     fi
   fi
 }
 
 fetch_values () {
-  echo 'Fetching values from config files...'
+  echo 'INFO: Fetching values from config files...'
 
   set_single_value 'datadirectory'  'true' || exit 1
   set_single_value 'dbpassword'     'true' || exit 1
@@ -49,11 +49,11 @@ fetch_values () {
   set_single_value 'adminlogin'     'false' || exit 1
   set_single_value 'adminpass'      'false' || exit 1
 
-  echo 'Values fetched.'
+  echo 'INFO: Values fetched.'
 }
 
 create_config () {
-  echo 'Generating autoconfig...'
+  echo 'INFO: Generating autoconfig...'
   local auto_conf_path='/var/www/html/config/autoconfig.php'
   mkdir -p "$(dirname "$auto_conf_path")"
   {
@@ -72,7 +72,7 @@ create_config () {
 
     fi
   } > "$auto_conf_path"
-  echo "Autoconfig generated in $auto_conf_path"
+  echo "INFO: Autoconfig generated in $auto_conf_path"
 }
 
 is_installed () {
@@ -87,11 +87,11 @@ is_installed () {
   return 1
 }
 
-echo 'Checking if Nextcloud is installed...'
+echo 'INFO: Checking if Nextcloud is installed...'
 if is_installed; then
-  echo "Nextcloud is already installed, skipping autoconfig...\n"
+  echo "INFO: Nextcloud is already installed, skipping autoconfig...\n"
 else
-  echo "Nextcloud is not installed...\n"
+  echo "INFO: Nextcloud is not installed...\n"
   fetch_values || exit 1
   create_config || exit 1
 fi

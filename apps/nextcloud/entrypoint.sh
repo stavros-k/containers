@@ -9,10 +9,10 @@ echo "#################################\n"
 for script in /entrypoint.d/pre-start/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
     echo "## Running $script...\n"
-    "$script"
+    "$script" || exit 1
     echo "## Done running $script.\n"
   else
-    echo "Skipping $script, it is not executable."
+    echo "WARN: kipping $script, it is not executable."
   fi
 done
 
@@ -30,10 +30,10 @@ echo "##################################\n"
 for script in /entrypoint.d/post-start/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
     echo "## Running $script...\n"
-    "$script"
+    "$script" || exit 1
     echo "## Done running $script.\n"
   else
-    echo "Skipping $script, it is not executable."
+    echo "WARN: Skipping $script, it is not executable."
   fi
 done
 
