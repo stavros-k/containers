@@ -52,7 +52,7 @@ jobs:
         run: |
           VERSION=$(cat apps/${{ matrix.containers.app }}/VERSION)
           echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
-          if [[ $$GITHUB_EVENT_NAME == "pull_request" ]]; then
+          if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
             echo "APP_VERSION=$VERSION-pr$GITHUB_EVENT_NUMBER" >> $GITHUB_OUTPUT
           fi
 
