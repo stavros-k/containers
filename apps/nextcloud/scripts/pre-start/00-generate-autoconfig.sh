@@ -13,17 +13,17 @@ set_single_value () {
 
   local conf_dir='/var/www/html/config'
 
-  echo "INFO: Fetching value for $variable..."
+  echo "INFO: Getting value for key $variable..."
 
   if [ ! -d $conf_dir ]; then
-    echo "FATAL: Config directory $conf_dir not found, exiting..." && exit 1
+    echo "FATAL: Config directory [$conf_dir] not found, exiting..." && exit 1
   fi
 
   for file in "$conf_dir"/*.php; do
     value=$(php -r "require('$file'); echo \$CONFIG['$variable'] ?? '';")
 
     if [ -n "$value" ]; then
-      echo "INFO: Found value for $variable in $file"
+      echo "INFO: Found value for [$variable] in [$file]"
       config_values["$variable"]="$value"
       break
     fi
@@ -31,16 +31,16 @@ set_single_value () {
 
   if [ -z "$value" ]; then
     if [ "$required" = "true" ]; then
-      echo "FATAL: Required value $variable not found, exiting..." && exit 1
+      echo "FATAL: Required value for key [$variable] not found, exiting..." && exit 1
     else
-      echo "INFO: Optional value $variable not found, skipping..."
+      echo "INFO: Optional value for key [$variable] not found, skipping..."
     fi
   fi
 }
 
 fetch_values () {
-  echo 'INFO: Fetching values from config files...'
-
+  echo 'INFO: Gathering values needed for autoconfig from config files...'
+  #                variable        required
   set_single_value 'dbtype'         'true' || exit 1
   set_single_value 'dbname'         'true' || exit 1
   set_single_value 'dbuser'         'true' || exit 1
@@ -50,7 +50,7 @@ fetch_values () {
   set_single_value 'adminlogin'     'false' || exit 1
   set_single_value 'adminpass'      'false' || exit 1
 
-  echo 'INFO: Values fetched.'
+  echo 'INFO: Values gathered.'
 }
 
 # There are some differences between the config.php and autoconfig.php
