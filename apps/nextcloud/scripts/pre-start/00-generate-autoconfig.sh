@@ -79,15 +79,9 @@ create_config () {
 is_installed () {
   local conf_file='/var/www/html/config/config.php'
 
-  value=$(php -r "require('$conf_file'); echo \$CONFIG['installed'];")
-  echo "Value from PHP: $value"
-  if [ -f "$conf_file" ]; then
-    if grep -q -E 'installed.*=>.*true' "$conf_file"; then
-      return 0
-    fi
-  fi
+  installed=$(php -r "require('$conf_file'); echo \$CONFIG['key'] ?? 'false';")
 
-  return 1
+  [ "$installed" = "true" ] && return 0 || return 1
 }
 
 echo 'INFO: Checking if Nextcloud is installed...'
