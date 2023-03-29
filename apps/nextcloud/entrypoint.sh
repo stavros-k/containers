@@ -2,14 +2,37 @@
 
 # Run all executable scripts in the /entrypoint.d/ directory.
 # Scripts are executed in alphabetical order.
-for script in /entrypoint.d/*.sh; do
-  echo "Checking $script if it is executable..."
+echo "#################################"
+echo "### Running pre-start scripts ###"
+echo "#################################"
+for script in /entrypoint.d/pre-start*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
-    echo "Running $script..."
+    echo "## Running $script...\n"
     "$script"
-    echo "Done running $script."
+    echo "## Done running $script.\n"
   else
-    echo "Skipping $script because it is not executable."
+    echo "Skipping $script, it is not executable."
+  fi
+done
+
+echo "###################################"
+echo "### Running original entrypoint ###"
+echo "###################################"
+
+# Also pass the command passed to the entrypoint
+# As it's needed for some checks
+/entrypoint.d/00-original-entrypoint.sh $@
+
+echo "##################################"
+echo "### Running post-start scripts ###"
+echo "##################################"
+for script in /entrypoint.d/post-start*.sh; do
+  if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "## Running $script...\n"
+    "$script"
+    echo "## Done running $script.\n"
+  else
+    echo "Skipping $script, it is not executable."
   fi
 done
 
