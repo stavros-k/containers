@@ -53,6 +53,10 @@ fetch_values () {
   echo 'INFO: Values fetched.'
 }
 
+# There are some differences between the config.php and autoconfig.php
+# autoconfig.php - config.php:
+# directory   - datadirectory
+# dbpass      - dbpassword
 create_config () {
   echo 'INFO: Generating autoconfig.php ...'
   local auto_conf_path='/var/www/html/config/autoconfig.php'
@@ -65,7 +69,7 @@ create_config () {
     echo "  \"dbtype\"          => \"${config_values['dbtype']}\","
     echo "  \"dbname\"          => \"${config_values['dbname']}\","
     echo "  \"dbuser\"          => \"${config_values['dbuser']}\","
-    echo "  \"dbpass\"          => \"${config_values['dbpass']}\","
+    echo "  \"dbpass\"          => \"${config_values['dbpassword']}\","
     echo "  \"dbhost\"          => \"${config_values['dbhost']}\","
 
     if [ -n "${config_values['adminlogin']}" ] && [ -n "${config_values['adminpass']}" ]; then
@@ -74,7 +78,9 @@ create_config () {
     echo "  \"adminpass\"       => \"${config_values['adminpass']}\","
 
     fi
+
     echo "];"
+
   } > "$auto_conf_path"
   echo "INFO: Autoconfig generated at $auto_conf_path"
 }
