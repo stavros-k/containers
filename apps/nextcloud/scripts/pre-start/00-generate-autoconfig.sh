@@ -41,13 +41,13 @@ set_single_value () {
 fetch_values () {
   echo 'Fetching values from config files...'
 
-  set_single_value 'datadirectory'  'true') || exit 1
-  set_single_value 'dbpassword'     'true') || exit 1
-  set_single_value 'dbtype'         'true') || exit 1
-  set_single_value 'dbname'         'true') || exit 1
-  set_single_value 'dbuser'         'true') || exit 1
-  set_single_value 'adminlogin'     'false') || exit 1
-  set_single_value 'adminpass'      'false') || exit 1
+  set_single_value 'datadirectory'  'true' || exit 1
+  set_single_value 'dbpassword'     'true' || exit 1
+  set_single_value 'dbtype'         'true' || exit 1
+  set_single_value 'dbname'         'true' || exit 1
+  set_single_value 'dbuser'         'true' || exit 1
+  set_single_value 'adminlogin'     'false' || exit 1
+  set_single_value 'adminpass'      'false' || exit 1
 
   echo 'Values fetched.'
 }
