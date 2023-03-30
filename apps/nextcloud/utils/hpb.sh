@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -n "$METRICS_PORT"]; then
+if [ ! -n "$METRICS_PORT" ]; then
   echo 'NOTICE: METRICS_PORT not set, skipping metrics'
 fi
 
