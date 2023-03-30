@@ -7,6 +7,10 @@ on:
       - master
     paths:
       - apps/**
+  pull_request:
+    paths:
+      - apps/**
+
 jobs:
   hadolint:
     name: Run hadolint
@@ -48,6 +52,9 @@ jobs:
         run: |
           VERSION=$(cat apps/${{ matrix.containers.app }}/VERSION)
           echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
+          if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
+            echo "APP_VERSION=$VERSION-pr${{ github.event.number }}" >> $GITHUB_OUTPUT
+          fi
 
       - name: Log in to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1

@@ -2,6 +2,21 @@
 
 # Run all executable scripts in the /entrypoint.d/ directory.
 # Scripts are executed in alphabetical order.
+
+echo '##################################################################################################'
+echo '## This container is expecting all configuration to be done via configuration files.            ##'
+echo '## Place your configuration files in [/var/www/html/config/]. Those files will not be edited    ##'
+echo '## by this container, so you can safely mount them as a Secret/ConfigMap.                       ##'
+echo '## The file [/var/www/html/config/config.php] WILL be edited by Nextcloud, as it stores there   ##'
+echo '## values like the instance id, the version of Nextcloud installed, and other generated values. ##'
+echo '## It must be persisted and writable by the web server.                                         ##'
+echo '## Another way to create the config files is to set environment variables with the config file  ##'
+echo '## contents, environment variable format is NEXTCLOUD_CONFIG_FILE_filename. The contents of the ##'
+echo '## variable, will be printed to [/var/www/html/config/<filename>.config.php]. If a file exists, ##'
+echo '## a backup will be created in the same directory with a .bak extension.                        ##'
+echo '##################################################################################################'
+
+echo ''
 echo '#################################'
 echo '### Running pre-start scripts ###'
 echo '#################################'
@@ -12,13 +27,14 @@ for script in /entrypoint.d/pre-start/*.sh; do
     echo "## Running $script..."
     echo ''
     "$script" || exit 1
-    echo "## Done running $script."
     echo ''
+    echo "## Done running $script."
   else
     echo "WARN: kipping $script, it is not executable."
   fi
 done
 
+echo ''
 echo '###################################'
 echo '### Running original entrypoint ###'
 echo '###################################'
@@ -28,6 +44,7 @@ echo ''
 # As it's needed for some checks
 /entrypoint.d/00-original-entrypoint.sh "$@"
 
+echo ''
 echo '##################################'
 echo '### Running post-start scripts ###'
 echo '##################################'
@@ -38,8 +55,8 @@ for script in /entrypoint.d/post-start/*.sh; do
     echo "## Running $script..."
     echo ''
     "$script" || exit 1
-    echo "## Done running $script."
     echo ''
+    echo "## Done running $script."
   else
     echo "WARN: Skipping $script, it is not executable."
   fi
