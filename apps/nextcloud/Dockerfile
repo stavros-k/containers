@@ -66,7 +66,9 @@ RUN set -ex; \
     touch /usr/local/etc/php/conf.d/redis-session.ini; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
-COPY --chmod=755 ./utils/ /usr/bin/
+COPY --chmod=755 ./utils/occ /usr/bin/occ
+
+COPY --chown=755 ./utils/hpb.sh /hpb.sh
 
 # Copy all scripts in the entrypoint.d/
 COPY --chmod=755 ./scripts/ /entrypoint.d/
