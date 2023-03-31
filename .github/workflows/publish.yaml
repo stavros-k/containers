@@ -52,7 +52,7 @@ jobs:
         id: prepare
         shell: bash
         run: |
-        VERSION=$(cat apps/${{ matrix.containers.app }}/Dockerfile | grep -E "ENV .+_VERSION .+" | cut -d ' ' -f3)
+          VERSION=$(cat apps/${{ matrix.containers.app }}/Dockerfile | grep -E "ENV .+_VERSION .+" | cut -d ' ' -f3)
           echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
           if [[ $GITHUB_EVENT_NAME == "pull_request" ]]; then
           echo "APP_VERSION=$VERSION-pr${{ github.event.number }}" >> $GITHUB_OUTPUT
