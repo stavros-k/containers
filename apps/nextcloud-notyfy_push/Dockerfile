@@ -1,5 +1,6 @@
 FROM alpine:3.17.3
 
+# hadolint ignore=DL3018
 RUN apk add --no-cache ca-certificates
 
 # https://github.com/nextcloud/notify_push/releases
