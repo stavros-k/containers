@@ -13,7 +13,7 @@ RUN set -ex; \
 	arch="aarch64"; \
 	triplet="unknown-linux-musl"; \
 	\
-	wget --output-document --progress=dot:giga /usr/local/bin/notify_push "https://github.com/nextcloud/notify_push/releases/download/v${NOTIFY_PUSH_VERSION}/notify_push-$arch-$triplet"; \
+	wget --progress=dot:giga --output-document /usr/local/bin/notify_push "https://github.com/nextcloud/notify_push/releases/download/v${NOTIFY_PUSH_VERSION}/notify_push-$arch-$triplet"; \
 	\
 	chmod +x /usr/local/bin/notify_push; \
 	notify_push --version
@@ -23,3 +23,4 @@ USER nobody
 EXPOSE 7867
 
 CMD ["notify_push"]
+https://github.com/nextcloud/notify_push/releases/download/v0.6.2/notify_push-aarch64-unknown-linux-musl
