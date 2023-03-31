@@ -1,5 +1,7 @@
 FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a2603596ba1032e25c048f379660e6e
 
+ENV NEXTCLOUD_FPM_VERSION 26.0.0-fpm
+
 RUN set -ex; \
     \
     apt-get update; \
