@@ -17,10 +17,10 @@ RUN set -ex; \
         imagemagick-common \
         libmagickcore-6.q16-6-extra \
     ; \
-
+    \
     # This command returns the list of manually installed packages
     savedAptMark="$(apt-mark showmanual)"; \
-
+    \
     # Install the build dependencies
     apt-get update; \
     apt-get install -y --no-install-recommends \
@@ -30,7 +30,7 @@ RUN set -ex; \
         libsmbclient-dev \
         libmagickcore-dev \
     ; \
-
+    \
     # Configure the IMAP extension to use Kerberos authentication and SSL.
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
     # Install the PHP extensions
@@ -43,12 +43,12 @@ RUN set -ex; \
     pecl install smbclient; \
     # Enable smbclient extension
     docker-php-ext-enable smbclient; \
-
+    \
     # Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
     apt-mark auto '.*' > /dev/null; \
     # Set the packages that were manually installed back to "manual"
     apt-mark manual $savedAptMark; \
-
+    \
     ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
         | awk '/=>/ { print $3 }' \
         | sort -u \
@@ -56,7 +56,7 @@ RUN set -ex; \
         | cut -d: -f1 \
         | sort -u \
         | xargs -rt apt-mark manual; \
-
+    \
     # Remove build dependencies and packages that are no longer needed
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
     # Remove the apt cache
