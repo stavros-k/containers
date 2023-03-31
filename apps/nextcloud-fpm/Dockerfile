@@ -69,21 +69,3 @@ RUN set -ex; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
 COPY --chmod=755 ./utils/occ /usr/bin/occ
-
-COPY --chown=755 ./utils/hpb.sh /hpb.sh
-
-# Copy all scripts in the entrypoint.d/
-COPY --chmod=755 ./scripts/ /entrypoint.d/
-
-# Remove the exec "$@" from the original entrypoint
-# and move it in the entrypoint.d/ with 10- prefix.
-# This is to allow adding scripts < 10. In case we want
-# them to run before the original entrypoint. For example
-# For creating an autoconfig file.
-RUN set -ex; \
-    sed -i 's/exec "$@"//g' /entrypoint.sh; \
-    mv /entrypoint.sh /entrypoint.d/00-original-entrypoint.sh; \
-    chmod -R +x /entrypoint.d
-
-# Copy the "new" entrypoint in place
-COPY --chmod=755 ./entrypoint.sh /entrypoint.sh
