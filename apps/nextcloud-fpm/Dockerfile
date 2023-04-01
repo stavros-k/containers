@@ -68,4 +68,8 @@ RUN set -ex; \
     touch /usr/local/etc/php/conf.d/redis-session.ini; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
+RUN set -ex; \
+    sed -i 's/exec "$@"//g' /entrypoint.sh; \
+    cat /scripts/tune-php-fpm.sh >> /entrypoint.sh
+
 COPY --chmod=755 ./scripts/occ /usr/bin/occ
