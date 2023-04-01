@@ -23,9 +23,21 @@ echo ''
 
 cat $tune_file
 
+chmod 755 $tune_file
+
 echo '--------------------'
 
-occ config:system:set default_phone_region --value=GR
+for script in /entrypoint.d/post-start/*.sh; do
+  if [ -f "$script" ] && [ -x "$script" ]; then
+    echo "## Running $script..."
+    echo ''
+    "$script" || exit 1
+    echo ''
+    echo "## Done running $script."
+  else
+    echo "WARN: Skipping $script, it is not executable."
+  fi
+done
 
 echo '--------------------'
 
