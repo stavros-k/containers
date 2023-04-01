@@ -1,4 +1,5 @@
 #!/bin/bash
+trap "echo 'SIGTERM received, exiting'; exit" SIGTERM
 
 uid="$(id -u)"
 gid="$(id -g)"
