@@ -22,6 +22,8 @@ echo "Tune file ($tune_file):"
 echo ''
 
 cat $tune_file
+ls -la $tune_file
+whoami
 
 echo '--------------------'
 
