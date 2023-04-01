@@ -2,7 +2,6 @@ FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a260
 
 ENV NEXTCLOUD_FPM_VERSION 26.0.0-fpm
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -ex; \
     \
     apt-get update; \
