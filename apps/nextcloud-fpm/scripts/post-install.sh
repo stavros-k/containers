@@ -11,6 +11,7 @@ echo 'Visit https://spot13.com/pmcalculator to see what values you should set'
 tune_file="/usr/local/etc/php-fpm.d/99-tune.conf"
 
 if [ ! -d $(dirname $tune_file) ]; then
+  echo "creating..."
   mkdir -p $(dirname $tune_file)
 fi
 
