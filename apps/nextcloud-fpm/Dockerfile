@@ -66,9 +66,9 @@ RUN set -ex; \
 RUN set -ex; \
     \
     touch /usr/local/etc/php/conf.d/redis-session.ini; \
-    touch /usr/local/etc/php-fpm.d/99-tune.conf; \
+    touch /usr/local/etc/php-fpm.d/zz-tune.conf; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini; \
-    chmod 777 /usr/local/etc/php-fpm.d/99-tune.conf
+    chmod 777 /usr/local/etc/php-fpm.d/zz-tune.conf
 
 
 COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
