@@ -63,7 +63,6 @@ RUN set -ex; \
     # Remove the apt cache
     rm -rf /var/lib/apt/lists/*
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # See https://github.com/nextcloud/docker/issues/763
 RUN set -ex; \
     \
