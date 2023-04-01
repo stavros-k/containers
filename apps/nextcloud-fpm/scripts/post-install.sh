@@ -23,8 +23,6 @@ echo ''
 
 cat $tune_file
 
-chmod 755 $tune_file
-
 echo '--------------------'
 
 for script in /entrypoint.d/post-start/*.sh; do
