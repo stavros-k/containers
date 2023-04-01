@@ -22,8 +22,9 @@ run_as() {
 
 while [ ! -f "/var/www/html/lib/versioncheck.php" ];
 do
-  echo 'Waiting Nextcloud to be installed'
-  sleep 10
+  echo 'Waiting Nextcloud to be installed...'
+  echo 'Sleeping for 3m...'
+  sleep 3m
 done
 
 while true;
