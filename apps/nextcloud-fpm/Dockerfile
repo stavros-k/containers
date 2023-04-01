@@ -72,6 +72,7 @@ RUN set -ex; \
 
 
 COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
+COPY --chmod=755 ./post-start /entrypoint.d
 
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
