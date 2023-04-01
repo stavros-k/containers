@@ -1,4 +1,4 @@
-# shellcheck lang=bash
+#!/bin/bash
 echo 'Applying PHP-FPM Tuning...'
 echo 'You can change default values with the following variables'
 echo "PHP_MAX_CHILDREN      (Default: 20) Current: ${PHP_MAX_CHILDREN:-20}"
