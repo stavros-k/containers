@@ -68,7 +68,7 @@ RUN set -ex; \
     touch /usr/local/etc/php/conf.d/redis-session.ini; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
-COPY ./scripts/post-install.sh /tmp/post-install.sh
+COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
 
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
