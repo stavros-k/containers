@@ -73,3 +73,4 @@ RUN set -ex; \
     cat ./scripts/post-install.sh >> /entrypoint.sh
 
 COPY --chmod=755 ./scripts/occ /usr/bin/occ
+COPY --chmod=755 ./scripts/cron.sh /cron.sh
