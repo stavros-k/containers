@@ -70,6 +70,6 @@ RUN set -ex; \
 
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
-    cat /scripts/post-install.sh >> /entrypoint.sh
+    cat ./scripts/post-install.sh >> /entrypoint.sh
 
 COPY --chmod=755 ./scripts/occ /usr/bin/occ
