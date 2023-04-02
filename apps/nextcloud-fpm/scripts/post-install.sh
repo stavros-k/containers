@@ -136,6 +136,15 @@ else
 fi
 
 echo ''
+if [ "${NX_CLAMAV:-"true"}" == "true" ]; then
+  echo '## ClamAV is enabled.'
+  occ_clamav_install
+else
+  echo '## ClamAV is disabled.'
+  occ_clamav_remove
+fi
+
+echo ''
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 ### End Configuring ###
 
