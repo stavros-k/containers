@@ -61,10 +61,10 @@ echo '## Setting Default Phone Region...'
 occ config:system:set default_phone_region --value=${NEXT_DEFAULT_PHONE_REGION:-GR}
 
 echo '## Setting "Shared" folder to "Shared"...'
-occ config:system:set share_folder --value="Shared"
+occ config:system:set share_folder --value="${NEXT_SHARED_FOLDER_NAME:-"Shared"}"
 
 echo '## Setting Max Chunk Size for Files...'
-occ config:app:set files max_chunk_size --value="${NEXTCLOUD_CHUNKSIZE:-10485760}"
+occ config:app:set files max_chunk_size --value="${NEXT_MAX_CHUNKSIZE:-10485760}"
 
 echo '## Setting Overwrite URLs...'
 occ config:system:set overwrite.cli.url --value="${NEXT_OVERWRITE_CLI_URL:?"NEXT_OVERWRITE_CLI_URL is unset"}"
