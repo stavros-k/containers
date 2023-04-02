@@ -64,6 +64,9 @@ echo 'Installing Apps...'
 install_app notify_push
 install_app previewgenerator
 
+echo 'Setting Notify Push Base Endpoint'
+occ config:app:set notify_push base_endpoint --value="${NEXT_NOTIFY_PUSH_ENDPOINT:?"NEXT_NOTIFY_PUSH_ENDPOINT is unset"}"
+
 echo 'Applying migrations/repairs/optimizations...'
 occ maintenance:repair
 occ db:add-missing-indices
