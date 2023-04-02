@@ -2,20 +2,39 @@
 
 # Installs the passed application if not already installed
 install_app() {
-  app_name="$1"
+  app_name="${1:?"app_name is unset"}"
+
+  echo "Installing $app_name..."
 
   if occ app:list | grep -wq "$app_name"; then
     echo "App "$app_name" is already installed! Skipping..."
     return 0
   fi
 
-  echo "Installing $app_name..."
   if ! occ app:install "$app_name"; then
     echo "Failed to install $app_name..."
     exit 1
   fi
 
   echo "App $app_name installed successfuly!"
+}
+
+remove_app() {
+  app_name="${1:?"app_name is unset"}"
+
+  echo "Removing $app_name..."
+
+  if ! occ app:list | grep -wq "$app_name"; then
+    echo "App "$app_name" is not installed! Skipping..."
+    return 0
+  fi
+
+  if ! occ app:remove "$app_name"; then
+    echo "Failed to remove $app_name..."
+    exit 1
+  fi
+
+  echo "App $app_name removed successfuly!"
 }
 
 # Sets a space separated values into the specified list, by default for system settings
@@ -64,9 +83,11 @@ echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 
 # Tune PHP-FPM
 if [ ${NEXT_TUNE_FPM:-"true"} == "true" ]; then
-  tune_fpm
+  echo '## PHP-FPM tuning is enabled.'
+  tune_fpm_install
 else
-  echo '## PHP-FPM tuning is disabled. Skipping...'
+  echo '## PHP-FPM tuning is disabled.'
+  tune_fpm_remove
 fi
 
 # Configure General Settings
@@ -79,27 +100,30 @@ occ_urls
 occ_expire_retention
 
 if [ ${NEXT_NOTIFY_PUSH:-"true"} == "true" ]; then
-  # Configure Notify Push
-  occ_notify_push
+  echo '## Notify Push is enabled.'
+  occ_notify_push_install
 else
-  echo '## Notify Push is disabled. Skipping...'
+  echo '## Notify Push is disabled.'
+  occ_notify_push_remove
 fi
 
 # If Imaginary is enabled, previews are forced enabled
 if [ ${NEXT_IMAGINARY:-"true"} == "true" ]; then
   NEXT_PREVIEWS="true"
-  # Configure Imaginary
-  occ_imaginary
+  echo '## Imaginary is enabled.'
+  occ_imaginary_install
 else
-  echo '## Imaginary is disabled. Skipping...'
+  echo '## Imaginary is disabled.'
+  occ_imaginary_remove
 fi
 
 # If Imaginary is disabled but previews are enabled, configure only previews
 if [ ${NEXT_PREVIEWS:-"true" == "true"} ] ; then
-  # Configure Preview Generator
-  occ_preview_generator
+  echo '## Preview Generator is enabled.'
+  occ_preview_generator_install
 else
-  echo '## Preview Generator is disabled. Skipping...'
+  echo '## Preview Generator is disabled.'
+  occ_preview_generator_remove
 fi
 
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
@@ -108,6 +132,7 @@ echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo '--------------------------------------------------'
 # Run maintenance/repairs/migrations
 if [ ${NEXT_RUN_MAINTENANCE:-"true"} == "true" ]; then
+  echo '## Maintenance is enabled. Running...'
   occ_maintenance
 else
   echo '## Maintenance is disabled. Skipping...'

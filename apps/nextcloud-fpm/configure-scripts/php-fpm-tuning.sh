@@ -1,5 +1,5 @@
 #!/bin/bash
-tune_fpm (){
+tune_fpm_install() {
   echo '## Applying PHP-FPM Tuning...'
   echo "PHP_MAX_CHILDREN:       ${NEXT_PHP_MAX_CHILDREN:-20}"
   echo "PHP_START_SERVERS:      ${NEXT_PHP_START_SERVERS:-5}"
@@ -22,4 +22,19 @@ tune_fpm (){
     echo 'Tune file created!'
   else
     echo 'Tune file failed to create.'
+}
+
+tune_fpm_remove() {
+  echo '## Removing PHP-FPM Tuning...'
+
+  tune_file="/usr/local/etc/php-fpm.d/zz-tune.conf"
+
+  if [ -f "$tune_file" ]; then
+    echo '' > "$tune_file"
+  fi
+
+  if [ -f "$tune_file" ] && [ ! -s "$tune_file" ]; then
+    echo 'Tune file cleaned!'
+  else
+    echo 'Tune file failed to clean.'
 }
