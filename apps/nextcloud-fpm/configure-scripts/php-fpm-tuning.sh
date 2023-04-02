@@ -22,6 +22,7 @@ tune_fpm_install() {
     echo 'Tune file created!'
   else
     echo 'Tune file failed to create.'
+  fi
 }
 
 tune_fpm_remove() {
@@ -37,4 +38,5 @@ tune_fpm_remove() {
     echo 'Tune file cleaned!'
   else
     echo 'Tune file failed to clean.'
+  fi
 }
