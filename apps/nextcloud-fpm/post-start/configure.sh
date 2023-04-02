@@ -21,14 +21,20 @@ install_app() {
 # Sets a space separated values into the specified list, by default for system settings
 # Pass a 3rd argument for a different app
 set_list() {
-  list_name="$1"
-  space_delimited_values="$2"
+  list_name="${1:?"list_name is unset"}"
+  space_delimited_values="${2:?"space_delimited_values is unset"}"
   app="${3:-"system"}"
   prefix="${4:-""}"
 
   if [ -n "${space_delimited_values}" ]; then
     echo "Re-setting $list_name"
-    occ config:system:delete $list_name
+
+    if [ "${app}" != 'system' ]; then
+      occ config:app:delete $app $list_name
+    else
+      occ config:system:delete $list_name
+    fi
+
     IDX=0
     for value in ${space_delimited_values} ; do
         value=$(echo "$value" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
@@ -37,8 +43,9 @@ set_list() {
         fi
         if [ "${app}" != 'system' ]; then
           occ config:app:set $app $list_name $IDX --value="$value"
+        else
+          occ config:system:set $list_name $IDX --value="$value"
         fi
-        occ config:system:set $list_name $IDX --value="$value"
         IDX=$(($IDX+1))
     done
   fi
