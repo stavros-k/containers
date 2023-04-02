@@ -3,8 +3,14 @@ occ_preview_generator() {
   install_app previewgenerator
 
   echo '## Configuring Preview Providers...'
-  # Adds Imaginary always
-  set_list 'enabledPreviewProviders' "Imaginary ${NEXT_PREVIEW_PROVIDERS:?"NEXT_PREVIEW_PROVIDERS is unset"}" 'system' 'OC\Preview\'
+  [ -n "${NEXT_PREVIEW_PROVIDERS:?"NEXT_PREVIEW_PROVIDERS is unset"}" ] && exit 1
+
+  # Adds Imaginary if enabled
+  if [ ${NEXT_IMAGINARY:-"true"} == "true" ]; then
+    NEXT_PREVIEW_PROVIDERS="Imaginary ${NEXT_PREVIEW_PROVIDERS}"
+  fi
+
+  set_list 'enabledPreviewProviders' "${NEXT_PREVIEW_PROVIDERS}" 'system' 'OC\Preview\'
 
   echo '## Configuring Preview Generation Configuration...'
   occ config:system:set enable_previews --value=true

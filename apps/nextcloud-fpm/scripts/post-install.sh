@@ -54,13 +54,21 @@ set_list() {
   fi
 }
 
-# Source all configure-scripts.
+### Source all configure-scripts. ###
 for script in "/configure-scripts/*.sh"; do
   source "$script"
 done
 
+### Start Configuring ###
+echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
+
 # Tune PHP-FPM
-tune_fpm
+if [ ${NEXT_TUNE_FPM:-"true"} == "true" ]; then
+  tune_fpm
+else
+  echo '## PHP-FPM tuning is disabled. Skipping...'
+fi
+
 # Configure General Settings
 occ_general
 # Configure Logging
@@ -94,8 +102,17 @@ else
   echo '## Preview Generator is disabled. Skipping...'
 fi
 
+echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
+### End Configuring ###
+
+echo '--------------------------------------------------'
 # Run maintenance/repairs/migrations
-occ_maintenance
+if [ ${NEXT_RUN_MAINTENANCE:-"true"} == "true" ]; then
+  occ_maintenance
+else
+  echo '## Maintenance is disabled. Skipping...'
+fi
+echo '--------------------------------------------------'
 
 echo 'Starting Nextcloud PHP-FPM'
 
