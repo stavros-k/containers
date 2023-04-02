@@ -74,7 +74,7 @@ set_list() {
 }
 
 ### Source all configure-scripts. ###
-for script in "/configure-scripts/*.sh"; do
+for script in /configure-scripts/*.sh; do
   echo "Sourcing $script"
   . "$script"
 done
