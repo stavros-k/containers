@@ -37,3 +37,5 @@
 | `NEXT_OVERWRITE_PROTOCOL`         | Overwrite protocol                                                                      |           `system`            |                                          `overwriteprotocol`                                           |                `""`                |                  `https`                   |
 | `NEXT_TRUSTED_DOMAINS`            | Space Separated list of Trusted domains                                                 |           `system`            |                                           `trusted_domains`                                            |                `""`                |       `localhost cloud.example.com`        |
 | `NEXT_TRUSTED_PROXIES`            | Space Separated list of Trusted proxies                                                 |           `system`            |                                           `trusted_proxies`                                            |                `""`                | `10.0.0.0/8 172.16.0.0./12 192.168.0.0/16` |
+
+> Visit Nextcloud official documentation for more information about each `Config key`
