@@ -25,11 +25,11 @@ set_list() {
   space_delimited_values="$2"
   app="${3:-"system"}"
 
-  if [ -n "${!space_delimited_values}" ]; then
+  if [ -n "${space_delimited_values}" ]; then
     echo "Re-setting $list_name"
     occ config:system:delete $list_name
     IDX=1
-    for value in ${!space_delimited_values} ; do
+    for value in ${space_delimited_values} ; do
         value=$(echo "$value" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
         occ config:$app:set $list_name $IDX --value="$value"
         IDX=$(($IDX+1))
