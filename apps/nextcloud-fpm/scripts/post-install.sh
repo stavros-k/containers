@@ -82,7 +82,7 @@ done
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 
 # Tune PHP-FPM
-if [ ${NEXT_TUNE_FPM:-"true"} == "true" ]; then
+if [ ${NX_TUNE_FPM:-"true"} == "true" ]; then
   echo '## PHP-FPM tuning is enabled.'
   tune_fpm_install
 else
@@ -99,7 +99,7 @@ occ_urls
 # Configure Expiration/Retention Days
 occ_expire_retention
 
-if [ ${NEXT_NOTIFY_PUSH:-"true"} == "true" ]; then
+if [ ${NX_NOTIFY_PUSH:-"true"} == "true" ]; then
   echo '## Notify Push is enabled.'
   occ_notify_push_install
 else
@@ -108,8 +108,8 @@ else
 fi
 
 # If Imaginary is enabled, previews are forced enabled
-if [ ${NEXT_IMAGINARY:-"true"} == "true" ]; then
-  NEXT_PREVIEWS="true"
+if [ ${NX_IMAGINARY:-"true"} == "true" ]; then
+  NX_PREVIEWS="true"
   echo '## Imaginary is enabled.'
   occ_imaginary_install
 else
@@ -118,7 +118,7 @@ else
 fi
 
 # If Imaginary is disabled but previews are enabled, configure only previews
-if [ ${NEXT_PREVIEWS:-"true" == "true"} ] ; then
+if [ ${NX_PREVIEWS:-"true" == "true"} ] ; then
   echo '## Preview Generator is enabled.'
   occ_preview_generator_install
 else
@@ -131,7 +131,7 @@ echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 
 echo '--------------------------------------------------'
 # Run maintenance/repairs/migrations
-if [ ${NEXT_RUN_MAINTENANCE:-"true"} == "true" ]; then
+if [ ${NX_RUN_MAINTENANCE:-"true"} == "true" ]; then
   echo '## Maintenance is enabled. Running...'
   occ_maintenance
 else

@@ -4,7 +4,7 @@ occ_notify_push_install() {
   install_app notify_push
 
   echo '## Configuring Notify Push Base Endpoint...'
-  occ config:app:set notify_push base_endpoint --value="${NEXT_NOTIFY_PUSH_ENDPOINT:?"NEXT_NOTIFY_PUSH_ENDPOINT is unset"}"
+  occ config:app:set notify_push base_endpoint --value="${NX_NOTIFY_PUSH_ENDPOINT:?"NX_NOTIFY_PUSH_ENDPOINT is unset"}"
 }
 
 occ_notify_push_remove() {
