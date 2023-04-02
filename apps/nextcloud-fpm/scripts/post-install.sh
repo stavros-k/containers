@@ -25,7 +25,7 @@ cat $tune_file
 
 echo '--------------------'
 
-for script in /entrypoint.d/post-start/*.sh; do
+for script in /entrypoint.d/*.sh; do
   if [ -f "$script" ] && [ -x "$script" ]; then
     echo "## Running $script..."
     echo ''
