@@ -34,11 +34,8 @@ set_list() {
         occ config:$app:set $list_name $IDX --value="$value"
         IDX=$(($IDX+1))
     done
-fi
+  fi
 }
-
-set_list 'trusted_domains' "${NEXT_TRUSTED_DOMAINS:?"NEXT_TRUSTED_DOMAINS is unsed"}"
-set_list 'trusted_proxies' "${NEXT_TRUSTED_PROXIES:?"NEXT_TRUSTED_PROXIES is unsed"}"
 
 echo 'Disabling WebUI Updater...'
 occ config:system:set upgrade.disable-web --type=bool --value=true
@@ -56,6 +53,12 @@ echo 'Setting Overwrite URLs...'
 occ config:system:set overwrite.cli.url --value="${NEXT_OVERWRITE_CLI_URL:?"NEXT_OVERWRITE_CLI_URL is unset"}"
 occ config:system:set overwritehost --value="${NEXT_OVERWRITE_HOST:?"NEXT_OVERWRITE_HOST is unset"}"
 occ config:system:set overwriteprotocol --value="${NEXT_OVERWRITE_PROTOCOL:?"NEXT_OVERWRITE_PROTOCOL is unset"}"
+
+echo 'Setting Trusted Domains'
+set_list 'trusted_domains' "${NEXT_TRUSTED_DOMAINS:?"NEXT_TRUSTED_DOMAINS is unsed"}"
+
+echo 'Setting Trusted Proxies'
+set_list 'trusted_proxies' "${NEXT_TRUSTED_PROXIES:?"NEXT_TRUSTED_PROXIES is unsed"}"
 
 echo 'Installing Apps...'
 install_app notify_push
