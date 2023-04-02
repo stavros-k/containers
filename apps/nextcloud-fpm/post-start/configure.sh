@@ -3,14 +3,17 @@
 install_app() {
   app_name="$1"
 
-  echo "Installing $app_name..."
-  output=$(occ app:install "$app_name")
+  if occ app:list | grep -wq "$app_name"; then
+    echo "App "$app_name" is already installed! Skipping..."
+    return 0
+  fi
 
-  if [ ! $(echo "$output" | grep -q "installed") ]; then
+  echo "Installing $app_name..."
+  if ! occ app:install "$app_name"; then
     echo "Failed to install $app_name..."
-    echo "Output: $output"
     exit 1
   fi
+
   echo "App $app_name installed successfuly!"
 }
 
