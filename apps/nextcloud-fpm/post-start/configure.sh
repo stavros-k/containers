@@ -38,14 +38,17 @@ set_list() {
     IDX=0
     for value in ${space_delimited_values} ; do
         value=$(echo "$value" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+
         if [ -n "${prefix}" ]; then
           value="$prefix$value"
         fi
+
         if [ "${app}" != 'system' ]; then
           occ config:app:set $app $list_name $IDX --value="$value"
         else
           occ config:system:set $list_name $IDX --value="$value"
         fi
+
         IDX=$(($IDX+1))
     done
   fi
