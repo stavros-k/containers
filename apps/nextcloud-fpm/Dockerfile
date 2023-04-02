@@ -70,9 +70,10 @@ RUN set -ex; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini; \
     chmod 777 /usr/local/etc/php-fpm.d/zz-tune.conf
 
-
+# Copy post-install script to a temp location so we can append it to the entrypoint.sh
 COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
-COPY --chmod=755 ./post-start /entrypoint.d
+# Copy the configure-scripts that will be sourced by the post-install
+COPY --chmod=755 ./configure-scripts /configure-scripts
 
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
