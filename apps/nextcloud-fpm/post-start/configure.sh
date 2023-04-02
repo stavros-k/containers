@@ -6,6 +6,9 @@ occ config:system:set upgrade.disable-web --type=bool --value=true
 echo 'Setting Default Phone Region...'
 occ config:system:set default_phone_region --value=${NEXT_DEFAULT_PHONE_REGION:-GR}
 
+echo 'Setting "Shared" folder to "Shared"'
+occ config:system:set share_folder --value="Shared"
+
 echo 'Setting Overwrite URLs...'
 occ config:system:set overwrite.cli.url --value=${NEXT_OVERWRITE_CLI_URL:?"NEXT_OVERWRITE_CLI_URL is unset"}
 occ config:system:set overwritehost --value=${NEXT_OVERWRITE_HOST:?"NEXT_OVERWRITE_HOST is unset"}
