@@ -135,7 +135,7 @@ else
 fi
 
 echo ''
-if [ "${NX_CLAMAV:-"true"}" = "true" ]; then
+if [ "${NX_CLAMAV:-"false"}" = "true" ]; then
   echo '## ClamAV is enabled.'
   occ_clamav_install
 else
