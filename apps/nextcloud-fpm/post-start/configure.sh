@@ -74,8 +74,8 @@ occ config:system:set versions_retention_obligation --value="${NEXT_VERSIONS_RET
 echo '## Configuring Logging...'
 occ config:system:set loglevel --value="${NEXT_LOG_LEVEL:-2}"
 # Move the log files to a different dir?
-occ config:system:set logfile --value="${NEXT_LOG_FILE:-"/var/www/html/logs/nextcloud.log"}"
-occ config:system:set logfile_audit --value="${NEXT_LOG_AUDIT_FILE:-"/var/www/html/logs/audit.log"}"
+occ config:system:set logfile --value="${NEXT_LOG_FILE:-"/var/log/nextcloud/nextcloud.log"}"
+occ config:system:set logfile_audit --value="${NEXT_LOG_AUDIT_FILE:-"/var/log/nextcloud/audit.log"}"
 occ config:system:set logdateformat --value="${NEXT_LOG_DATE_FORMAT:-"d/m/Y H:i:s"}"
 occ config:system:set logtimezone --value="${NEXT_LOG_TIMEZONE:-$TZ}"
 
