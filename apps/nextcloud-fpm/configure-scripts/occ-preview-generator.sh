@@ -20,7 +20,7 @@ occ_preview_generator_install() {
   occ config:system:set preview_max_memory --value="${NX_PREVIEW_MAX_MEMORY:-1024}"
   occ config:system:set preview_max_filesize_image --value="${NX_PREVIEW_MAX_FILESIZE_IMAGE:-50}"
   occ config:app:set previewgenerator squareSizes --value="${NX_PREVIEW_SQUARE_SIZES:-32 256}"
-  occ config:app:set previewgenerator widthSizes  --value="${NX_PREVIEW_WIDTH_SIZES:-256 384}"
+  occ config:app:set previewgenerator widthSizes --value="${NX_PREVIEW_WIDTH_SIZES:-256 384}"
   occ config:app:set previewgenerator heightSizes --value="${NX_PREVIEW_HEIGHT_SIZES:-256}"
   occ config:app:set preview jpeg_quality --value="${NX_JPEG_QUALITY:-60}"
 }
