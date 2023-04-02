@@ -6,7 +6,7 @@ occ_preview_generator_install() {
   [ -n "${NX_PREVIEW_PROVIDERS:?"NX_PREVIEW_PROVIDERS is unset"}" ] && exit 1
 
   # Adds Imaginary if enabled
-  if [ ${NX_IMAGINARY:-"true"} == "true" ]; then
+  if [ "${NX_IMAGINARY:-"true"}" == "true" ]; then
     NX_PREVIEW_PROVIDERS="Imaginary ${NX_PREVIEW_PROVIDERS}"
   fi
 
