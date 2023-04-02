@@ -46,7 +46,6 @@ set_list() {
   prefix="${4:-""}"
 
   if [ -n "${space_delimited_values}" ]; then
-    echo "Re-setting $list_name"
 
     if [ "${app}" != 'system' ]; then
       occ config:app:delete $app $list_name

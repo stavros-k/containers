@@ -3,7 +3,9 @@ occ_preview_generator_install() {
   install_app previewgenerator
 
   echo '## Configuring Preview Providers...'
-  [ -n "${NX_PREVIEW_PROVIDERS:?"NX_PREVIEW_PROVIDERS is unset"}" ] && exit 1
+  if [ -n "${NX_PREVIEW_PROVIDERS:?"NX_PREVIEW_PROVIDERS is unset"}" ]; then
+    exit 1
+  fi
 
   # Adds Imaginary if enabled
   if [ "${NX_IMAGINARY:-"true"}" = "true" ]; then
