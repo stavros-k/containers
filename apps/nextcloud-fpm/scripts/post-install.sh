@@ -84,7 +84,7 @@ echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo ''
 
 # Tune PHP-FPM
-if [ "${NX_TUNE_FPM:-"true"}" == "true" ]; then
+if [ "${NX_TUNE_FPM:-"true"}" = "true" ]; then
   echo '## PHP-FPM tuning is enabled.'
   tune_fpm_install
 else
@@ -106,7 +106,7 @@ echo ''
 occ_expire_retention
 
 echo ''
-if [ "${NX_NOTIFY_PUSH:-"true"}" == "true" ]; then
+if [ "${NX_NOTIFY_PUSH:-"true"}" = "true" ]; then
   echo '## Notify Push is enabled.'
   occ_notify_push_install
 else
@@ -116,7 +116,7 @@ fi
 
 echo ''
 # If Imaginary is enabled, previews are forced enabled
-if [ "${NX_IMAGINARY:-"true"}" == "true" ]; then
+if [ "${NX_IMAGINARY:-"true"}" = "true" ]; then
   NX_PREVIEWS="true"
   echo '## Imaginary is enabled.'
   occ_imaginary_install
@@ -127,7 +127,7 @@ fi
 
 echo ''
 # If Imaginary is disabled but previews are enabled, configure only previews
-if [ "${NX_PREVIEWS:-"true"}" == "true" ] ; then
+if [ "${NX_PREVIEWS:-"true"}" = "true" ] ; then
   echo '## Preview Generator is enabled.'
   occ_preview_generator_install
 else
@@ -136,7 +136,7 @@ else
 fi
 
 echo ''
-if [ "${NX_CLAMAV:-"true"}" == "true" ]; then
+if [ "${NX_CLAMAV:-"true"}" = "true" ]; then
   echo '## ClamAV is enabled.'
   occ_clamav_install
 else
@@ -152,7 +152,7 @@ echo '--------------------------------------------------'
 echo ''
 
 # Run maintenance/repairs/migrations
-if [ "${NX_RUN_MAINTENANCE:-"true"}" == "true" ]; then
+if [ "${NX_RUN_MAINTENANCE:-"true"}" = "true" ]; then
   echo '## Maintenance is enabled. Running...'
   occ_maintenance
 else
