@@ -6,7 +6,23 @@ occ_urls(){
   occ config:system:set overwriteprotocol --value="${NX_OVERWRITE_PROTOCOL:?"NX_OVERWRITE_PROTOCOL is unset"}"
 
   echo '## Configuring Trusted Domains...'
-  set_list 'trusted_domains' "${NX_TRUSTED_DOMAINS:?"NX_TRUSTED_DOMAINS is unsed"}" 'system'
+  [ "${NX_TRUSTED_DOMAINS:?"NX_TRUSTED_DOMAINS is unset"}" ]
+
+  if [ "${NX_COLLABORA:-"false"}" = "true" ]; then
+    # Remove http(s):// from NX_COLLABORA_URL
+    [ "${NX_COLLABORA_URL:?"NX_COLLABORA_URL is unset"}" ]
+    NX_COLLABORA_DOMAIN="${NX_COLLABORA_URL#*://}"
+    NX_TRUSTED_DOMAINS="${NX_TRUSTED_DOMAINS} ${NX_COLLABORA_DOMAIN}"
+  fi
+
+  if [ "${NX_ONLYOFFICE:-"false"}" = "true" ]; then
+    # Remove http(s):// from NX_ONLYOFFICE_URL
+    [ "${NX_ONLYOFFICE_URL:?"NX_ONLYOFFICE_URL is unset"}" ]
+    NX_ONLYOFFICE_DOMAIN="${NX_ONLYOFFICE_URL#*://}"
+    NX_TRUSTED_DOMAINS="${NX_TRUSTED_DOMAINS} ${NX_ONLYOFFICE_DOMAIN}"
+  fi
+
+  set_list 'trusted_domains' "${NX_TRUSTED_DOMAINS}" 'system'
 
   echo '## Configuring Trusted Proxies...'
   set_list 'trusted_proxies' "${NX_TRUSTED_PROXIES:?"NX_TRUSTED_PROXIES is unsed"}" 'system'

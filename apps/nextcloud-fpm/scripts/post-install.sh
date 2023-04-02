@@ -144,6 +144,24 @@ else
 fi
 
 echo ''
+if [ "${NX_COLLABORA:-"false"}" = "true" ]; then
+  echo '## Collabora is enabled.'
+  occ_collabora_install
+else
+  echo '## Collabora is disabled.'
+  occ_collabora_remove
+fi
+
+echo ''
+if [ "${NX_ONLYOFFICE:-"false"}" = "true" ]; then
+  echo '## OnlyOffice is enabled.'
+  occ_onlyoffice_install
+else
+  echo '## OnlyOffice is disabled.'
+  occ_onlyoffice_remove
+fi
+
+echo ''
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 ### End Configuring ###
 
