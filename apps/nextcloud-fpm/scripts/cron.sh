@@ -12,7 +12,7 @@ else
   group="$gid"
 fi
 
-run_as() {
+run_cron() {
   if [ "$(id -u)" = 0 ]; then
     su -p "$user" -s /bin/bash -c 'php /var/www/html/cron.php'
   else
@@ -29,6 +29,7 @@ done
 
 while true;
 do
-  run_as
+  run_cron
+  occ preview:pre-generate
   sleep 5m
 done
