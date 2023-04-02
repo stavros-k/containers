@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# Installs the passed application if not already installed
 install_app() {
   app_name="$1"
 
@@ -16,6 +17,28 @@ install_app() {
 
   echo "App $app_name installed successfuly!"
 }
+
+# Sets a space separated values into the specified list, by default for system settings
+# Pass a 3rd argument for a different app
+set_list() {
+  list_name="$1"
+  space_delimited_values="$2"
+  app="${3:-"system"}"
+
+  if [ -n "${!space_delimited_values}" ]; then
+    echo "Re-setting $list_name"
+    occ config:system:delete $list_name
+    IDX=1
+    for value in ${!space_delimited_values} ; do
+        value=$(echo "$value" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+        occ config:$app:set $list_name $IDX --value="$value"
+        IDX=$(($IDX+1))
+    done
+fi
+}
+
+set_list 'trusted_domains' "${NEXT_TRUSTED_DOMAINS:?"NEXT_TRUSTED_DOMAINS is unsed"}"
+set_list 'trusted_proxies' "${NEXT_TRUSTED_PROXIES:?"NEXT_TRUSTED_PROXIES is unsed"}"
 
 echo 'Disabling WebUI Updater...'
 occ config:system:set upgrade.disable-web --type=bool --value=true
