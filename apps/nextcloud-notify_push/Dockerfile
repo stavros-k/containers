@@ -21,6 +21,4 @@ USER nobody
 
 EXPOSE 7867
 
-ENV NEXTCLOUD_CONFIG_PATH /var/www/html/config/config.php
-
-ENTRYPOINT ["notify_push", "$NEXTCLOUD_CONFIG_PATH"]
+ENTRYPOINT ["notify_push"]
