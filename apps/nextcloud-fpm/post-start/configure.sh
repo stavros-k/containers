@@ -57,47 +57,53 @@ set_list() {
 echo '## Disabling WebUI Updater...'
 occ config:system:set upgrade.disable-web --type=bool --value=true
 
-echo '## Setting Default Phone Region...'
+echo '## Configuring Default Phone Region...'
 occ config:system:set default_phone_region --value=${NEXT_DEFAULT_PHONE_REGION:-GR}
 
-echo '## Setting "Shared" folder to "Shared"...'
-occ config:system:set share_folder --value="${NEXT_SHARED_FOLDER_NAME:-"Shared"}"
+echo '## Configuring "Shared" folder...'
+occ config:system:set share_folder --value="${NEXT_SHARED_FOLDER_NAME:-Shared}"
 
-echo '## Setting Max Chunk Size for Files...'
+echo '## Configuring Max Chunk Size for Files...'
 occ config:app:set files max_chunk_size --value="${NEXT_MAX_CHUNKSIZE:-10485760}"
 
-echo '## Setting Overwrite URLs...'
+echo '## Configuring Expiring and Retention Days...'
+occ config:system:set activity_expire_days --value="${NEXT_ACTIVITY_EXPIRE_DAYS:-90}"
+occ config:system:set trashbin_retention_obligation --value="${NEXT_TRASH_RETENTION:-auto}"
+occ config:system:set versions_retention_obligation --value="${NEXT_VERSIONS_RETENTION:-auto}"
+
+echo '## Configuring Overwrite URLs...'
 occ config:system:set overwrite.cli.url --value="${NEXT_OVERWRITE_CLI_URL:?"NEXT_OVERWRITE_CLI_URL is unset"}"
 occ config:system:set overwritehost --value="${NEXT_OVERWRITE_HOST:?"NEXT_OVERWRITE_HOST is unset"}"
 occ config:system:set overwriteprotocol --value="${NEXT_OVERWRITE_PROTOCOL:?"NEXT_OVERWRITE_PROTOCOL is unset"}"
 
-echo '## Setting Trusted Domains...'
+echo '## Configuring Trusted Domains...'
 set_list 'trusted_domains' "${NEXT_TRUSTED_DOMAINS:?"NEXT_TRUSTED_DOMAINS is unsed"}" 'system'
 
-echo '## Setting Trusted Proxies...'
+echo '## Configuring Trusted Proxies...'
 set_list 'trusted_proxies' "${NEXT_TRUSTED_PROXIES:?"NEXT_TRUSTED_PROXIES is unsed"}" 'system'
 
 echo '## Installing Apps...'
 install_app notify_push
 install_app previewgenerator
 
-echo '## Setting Notify Push Base Endpoint...'
+echo '## Configuring Notify Push Base Endpoint...'
 occ config:app:set notify_push base_endpoint --value="${NEXT_NOTIFY_PUSH_ENDPOINT:?"NEXT_NOTIFY_PUSH_ENDPOINT is unset"}"
 
-echo '## Setting Imaginary URL...'
+echo '## Configuring Imaginary URL...'
 occ config:system:set preview_imaginary_url --value="${NEXT_IMAGINARY_URL:?"NEXT_IMAGINARY_URL is unset"}"
 
-echo '## Setting Preview Providers...'
+echo '## Configuring Preview Providers...'
+# Adds Imaginary always
 set_list 'enabledPreviewProviders' "Imaginary ${NEXT_PREVIEW_PROVIDERS:?"NEXT_PREVIEW_PROVIDERS is unsed"}" 'system' 'OC\Preview\'
 
-echo '## Setting Preview Generation Configuration...'
+echo '## Configuring Preview Generation Configuration...'
 occ config:system:set enable_previews --value=true
 occ config:system:set preview_max_x --value="${NEXT_PREVIEW_MAX_X:-2048}"
 occ config:system:set preview_max_y --value="${NEXT_PREVIEW_MAX_Y:-2048}"
 occ config:system:set preview_max_memory --value="${NEXT_PREVIEW_MAX_MEMORY:-1024}"
 occ config:system:set preview_max_filesize_image --value="${NEXT_PREVIEW_MAX_FILESIZE_IMAGE:-50}"
-occ config:app:set previewgenerator squareSizes --value="${NEXT_PREVIEW_SQUARE_SIZES:-"32 256"}"
-occ config:app:set previewgenerator widthSizes  --value="${NEXT_PREVIEW_WIDTH_SIZES:-"256 384"}"
+occ config:app:set previewgenerator squareSizes --value="${NEXT_PREVIEW_SQUARE_SIZES:-32 256}"
+occ config:app:set previewgenerator widthSizes  --value="${NEXT_PREVIEW_WIDTH_SIZES:-256 384}"
 occ config:app:set previewgenerator heightSizes --value="${NEXT_PREVIEW_HEIGHT_SIZES:-256}"
 occ config:system:set jpeg_quality --value="${NEXT_JPEG_QUALITY:-60}"
 occ config:app:set preview jpeg_quality --value="${NEXT_JPEG_QUALITY:-60}"
