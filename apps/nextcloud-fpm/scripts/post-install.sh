@@ -75,11 +75,13 @@ set_list() {
 
 ### Source all configure-scripts. ###
 for script in "/configure-scripts/*.sh"; do
+  echo "Sourcing $script"
   source "$script"
 done
 
 ### Start Configuring ###
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
+echo ''
 
 # Tune PHP-FPM
 if [ ${NX_TUNE_FPM:-"true"} == "true" ]; then
@@ -91,14 +93,19 @@ else
 fi
 
 # Configure General Settings
+echo ''
 occ_general
 # Configure Logging
+echo ''
 occ_logging
 # Configure URLs (Trusted Domains, Trusted Proxies, Overwrites, etc)
+echo ''
 occ_urls
 # Configure Expiration/Retention Days
+echo ''
 occ_expire_retention
 
+echo ''
 if [ ${NX_NOTIFY_PUSH:-"true"} == "true" ]; then
   echo '## Notify Push is enabled.'
   occ_notify_push_install
@@ -107,6 +114,7 @@ else
   occ_notify_push_remove
 fi
 
+echo ''
 # If Imaginary is enabled, previews are forced enabled
 if [ ${NX_IMAGINARY:-"true"} == "true" ]; then
   NX_PREVIEWS="true"
@@ -117,6 +125,7 @@ else
   occ_imaginary_remove
 fi
 
+echo ''
 # If Imaginary is disabled but previews are enabled, configure only previews
 if [ ${NX_PREVIEWS:-"true" == "true"} ] ; then
   echo '## Preview Generator is enabled.'
@@ -126,10 +135,13 @@ else
   occ_preview_generator_remove
 fi
 
+echo ''
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 ### End Configuring ###
 
 echo '--------------------------------------------------'
+echo ''
+
 # Run maintenance/repairs/migrations
 if [ ${NX_RUN_MAINTENANCE:-"true"} == "true" ]; then
   echo '## Maintenance is enabled. Running...'
@@ -137,6 +149,7 @@ if [ ${NX_RUN_MAINTENANCE:-"true"} == "true" ]; then
 else
   echo '## Maintenance is disabled. Skipping...'
 fi
+echo ''
 echo '--------------------------------------------------'
 
 echo 'Starting Nextcloud PHP-FPM'
