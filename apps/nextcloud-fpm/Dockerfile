@@ -1,4 +1,4 @@
-FROM docker.io/nextcloud:26.0.0-fpm@sha256:eae45cef8085a73b5c0508a40240ae981a2603596ba1032e25c048f379660e6e
+FROM docker.io/nextcloud:26.0.0-fpm@sha256:cbe96f3f1db74c1b1c2cd1c22db53c5aa278d2012f7af76d3d05f80984b030ce
 
 ENV NEXTCLOUD_FPM_VERSION 26.0.0-fpm
 
