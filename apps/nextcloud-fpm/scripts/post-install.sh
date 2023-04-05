@@ -91,6 +91,15 @@ else
   tune_fpm_remove
 fi
 
+# Configure Redis
+if [ "${NX_REDIS:-"true"}" = "true" ]; then
+  echo '## Redis is enabled.'
+  occ_redis_install
+else
+  echo '## Redis is disabled.'
+  occ_redis_remove
+fi
+
 # Configure General Settings
 echo ''
 occ_general
