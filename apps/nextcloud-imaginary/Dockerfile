@@ -2,6 +2,8 @@
 FROM nextcloud/imaginary:20230401
 # https://github.com/nextcloud/all-in-one/blob/main/Containers/imaginary/Dockerfile
 
+ENV NEXTCLOUD_IMAGINARY_VERSION 20230401
+
 USER root
 
 RUN set -ex; \
