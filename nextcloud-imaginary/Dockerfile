@@ -1,5 +1,5 @@
 # From https://github.com/h2non/imaginary/blob/master/Dockerfile
-FROM nextcloud/imaginary:20230301
+FROM nextcloud/imaginary:20230401
 # https://github.com/nextcloud/all-in-one/blob/main/Containers/imaginary/Dockerfile
 
 USER root
