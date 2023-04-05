@@ -30,13 +30,19 @@ tune_fpm_remove() {
 
   tune_file="/usr/local/etc/php-fpm.d/zz-tune.conf"
 
-  if [ -f "$tune_file" ]; then
-    echo '' > "$tune_file"
-  fi
+  if [ -w $tune_file ]; then
 
-  if [ -f "$tune_file" ] && [ ! -s "$tune_file" ]; then
-    echo 'Tune file cleaned!'
+    if [ -f "$tune_file" ]; then
+      echo '' > "$tune_file"
+    fi
+
+    if [ -f "$tune_file" ] && [ ! -s "$tune_file" ]; then
+      echo 'Tune file cleaned!'
+    else
+      echo 'Tune file failed to clean.'
+    fi
+
   else
-    echo 'Tune file failed to clean.'
+    echo 'Tune file is not writable, probably mounted from external sources. Skipping...'
   fi
 }
