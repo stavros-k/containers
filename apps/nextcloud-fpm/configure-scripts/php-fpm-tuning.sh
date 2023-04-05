@@ -30,7 +30,7 @@ tune_fpm_remove() {
 
   tune_file="/usr/local/etc/php-fpm.d/zz-tune.conf"
 
-  if [ -w $tune_file ]; then
+  if [ -w "$tune_file" ]; then
 
     if [ -f "$tune_file" ]; then
       echo '' > "$tune_file"
