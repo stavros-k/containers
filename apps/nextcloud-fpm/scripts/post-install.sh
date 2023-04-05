@@ -177,13 +177,14 @@ echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo '--------------------------------------------------'
 echo ''
 
-# Run maintenance/repairs/migrations
-if [ "${NX_RUN_MAINTENANCE:-"true"}" = "true" ]; then
-  echo '## Maintenance is enabled. Running...'
-  occ_maintenance
+# Run optimize/repairs/migrations
+if [ "${NX_RUN_OPTIMIZE:-"true"}" = "true" ]; then
+  echo '## Optimize is enabled. Running...'
+  occ_optimize
 else
-  echo '## Maintenance is disabled. Skipping...'
+  echo '## Optimize is disabled. Skipping...'
 fi
+
 echo ''
 echo '--------------------------------------------------'
 

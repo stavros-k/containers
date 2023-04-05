@@ -76,6 +76,9 @@ COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
 # Copy the configure-scripts that will be sourced by the post-install
 COPY --chmod=755 ./configure-scripts /configure-scripts
 
+# Copy the healthcheck
+COPY --chmod=755 ./scripts/healthcheck.sh /healthcheck.sh
+
 RUN set -ex; \
     sed -i 's/exec "$@"//g' /entrypoint.sh; \
     cat /tmp/post-install.sh >> /entrypoint.sh
