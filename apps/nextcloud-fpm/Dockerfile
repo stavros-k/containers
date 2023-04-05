@@ -13,6 +13,7 @@ RUN set -ex; \
         libheif1 \
         smbclient \
         libde265-0 \
+        libfcgi-bin \
         heif-gdk-pixbuf \
         imagemagick-common \
         libmagickcore-6.q16-6-extra \
