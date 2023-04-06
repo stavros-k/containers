@@ -156,19 +156,30 @@ echo ''
 if [ "${NX_COLLABORA:-"false"}" = "true" ]; then
   echo '## Collabora is enabled.'
   occ_collabora_install
+  office="true"
 else
   echo '## Collabora is disabled.'
   occ_collabora_remove
+  office="false"
 fi
 
 echo ''
 if [ "${NX_ONLYOFFICE:-"false"}" = "true" ]; then
   echo '## OnlyOffice is enabled.'
   occ_onlyoffice_install
+  office="true"
 else
   echo '## OnlyOffice is disabled.'
   occ_onlyoffice_remove
+  office="false"
 fi
+
+if [ "${office}" = "true" ]; then
+  occ config:system:set allow_local_remote_servers --value="true"
+else
+  occ config:system:delete allow_local_remote_servers
+fi
+
 
 echo ''
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
