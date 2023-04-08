@@ -176,6 +176,8 @@ else
   occ config:system:delete allow_local_remote_servers
 fi
 
+occ_cleanups
+
 echo ''
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 ### End Configuring ###
