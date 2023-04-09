@@ -30,6 +30,8 @@ done
 while true;
 do
   run_cron
-  occ preview:pre-generate
+  if [ ${PREVIEW_GEN:-"false"} = "true" ]; then
+    occ preview:pre-generate
+  fi
   sleep 5m
 done
