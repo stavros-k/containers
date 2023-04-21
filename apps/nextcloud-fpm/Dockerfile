@@ -1,6 +1,6 @@
-FROM docker.io/nextcloud:26.0.0-fpm@sha256:5929b54f8e2cbd6c384cce2ec154fc94c19a43e335f106a2e6de92a76ac62a6a
+FROM docker.io/nextcloud:26.0.1-fpm@sha256:04894412d9748705be71ca71d9bbf2a0ce6a34833f9afa08257bdfa04ee8fcc9
 
-ENV NEXTCLOUD_FPM_VERSION 26.0.0-fpm
+ENV NEXTCLOUD_FPM_VERSION 26.0.1-fpm
 
 RUN set -ex; \
     \
