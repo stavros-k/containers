@@ -1,4 +1,5 @@
 # From https://github.com/h2non/imaginary/blob/master/Dockerfile
+# TODO: https://github.com/nextcloud/all-in-one/tree/main/Containers/imaginary
 FROM nextcloud/imaginary:20230401
 # https://github.com/nextcloud/all-in-one/blob/main/Containers/imaginary/Dockerfile
 
