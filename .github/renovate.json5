@@ -26,6 +26,12 @@
       enabled: true,
     },
     {
+      matchManagers: ["gomod"],
+      matchDepTypes: ["indirect"],
+      enabled: true,
+      fileMatch: ["^Dockerfile$"],
+    },
+    {
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
     },
