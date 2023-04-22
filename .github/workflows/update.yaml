@@ -1,0 +1,30 @@
+name: Update
+
+on:
+  workflow_dispatch:
+  schedule:
+      # Run every day at midnight
+    - cron: '0 0 * * *'
+
+jobs:
+  update:
+    name: Update
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        containers:
+          - app: nextcloud-fpm
+          - app: nextcloud-notify_push
+          - app: nextcloud-imaginary
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Run script
+      run: |
+        echo "Running update script for ${{ matrix.containers.app }}"
+        ./apps/${{ matrix.containers.app }}/updaten.sh ./apps/${{ matrix.containers.app }}
+
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Update ${{ matrix.containers.app }}
