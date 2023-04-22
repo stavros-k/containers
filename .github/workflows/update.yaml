@@ -10,6 +10,8 @@ jobs:
   update:
     name: Update
     runs-on: ubuntu-22.04
+    permissions:
+      contents: write
     strategy:
       matrix:
         containers:
@@ -23,7 +25,10 @@ jobs:
     - name: Run script
       run: |
         echo "Running update script for ${{ matrix.containers.app }}"
-        ./apps/${{ matrix.containers.app }}/update.sh ./apps/${{ matrix.containers.app }}
+        script="apps/${{ matrix.containers.app }}/update.sh"
+        if [ -f "$script" ]; then
+          "$script" ./apps/${{ matrix.containers.app }}
+        fi
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
