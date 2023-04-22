@@ -54,7 +54,7 @@ jobs:
         id: prepare
         shell: bash
         run: |
-          VERSION=$(./apps/${{ matrix.containers.app }}/get-version.sh)
+          VERSION=$(./apps/${{ matrix.containers.app }}/get-version.sh ./apps/${{ matrix.containers.app }})
           echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
           if [[ $GITHUB_EVENT_NAME = "pull_request" ]]; then
             echo "APP_VERSION=$VERSION-pr${{ github.event.number }}" >> $GITHUB_OUTPUT
