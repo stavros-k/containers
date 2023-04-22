@@ -54,10 +54,10 @@ jobs:
         id: prepare
         shell: bash
         run: |
-          VERSION=$(cat apps/${{ matrix.containers.app }}/Dockerfile | grep -E "ENV .+_VERSION .+" | cut -d ' ' -f3)
+          VERSION=$(./apps/${{ matrix.containers.app }}/get-version.sh)
           echo "APP_VERSION=$VERSION" >> $GITHUB_OUTPUT
           if [[ $GITHUB_EVENT_NAME = "pull_request" ]]; then
-          echo "APP_VERSION=$VERSION-pr${{ github.event.number }}" >> $GITHUB_OUTPUT
+            echo "APP_VERSION=$VERSION-pr${{ github.event.number }}" >> $GITHUB_OUTPUT
           fi
 
       - name: Log in to the Container registry
