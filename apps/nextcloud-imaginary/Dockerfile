@@ -21,7 +21,7 @@ RUN set -ex; \
         vips-heif \
         vips-magick \
         vips-poppler \
-        ca-certificates \
+        ca-certificates
 
 COPY --from=go /go/bin/imaginary /usr/local/bin/imaginary
 

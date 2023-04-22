@@ -1,4 +1,5 @@
 #!/bin/bash
+curr_dir="$1"
 
 notify_push_version="$(
 	git ls-remote --tags https://github.com/nextcloud/notify_push.git \
@@ -12,5 +13,4 @@ notify_push_version="$(
 
 echo "updating notify_push $notify_push_version"
 
-curr_dir=$(pwd)
 sed -re 's/^ENV NOTIFY_PUSH_VERSION .*$/ENV NOTIFY_PUSH_VERSION '"$notify_push_version"'/;' -i "$curr_dir/Dockerfile"
