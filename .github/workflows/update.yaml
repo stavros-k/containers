@@ -23,7 +23,7 @@ jobs:
     - name: Run script
       run: |
         echo "Running update script for ${{ matrix.containers.app }}"
-        ./apps/${{ matrix.containers.app }}/updaten.sh ./apps/${{ matrix.containers.app }}
+        ./apps/${{ matrix.containers.app }}/update.sh ./apps/${{ matrix.containers.app }}
 
     - uses: stefanzweifel/git-auto-commit-action@v4
       with:
