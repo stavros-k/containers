@@ -19,6 +19,9 @@
   semanticCommits: "enabled",
   commitMessageTopic: "{{depName}}",
   commitMessageExtra: "to {{newVersion}}",
+  gomod: {
+    fileMatch: ["^Dockerfile$"],
+  },
   packageRules: [
     {
       matchManagers: ["dockerfile"],
@@ -29,7 +32,6 @@
       matchManagers: ["gomod"],
       matchDepTypes: ["indirect"],
       enabled: true,
-      fileMatch: ["^Dockerfile$"],
     },
     {
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
