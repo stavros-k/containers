@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 tune_fpm_install() {
   echo '## Applying PHP-FPM Tuning...'
   echo "PHP_MAX_CHILDREN:       ${NX_PHP_MAX_CHILDREN:-20}"
