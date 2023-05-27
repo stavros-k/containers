@@ -4,10 +4,10 @@
 install_app() {
   app_name="${1:?"app_name is unset"}"
 
-  echo "Installing $app_name..."
+  echo "Installing [$app_name]..."
 
   if occ app:list | grep -wq "$app_name"; then
-    echo "App $app_name is already installed! Skipping..."
+    echo "App [$app_name] is already installed! Skipping..."
     return 0
   fi
 
@@ -16,25 +16,25 @@ install_app() {
     exit 1
   fi
 
-  echo "App $app_name installed successfuly!"
+  echo "App [$app_name] installed successfuly!"
 }
 
 remove_app() {
   app_name="${1:?"app_name is unset"}"
 
-  echo "Removing $app_name..."
+  echo "Removing [$app_name]..."
 
   if ! occ app:list | grep -wq "$app_name"; then
-    echo "App $app_name is not installed! Skipping..."
+    echo "App [$app_name] is not installed! Skipping..."
     return 0
   fi
 
   if ! occ app:remove "$app_name"; then
-    echo "Failed to remove $app_name..."
+    echo "Failed to remove [$app_name]..."
     exit 1
   fi
 
-  echo "App $app_name removed successfuly!"
+  echo "App [$app_name] removed successfuly!"
 }
 
 # Sets a space separated values into the specified list, by default for system settings
