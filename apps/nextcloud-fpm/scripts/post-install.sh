@@ -56,7 +56,6 @@ set_list() {
     IDX=0
     # Replace spaces with newlines so the input can have
     # mixed entries of space or new line seperated values
-    space_delimited_values=$(echo "$space_delimited_values" | tr ' ' '\n')
     echo "$space_delimited_values" | tr ' ' '\n' | while IFS= read -r value; do
         if [ -n "${prefix}" ]; then
           value="$prefix$value"
