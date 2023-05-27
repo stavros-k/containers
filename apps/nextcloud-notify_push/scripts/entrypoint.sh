@@ -13,5 +13,5 @@ done
 if [ -n "${CONFIG_FILE:-}" ]; then
   notify_push "$CONFIG_FILE"
 else
-  notify_push
+  notify_push "$@"
 fi
