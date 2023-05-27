@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 trap "echo 'SIGTERM received, exiting'; exit" SIGTERM
 
 uid="$(id -u)"

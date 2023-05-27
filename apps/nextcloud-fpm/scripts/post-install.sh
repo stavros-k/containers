@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Installs the passed application if not already installed
 install_app() {
@@ -7,7 +7,7 @@ install_app() {
   echo "Installing $app_name..."
 
   if occ app:list | grep -wq "$app_name"; then
-    echo "App "$app_name" is already installed! Skipping..."
+    echo "App $app_name is already installed! Skipping..."
     return 0
   fi
 
@@ -25,7 +25,7 @@ remove_app() {
   echo "Removing $app_name..."
 
   if ! occ app:list | grep -wq "$app_name"; then
-    echo "App "$app_name" is not installed! Skipping..."
+    echo "App $app_name is not installed! Skipping..."
     return 0
   fi
 
@@ -48,28 +48,28 @@ set_list() {
   if [ -n "${space_delimited_values}" ]; then
 
     if [ "${app}" != 'system' ]; then
-      occ config:app:delete $app $list_name
+      occ config:app:delete "$app" "$list_name"
     else
-      occ config:system:delete $list_name
+      occ config:system:delete "$list_name"
     fi
 
     IDX=0
     # Replace spaces with newlines so the input can have
     # mixed entries of space or new line seperated values
     space_delimited_values=$(echo "$space_delimited_values" | tr ' ' '\n')
-    while IFS= read -r value; do
+    echo "$space_delimited_values" | tr ' ' '\n' | while IFS= read -r value; do
         if [ -n "${prefix}" ]; then
           value="$prefix$value"
         fi
 
         if [ "${app}" != 'system' ]; then
-          occ config:app:set $app $list_name $IDX --value="$value"
+          occ config:app:set "$app" "$list_name" $IDX --value="$value"
         else
-          occ config:system:set $list_name $IDX --value="$value"
+          occ config:system:set "$list_name" $IDX --value="$value"
         fi
 
-        IDX=$(($IDX+1))
-    done <<< "$space_delimited_values"
+        IDX=$((IDX+1))
+    done
   fi
 }
 
