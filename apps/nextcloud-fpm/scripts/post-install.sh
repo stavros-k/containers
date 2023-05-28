@@ -77,16 +77,19 @@ set_list() {
     done
   fi
 }
-
+echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
+echo ''
 ### Source all configure-scripts. ###
 for script in /configure-scripts/*.sh; do
   echo "Sourcing $script"
   . "$script"
 done
 
-### Start Configuring ###
+echo ''
+echo 'Executing injected scripts...'
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo ''
+### Start Configuring ###
 
 # Tune PHP-FPM
 if [ "${NX_TUNE_FPM:-"true"}" = "true" ]; then
