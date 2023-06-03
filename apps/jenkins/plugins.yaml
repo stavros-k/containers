@@ -9,6 +9,9 @@ plugins:
   - artifactId: role-strategy
     source:
       version: 633.v836e5b_3e80a_5
+  - artifactId: workflow-aggregator
+    source:
+      version: 596.v8c21c963d92d
   # Dependencies
   - artifactId: pipeline-milestone-step
     source:
@@ -79,9 +82,6 @@ plugins:
   - artifactId: credentials-binding
     source:
       version: 604.vb_64480b_c56ca_
-  - artifactId: workflow-aggregator
-    source:
-      version: 596.v8c21c963d92d
   - artifactId: pipeline-build-step
     source:
       version: 491.v1fec530da_858
