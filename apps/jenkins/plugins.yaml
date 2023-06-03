@@ -2,3 +2,9 @@ plugins:
   - artifactId: configuration-as-code
     source:
       version: 1646.v98b_72d209775
+  - artifactId: mailer
+    source:
+      version: 457.v3f72cb_e015e5
+  - artifactId: workflow-aggregator
+    source:
+      version: 596.v8c21c963d92d
