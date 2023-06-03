@@ -73,6 +73,7 @@ jobs:
 
       - name: Prepare
         id: prepare
+        if: steps.detect_changes.outputs.skip == 'false'
         shell: bash
         run: |
           VERSION=$(./apps/${{ matrix.containers.app }}/get-version.sh ./apps/${{ matrix.containers.app }})
