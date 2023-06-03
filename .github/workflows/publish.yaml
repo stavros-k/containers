@@ -42,16 +42,38 @@ jobs:
           - app: nextcloud-fpm
           - app: nextcloud-notify_push
           - app: nextcloud-imaginary
+          - app: jenkins
     steps:
       - name: Checkout
         uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3
 
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v36
+        with:
+          files: |
+            apps/${{ matrix.containers.app }}/**
+
+      - name: Detect changes
+        id: detect_changes
+        shell: bash
+        run: |
+          if [ -n "${{ steps.changed-files.outputs.all_changed_files }}" ]; then
+            echo "Changes detected, proceeding with build."
+            echo "skip=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          echo "No changes detected, skipping build."
+          echo "skip=true" >> $GITHUB_OUTPUT
+
       - name: Run ShellCheck
         continue-on-error: true
+        if: steps.detect_changes.outputs.skip == 'false'
         uses: ludeeus/action-shellcheck@master
 
       - name: Prepare
         id: prepare
+        if: steps.detect_changes.outputs.skip == 'false'
         shell: bash
         run: |
           VERSION=$(./apps/${{ matrix.containers.app }}/get-version.sh ./apps/${{ matrix.containers.app }})
@@ -61,6 +83,7 @@ jobs:
           fi
 
       - name: Log in to the Container registry
+        if: steps.detect_changes.outputs.skip == 'false'
         uses: docker/login-action@40891eba8c2bcd1309b07ba8b11232f313e86779
         with:
           registry: ghcr.io
@@ -68,6 +91,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker images
+        if: steps.detect_changes.outputs.skip == 'false'
         uses: docker/build-push-action@f9efed53cc1b0364ba947400ac02042bbbaac7fc
         with:
           context: apps/${{ matrix.containers.app }}/

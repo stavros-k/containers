@@ -26,6 +26,11 @@
       enabled: true,
     },
     {
+      matchDatasources: ["jenkins-plugins"],
+      updateTypes: ["patch","minor","major","pin","digest"],
+      enabled: true
+    },
+    {
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
     },
