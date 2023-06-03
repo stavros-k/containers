@@ -39,7 +39,7 @@ plugins:
       version: 1.2.0-6
   - artifactId: git-client
     source:
-      version: 4.3.0
+      version: "4.3.0"
   - artifactId: variant
     source:
       version: 59.vf075fe829ccb
@@ -105,7 +105,7 @@ plugins:
       version: 143.v1b_df8b_d3b_e48
   - artifactId: bouncycastle-api
     source:
-      version: 2.28
+      version: "2.28"
   - artifactId: jaxb
     source:
       version: 2.3.8-1
@@ -141,7 +141,7 @@ plugins:
       version: 56.v1b_1c8c49374e
   - artifactId: display-url-api
     source:
-      version: 2.3.7
+      version: "2.3.7"
   - artifactId: commons-lang3-api
     source:
       version: 3.12.0-36.vd97de6465d5b_
