@@ -1,0 +1,4 @@
+plugins:
+  - artifactId: configuration-as-code
+    source:
+      version: 1646.v98b_72d209775
