@@ -8,3 +8,6 @@ COPY --chown=jenkins:jenkins ./plugins.yaml /usr/share/jenkins/ref/plugins.yaml
 
 RUN jenkins-plugin-cli --clean-download-directory
 RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.yaml
+
+# Skip initial setup
+RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
