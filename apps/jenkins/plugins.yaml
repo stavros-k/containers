@@ -15,6 +15,9 @@ plugins:
   - artifactId: dark-theme
     source:
       version: 315.va_22e7d692ea_a
-  - artifactId: "blueocean"
+  - artifactId: blueocean
     source:
       version: "1.27.4"
+  - artifactId: markdown-formatter
+    source:
+      version: 95.v17a_965e696ee
