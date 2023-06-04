@@ -1,9 +1,7 @@
-FROM jenkins/jenkins:2.401.1@sha256:d277e629f9e4d9308bdde5961eba88498fe4cba7af00091d56cb161a85472280
+FROM jenkins/jenkins:2.401.1-jdk17@sha256:99ef95c4a53162a0635c9b247fc04992ec4f2347434fb5978a26bfe132bed11b
 
 ENV CASC_JENKINS_CONFIG "/var/jenkins_home/casc_configs"
 ENV CASC_MERGE_STRATEGY "errorOnConflict"
-
-ENV JAVA_OPTS "${JAVA_OPTS} -Djenkins.CLI.disabled=true"
 
 # COPY --chown=jenkins:jenkins jenkinsConfig/configs/ /var/jenkins_home/casc_configs/
 COPY --chown=jenkins:jenkins ./plugins.yaml /usr/share/jenkins/ref/plugins.yaml
