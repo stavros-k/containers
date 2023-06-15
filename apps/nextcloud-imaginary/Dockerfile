@@ -1,5 +1,5 @@
 # https://github.com/nextcloud/all-in-one/tree/main/Containers/imaginary
-FROM golang:1.20.5-alpine3.17@sha256:5b56b276431ae41eb150f1728f9e621fdd6720acce0b0ff8500aeb057cd2e57e as go
+FROM golang:1.20.5-alpine3.17@sha256:f261b641ebdc78800b845dd14b13032e0b4b89c2b2f60be89025fbf48c53e3d2 as go
 RUN set -ex; \
     apk add --no-cache \
         vips-jxl \
