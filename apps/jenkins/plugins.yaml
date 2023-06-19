@@ -28,3 +28,6 @@ plugins:
   - artifactId: job-dsl
     source:
       version: "1.84"
+  - artifactId: jobcacher
+    source:
+      version: 387.v41e893017398
