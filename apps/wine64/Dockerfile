@@ -4,6 +4,7 @@ FROM node:18.16.0@sha256:4a55308cc855cba1a925d19ae4e45838741dad2fd7bb8949a93b2a0
 RUN apt update && \
     apt install -y \
         nano \
+        wine \
         wine64
 
 USER 1000
