@@ -34,3 +34,6 @@ plugins:
   - artifactId: pipeline-utility-steps
     source:
       version: "2.15.4"
+  - artifactId: pipeline-stage-view
+    source:
+      version: "2.33"
