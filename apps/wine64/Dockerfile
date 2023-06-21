@@ -8,4 +8,5 @@ RUN apt update && \
 
 USER 1000
 
+# Run for ever
 ENTRYPOINT "cat"
