@@ -43,6 +43,6 @@ plugins:
   - artifactId: github-checks
     source:
       version: 545.v79a_a_68b_ca_682
-  - artifactId: github-scm-trait-notification-context
+  - artifactId: github-checks
     source:
-      version: "1.1"
+      version: 545.v79a_a_68b_ca_682
