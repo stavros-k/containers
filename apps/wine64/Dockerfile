@@ -8,10 +8,14 @@ RUN wget -NP /etc/apt/sources.list.d/ https://dl.winehq.org/wine-builds/debian/d
 RUN apt update && \
     apt install --install-recommends -y \
         nano \
+        python3-pip \
         winehq-stable
 
 # Install pre-commit
-RUN pip install pre-commit
+RUN pip3 install pre-commit
+
+RUN mkdir -p /.cache
+RUN chown -R 1000:1000 /.cache
 
 USER 1000
 
