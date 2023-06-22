@@ -44,7 +44,6 @@ jobs:
           - app: nextcloud-imaginary
           - app: jenkins
           - app: wine64
-          - app: pre-commit
 
     steps:
       - name: Checkout

@@ -10,6 +10,9 @@ RUN apt update && \
         nano \
         winehq-stable
 
+# Install pre-commit
+RUN pip install pre-commit
+
 USER 1000
 
 # Run for ever
