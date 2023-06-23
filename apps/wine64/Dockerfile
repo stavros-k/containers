@@ -14,7 +14,7 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Install pnpm
-RUN curl -fsSL https://get.pnpm.io/install.sh | sh -
+RUN npm install -g pnpm
 
 RUN mkdir -p /.cache
 RUN chown -R 1000:1000 /.cache
