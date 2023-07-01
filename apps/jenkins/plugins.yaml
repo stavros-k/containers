@@ -49,9 +49,3 @@ plugins:
   - artifactId: skip-notifications-trait
     source:
       version: 198.vc48f25a_18f41
-  - artifactId: throttle-concurrents
-    source:
-      version: "2.14"
-  - artifactId: templating-engine
-    source:
-      version: "2.5.3"
