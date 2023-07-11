@@ -13,8 +13,7 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install pnpm
-RUN npm install -g pnpm
+ENV PATH="${PATH}:node_modules/.bin"
 
 RUN mkdir -p /.cache
 RUN chown -R 1000:1000 /.cache
