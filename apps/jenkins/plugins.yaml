@@ -30,7 +30,7 @@ plugins:
       version: "1.84"
   - artifactId: jobcacher
     source:
-      version: 397.vf3a_56f87c139
+      version: 399.v12d4fa_dd3db_d
   - artifactId: pipeline-utility-steps
     source:
       version: "2.16.0"
