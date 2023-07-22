@@ -9,7 +9,7 @@ plugins:
       version: 457.v3f72cb_e015e5
   - artifactId: role-strategy
     source:
-      version: 667.vd7f94d9fddf9
+      version: 670.vc71a_a_c00039e
   - artifactId: workflow-aggregator
     source:
       version: 596.v8c21c963d92d
