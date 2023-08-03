@@ -7,9 +7,9 @@ plugins:
   - artifactId: mailer
     source:
       version: 457.v3f72cb_e015e5
-  - artifactId: role-strategy
+  - artifactId: matrix-auth
     source:
-      version: 670.vc71a_a_c00039e
+      version: "3.1.10"
   - artifactId: workflow-aggregator
     source:
       version: 596.v8c21c963d92d
