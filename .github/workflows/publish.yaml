@@ -51,7 +51,7 @@ jobs:
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@17f3fec1edef0c3916d59cbcee1585fcd457e456 # v38
+        uses: tj-actions/changed-files@c860b5c47fa71f461da850094ef2f6e3d6514e44 # v38
         with:
           files: |
             apps/${{ matrix.containers.app }}/**
