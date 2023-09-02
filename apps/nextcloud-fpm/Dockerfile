@@ -1,4 +1,4 @@
-FROM nextcloud:27.0.2-fpm@sha256:f45caa89e7809b03b857d959210a0834090d6ecdf80bede36ca8476081889c3c
+FROM nextcloud:27.0.2-fpm@sha256:a7a54ea534810ee4fea7468a327b69636dffcf482e1b6431cb648fd2ddf24992
 
 RUN set -ex; \
     \
