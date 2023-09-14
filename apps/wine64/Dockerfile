@@ -14,7 +14,7 @@ RUN apt update && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
-ENV PATH="${PATH}:node_modules/.bin"
+ENV PATH="${PATH}:node_modules/.bin:~/.bun/bin"
 
 RUN mkdir -p /.cache
 RUN chown -R 1000:1000 /.cache
