@@ -54,4 +54,4 @@ plugins:
       version: "2.6"
   - artifactId: s3
     source:
-      version: 0.12.3445.vda_704535b_5a_d
+      version: 466.vf5b_3db_8e3eb_2
