@@ -94,7 +94,7 @@ jobs:
 
       - name: Build and push Docker images
         if: steps.detect_changes.outputs.skip == 'false'
-        uses: docker/build-push-action@0f847266c302569530c95bfa228489494c43b002
+        uses: docker/build-push-action@8d2cf95286e3dd3d016d478187b93b57af29fd2d
         with:
           context: apps/${{ matrix.containers.app }}/
           push: true
