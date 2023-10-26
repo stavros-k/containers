@@ -8,7 +8,7 @@ RUN set -ex; \
         build-base \
         vips-magick \
         vips-poppler; \
-    go install github.com/h2non/imaginary@b632dae8cc321452c3f85bcae79c580b1ae1ed84
+    go install github.com/h2non/imaginary@7efb66c243056e5b3b65215e101be7915983e364
 
 FROM alpine:3.18.4@sha256:eece025e432126ce23f223450a0326fbebde39cdf496a85d8c016293fc851978
 RUN set -ex; \
