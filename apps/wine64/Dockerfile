@@ -13,6 +13,7 @@ RUN apt update && \
     apt install --install-recommends -y \
         nano \
         pre-commit \
+        qrencode \
         winehq-stable && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
