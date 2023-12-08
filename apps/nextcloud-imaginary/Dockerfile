@@ -10,7 +10,7 @@ RUN set -ex; \
         vips-poppler; \
     go install github.com/h2non/imaginary@6cd9edd1d3fb151eb773c14552886e4fc8e50138
 
-FROM alpine:3.18.5@sha256:34871e7290500828b39e22294660bee86d966bc0017544e848dd9a255cdf59e0
+FROM alpine:3.19.0@sha256:51b67269f354137895d43f3b3d810bfacd3945438e94dc5ac55fdac340352f48
 RUN set -ex; \
     apk add --no-cache \
         vips \
