@@ -55,3 +55,6 @@ plugins:
   - artifactId: s3
     source:
       version: 466.vf5b_3db_8e3eb_2
+  - artifactId: ansicolor
+    source:
+      version: 1.0.4
