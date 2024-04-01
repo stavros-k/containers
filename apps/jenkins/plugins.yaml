@@ -43,9 +43,6 @@ plugins:
   - artifactId: github-checks
     source:
       version: 554.vb_ee03a_000f65
-  - artifactId: github-checks
-    source:
-      version: 554.vb_ee03a_000f65
   - artifactId: skip-notifications-trait
     source:
       version: 313.vd1337c8f8134
