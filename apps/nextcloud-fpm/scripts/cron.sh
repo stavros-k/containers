@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 trap "echo 'SIGTERM received, exiting'; exit" SIGTERM
 
 uid="$(id -u)"
@@ -11,6 +11,8 @@ else
   user="$uid"
   group="$gid"
 fi
+
+echo "Running as ${user}:${group}"
 
 run_cron() {
   if [ "$(id -u)" = 0 ]; then
@@ -29,9 +31,10 @@ done
 
 while true;
 do
-  run_cron
+  run_cron || echo "run_cron failed"
   if [ ${PREVIEW_GEN:-"false"} = "true" ]; then
-    occ preview:pre-generate
+    occ preview:pre-generate || echo "preview:pre-generate failed"
   fi
+  echo "Sleeping for 5 min"
   sleep 5m
 done
