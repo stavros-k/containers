@@ -24,7 +24,7 @@ plugins:
       version: 167.v8a_428ca_49f89
   - artifactId: kubernetes
     source:
-      version: 4203.v1dd44f5b_1cf9
+      version: 4208.v4017b_a_27a_d67
   - artifactId: job-dsl
     source:
       version: "1.87"
