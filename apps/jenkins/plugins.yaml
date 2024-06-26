@@ -21,7 +21,7 @@ plugins:
       version: "1.27.13"
   - artifactId: markdown-formatter
     source:
-      version: 167.v8a_428ca_49f89
+      version: 191.vf7955d4d081b_
   - artifactId: kubernetes
     source:
       version: 4246.v5a_12b_1fe120e
