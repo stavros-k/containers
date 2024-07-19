@@ -51,7 +51,7 @@ plugins:
       version: "4.297.vcddb_d8a_e4694"
   - artifactId: s3
     source:
-      version: 466.vf5b_3db_8e3eb_2
+      version: 483.vcb_db_3dcee68f
   - artifactId: ansicolor
     source:
       version: 1.0.4
