@@ -91,15 +91,6 @@ echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo ''
 ### Start Configuring ###
 
-# Tune PHP-FPM
-if [ "${NX_TUNE_FPM:-"true"}" = "true" ]; then
-  echo '# PHP-FPM tuning is enabled.'
-  tune_fpm_install
-else
-  echo '# PHP-FPM tuning is disabled.'
-  tune_fpm_remove
-fi
-
 # Configure Redis
 if [ "${NX_REDIS:-"true"}" = "true" ]; then
   echo '# Redis is enabled.'

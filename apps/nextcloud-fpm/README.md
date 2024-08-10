@@ -25,7 +25,6 @@
 | `NX_CLAMAV_STREAM_MAX_LENGTH`   | ClamAV Stream Max Length                                                                |       `files_antivirus`       |                                       `av_stream_max_length`                                       |             `26214400`             |                 `1048576`                  |
 | `NX_CLAMAV_MAX_FILE_SIZE`       | ClamAV Max File Size                                                                    |       `files_antivirus`       |                                         `av_max_file_size`                                         |                `-1`                |                 `1048576`                  |
 | `NX_CLAMAV_INFECTED_ACTION`     | ClamAV Infected Action                                                                  |       `files_antivirus`       |                                        `av_infected_action`                                        |             `only_log`             |                  `delete`                  |
-| `NX_TUNE_FPM`                   | Creates a tune file for PHP-FPM                                                         |                               |                                                                                                    |               `true`               |                  `false`                   |
 | `NX_PHP_MAX_CHILDREN`           | Maximum number of child processes                                                       |                               |                                                                                                    |                `20`                |                    `50`                    |
 | `NX_PHP_START_SERVERS`          | Number of child processes created on startup                                            |                               |                                                                                                    |                `5`                 |                    `10`                    |
 | `NX_PHP_MIN_SPARE_SERVERS`      | Minimum number of spare child processes                                                 |                               |                                                                                                    |                `5`                 |                    `10`                    |
@@ -61,3 +60,47 @@
 | `NX_TRUSTED_PROXIES`            | Space Separated list of Trusted proxies                                                 |           `system`            |                                         `trusted_proxies`                                          |                `""`                | `10.0.0.0/8 172.16.0.0./12 192.168.0.0/16` |
 
 > Visit Nextcloud official documentation for more information about each `Config key`
+
+Recommended additions for nextcloud optimizations
+
+> Partial docker-compose file
+
+```yaml
+services:
+  nextcloud:
+    image: ...
+    ...
+    configs:
+      - source: php-tune
+        target: /usr/local/etc/php-fpm.d/zz-tune.conf
+      - source: redis-session
+        target: /usr/local/etc/php/conf.d/redis-session.ini
+      - source: opcache-recommended
+        target: /usr/local/etc/php/conf.d/opcache-recommended.ini
+
+configs:
+  php-tune:
+    content: |
+      [www]
+      pm.max_children = 180
+      pm.start_servers = 18
+      pm.min_spare_servers = 12
+      pm.max_spare_servers = 30
+  redis-session:
+    content: |
+      session.save_handler = redis
+      session.save_path = "tcp://redis:6379?auth=REPLACE_ME"
+      redis.session.locking_enabled = 1
+      redis.session.lock_retries = -1
+      redis.session.lock_wait_time = 10000
+  opcache-recommended:
+    content: |
+      opcache.enable=1
+      opcache.save_comments=1
+      opcache.jit=1255
+      opcache.interned_strings_buffer=32
+      opcache.max_accelerated_files=10000
+      opcache.memory_consumption=128
+      opcache.revalidate_freq=60
+      opcache.jit_buffer_size=128M
+```
