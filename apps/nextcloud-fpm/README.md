@@ -66,6 +66,12 @@ services:
   nextcloud:
     image: ...
     ...
+    environment:
+      NX_REDIS: true
+      NX_REDIS_HOST: redis
+      NX_REDIS_PORT: 6379
+      NX_REDIS_PASS: REPLACE_ME
+      # Do NOT set REDIS_HOST, REDIS_HOST_PORT and REDIS_HOST_PASSWORD
     configs:
       - source: php-tune
         target: /usr/local/etc/php-fpm.d/zz-tune.conf
