@@ -98,6 +98,7 @@ configs:
   opcache-recommended:
     content: |
       opcache.enable=1
+      opcache.enable_cli=1
       opcache.save_comments=1
       opcache.jit=1255
       opcache.interned_strings_buffer=32
