@@ -8,4 +8,5 @@ occ_optimize() {
   occ maintenance:mimetype:update-js
   occ maintenance:mimetype:update-db
   occ maintenance:update:htaccess
+  occ maintenance:repair --include-expensive
 }

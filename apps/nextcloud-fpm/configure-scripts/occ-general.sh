@@ -11,4 +11,7 @@ occ_general() {
 
   echo '## Configuring Max Chunk Size for Files...'
   occ config:app:set files max_chunk_size --value="${NX_MAX_CHUNKSIZE:-10485760}"
+
+  echo '## Configuring Maintenance Window Start...'
+  occ config:system:set maintenance_window_start --type=integer --value="${NX_MAINTENANCE_WINDOW_START:-100}"
 }
