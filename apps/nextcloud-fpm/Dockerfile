@@ -14,7 +14,6 @@ RUN set -ex; \
         libfcgi-bin \
         heif-gdk-pixbuf \
         imagemagick-common \
-        libmagickcore-6.q16-6-extra \
     ; \
     \
     # This command returns the list of manually installed packages
