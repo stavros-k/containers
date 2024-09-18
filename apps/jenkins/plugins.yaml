@@ -48,7 +48,7 @@ plugins:
       version: 313.vd1337c8f8134
   - artifactId: oic-auth
     source:
-      version: "4.340.ve70636c6590e"
+      version: "4.346.v10401f543622"
   - artifactId: s3
     source:
       version: 483.vcb_db_3dcee68f
