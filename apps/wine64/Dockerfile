@@ -1,4 +1,4 @@
-FROM node:22.9.0@sha256:cbe2d5f94110cea9817dd8c5809d05df49b4bd1aac5203f3594d88665ad37988
+FROM node:22.9.0@sha256:5f1c795962b43876b4f35957cb85f362eafbc879312dd8f904e24246aa506f49
 
 RUN dpkg --add-architecture i386
 RUN wget -O /etc/apt/keyrings/winehq-archive.key https://dl.winehq.org/wine-builds/winehq.key
