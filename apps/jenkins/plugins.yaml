@@ -54,4 +54,4 @@ plugins:
       version: 483.vcb_db_3dcee68f
   - artifactId: ansicolor
     source:
-      version: 1.0.4
+      version: 1.0.5
