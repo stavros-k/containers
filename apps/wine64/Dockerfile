@@ -8,13 +8,13 @@ RUN npm -v && node -v
 RUN which npm && which node
 
 RUN apt update
-RUN apt install --install-recommends -y nano winehq-stable
+RUN apt install --install-recommends -y nano winehq-stable python3 python3-pip
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
 RUN pip install pre-commit
-
 RUN pre-commit --version
+
 ENV PATH="${PATH}:node_modules/.bin"
 
 RUN mkdir -p /.cache
