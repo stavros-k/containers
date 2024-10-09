@@ -14,7 +14,7 @@ RUN apt install --install-recommends -y nano winehq-stable
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN curl https://github.com/pre-commit/pre-commit/releases/download/v4.0.1/pre-commit-4.0.1.pyz -o /usr/local/bin/pre-commit
+RUN curl https://github.com/pre-commit/pre-commit/releases/download/v${PRE_COMMIT_VERSION}/pre-commit-${PRE_COMMIT_VERSION}.pyz -o /usr/local/bin/pre-commit
 RUN chmod +x /usr/local/bin/pre-commit
 RUN pre-commit --version
 
