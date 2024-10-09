@@ -7,15 +7,12 @@ RUN npm install -g npm
 RUN npm -v && node -v
 RUN which npm && which node
 
+RUN apt update
+RUN apt install --install-recommends -y nano winehq-stable
+RUN apt clean
+RUN rm -rf /var/lib/apt/lists/*
 
-# Install dependencies
-RUN apt update && \
-    apt install --install-recommends -y \
-    nano \
-    pre-commit \
-    winehq-stable && \
-    apt clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN pip install pre-commit
 
 RUN pre-commit --version
 ENV PATH="${PATH}:node_modules/.bin"
@@ -26,4 +23,4 @@ RUN chown -R 1000:1000 /.cache
 USER 1000
 
 # Run for ever
-ENTRYPOINT "cat"
+ENTRYPOINT ["cat"]
