@@ -10,11 +10,12 @@ RUN npm -v && node -v
 RUN which npm && which node
 
 RUN apt update
-RUN apt install --install-recommends -y nano winehq-stable python3
+RUN apt install --install-recommends -y nano winehq-stable
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN curl https://github.com/pre-commit/pre-commit/releases/download/v${PRE_COMMIT_VERSION}/pre-commit-v${PRE_COMMIT_VERSION}.pyz -o /usr/local/bin/pre-commit
+RUN curl https://github.com/pre-commit/pre-commit/releases/download/v4.0.1/pre-commit-4.0.1.pyz -o /usr/local/bin/pre-commit
+RUN chmod +x /usr/local/bin/pre-commit
 RUN pre-commit --version
 
 ENV PATH="${PATH}:node_modules/.bin"
