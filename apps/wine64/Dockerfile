@@ -11,13 +11,13 @@ RUN which npm && which node
 # Install dependencies
 RUN apt update && \
     apt install --install-recommends -y \
-        nano \
-        pre-commit \
-        qrencode \
-        winehq-stable && \
+    nano \
+    pre-commit \
+    winehq-stable && \
     apt clean && \
     rm -rf /var/lib/apt/lists/*
 
+RUN pre-commit --version
 ENV PATH="${PATH}:node_modules/.bin"
 
 RUN mkdir -p /.cache
