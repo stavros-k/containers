@@ -12,7 +12,7 @@ RUN apt install --install-recommends -y nano winehq-stable python3 python3-pip
 RUN apt clean
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN pip install pre-commit
+RUN pip3 install pre-commit
 RUN pre-commit --version
 
 ENV PATH="${PATH}:node_modules/.bin"
