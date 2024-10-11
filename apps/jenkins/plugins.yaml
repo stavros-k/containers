@@ -33,7 +33,7 @@ plugins:
       version: 573.v33fa_12644a_91
   - artifactId: pipeline-utility-steps
     source:
-      version: "2.17.0"
+      version: "2.18.0"
   - artifactId: pipeline-stage-view
     source:
       version: "2.34"
