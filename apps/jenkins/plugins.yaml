@@ -3,7 +3,7 @@ plugins:
   # Do not list dependencies
   - artifactId: configuration-as-code
     source:
-      version: 1850.va_a_8c31d3158b_
+      version: 1873.vea_5814ca_9c93
   - artifactId: mailer
     source:
       version: 489.vd4b_25144138f
