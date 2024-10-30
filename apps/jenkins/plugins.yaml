@@ -27,7 +27,7 @@ plugins:
       version: 4295.v7fa_01b_309c95
   - artifactId: job-dsl
     source:
-      version: "1.89"
+      version: "1.90"
   - artifactId: jobcacher
     source:
       version: 573.v33fa_12644a_91
