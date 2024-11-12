@@ -55,3 +55,6 @@ plugins:
   - artifactId: ansicolor
     source:
       version: 1.0.5
+  - artifactId: lockable-resources
+    source:
+      version: 1327.ved786b_a_197e0
