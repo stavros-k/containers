@@ -22,15 +22,9 @@ plugins:
   - artifactId: markdown-formatter
     source:
       version: 235.v2b_16f8e14918
-  - artifactId: kubernetes
-    source:
-      version: 4296.v20a_7e4d77cf6
   - artifactId: job-dsl
     source:
       version: "1.90"
-  - artifactId: jobcacher
-    source:
-      version: 589.v10419b_45a_a_72
   - artifactId: pipeline-utility-steps
     source:
       version: "2.18.0"
