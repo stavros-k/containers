@@ -1,6 +1,5 @@
 plugins:
-  # Only list explicitly installed plugins
-  # Do not list dependencies
+  # Only list explicitly installed plugins, Do not list dependencies
   - artifactId: configuration-as-code
     source:
       version: 1903.v004d55388f30
