@@ -2,7 +2,7 @@ plugins:
   # Only list explicitly installed plugins, Do not list dependencies
   - artifactId: configuration-as-code
     source:
-      version: 1929.v036b_5a_e1f123
+      version: 1932.v75cb_b_f1b_698d
   - artifactId: mailer
     source:
       version: 489.vd4b_25144138f
