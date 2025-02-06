@@ -50,4 +50,4 @@ plugins:
       version: 1.0.5
   - artifactId: lockable-resources
     source:
-      version: 1342.v673282c325c0
+      version: 1349.v8b_ccb_c5487f7
