@@ -29,7 +29,7 @@ plugins:
       version: "2.18.0"
   - artifactId: pipeline-stage-view
     source:
-      version: "2.35"
+      version: "2.36"
   - artifactId: pipeline-github
     source:
       version: 2.8-159.09e4403bc62f
