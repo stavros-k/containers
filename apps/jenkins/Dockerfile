@@ -8,6 +8,7 @@ COPY --chown=jenkins:jenkins ./plugins.yaml /usr/share/jenkins/ref/plugins.yaml
 # Test connection
 RUN curl https://ftp-chi.osuosl.org
 
+# Update center https://updates.jenkins.io/
 ENV JENKINS_UC="https://updates.jenkins.io/update-center.json"
 
 # Install plugins
