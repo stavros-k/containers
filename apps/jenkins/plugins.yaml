@@ -38,7 +38,7 @@ plugins:
       version: 602.v264a_83610da_6
   - artifactId: skip-notifications-trait
     source:
-      version: 448.va_e30ed251b_4c
+      version: 490.v81b_0f37c3676
   - artifactId: oic-auth
     source:
       version: "4.482.v1140b_cf263b_a_"
