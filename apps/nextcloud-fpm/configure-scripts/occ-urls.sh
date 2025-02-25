@@ -9,22 +9,16 @@ occ_urls(){
   [ "${NX_TRUSTED_DOMAINS:?"NX_TRUSTED_DOMAINS is unset"}" ]
 
   if [ "${NX_COLLABORA:-"false"}" = "true" ]; then
-    # Remove http(s):// from NX_COLLABORA_URL
     [ "${NX_COLLABORA_URL:?"NX_COLLABORA_URL is unset"}" ]
-    NX_COLLABORA_DOMAIN="${NX_COLLABORA_URL#*://}"
-    # Remove /foo (subfolder) from NX_COLLABORA_DOMAIN
-    NX_COLLABORA_DOMAIN="${NX_COLLABORA_DOMAIN#%/*}"
+    NX_COLLABORA_DOMAIN=$(extract_domain "$NX_COLLABORA_URL")
     if [ "${NX_COLLABORA_DOMAIN}" != "${NX_OVERWRITE_HOST}" ]; then
       NX_TRUSTED_DOMAINS="${NX_TRUSTED_DOMAINS} ${NX_COLLABORA_DOMAIN}"
     fi
   fi
 
   if [ "${NX_ONLYOFFICE:-"false"}" = "true" ]; then
-    # Remove http(s):// from NX_ONLYOFFICE_URL
     [ "${NX_ONLYOFFICE_URL:?"NX_ONLYOFFICE_URL is unset"}" ]
-    NX_ONLYOFFICE_DOMAIN="${NX_ONLYOFFICE_URL#*://}"
-    # Remove /foo (subfolder) from NX_ONLYOFFICE_DOMAIN
-    NX_ONLYOFFICE_DOMAIN="${NX_ONLYOFFICE_DOMAIN#%/*}"
+    NX_ONLYOFFICE_DOMAIN=$(extract_domain "$NX_ONLYOFFICE_URL")
     if [ "${NX_ONLYOFFICE_DOMAIN}" != "${NX_OVERWRITE_HOST}" ]; then
       NX_TRUSTED_DOMAINS="${NX_TRUSTED_DOMAINS} ${NX_ONLYOFFICE_DOMAIN}"
     fi
