@@ -67,17 +67,21 @@ RUN set -ex; \
     touch /usr/local/etc/php/conf.d/redis-session.ini; \
     chmod 777 /usr/local/etc/php/conf.d/redis-session.ini
 
-# Copy post-install script to a temp location so we can append it to the entrypoint.sh
-COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
 # Copy the configure-scripts that will be sourced by the post-install
 COPY --chmod=755 ./configure-scripts /configure-scripts
-
+    
 # Copy the healthcheck
 COPY --chmod=755 ./scripts/healthcheck.sh /healthcheck.sh
+    
+# Copy post-install script to the `before-starting` hooks dir so nextcloud will run those automatically.
+COPY --chmod=755 ./scripts/post-install.sh /docker-entrypoint-hooks.d/before-starting/10-post-install.sh
 
-RUN set -ex; \
-    sed -i 's/exec "$@"//g' /entrypoint.sh; \
-    cat /tmp/post-install.sh >> /entrypoint.sh
+# # Copy post-install script to a temp location so we can append it to the entrypoint.sh
+# COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
+
+# RUN set -ex; \
+#     sed -i 's/exec "$@"//g' /entrypoint.sh; \
+#     cat /tmp/post-install.sh >> /entrypoint.sh
 
 COPY --chmod=755 ./scripts/occ /usr/bin/occ
 COPY --chmod=755 ./scripts/cron.sh /cron.sh
