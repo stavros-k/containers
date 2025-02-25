@@ -76,12 +76,5 @@ COPY --chmod=755 ./scripts/healthcheck.sh /healthcheck.sh
 # Copy post-install script to the `before-starting` hooks dir so nextcloud will run those automatically.
 COPY --chmod=755 ./scripts/post-install.sh /docker-entrypoint-hooks.d/before-starting/10-post-install.sh
 
-# # Copy post-install script to a temp location so we can append it to the entrypoint.sh
-# COPY --chmod=755 ./scripts/post-install.sh /tmp/post-install.sh
-
-# RUN set -ex; \
-#     sed -i 's/exec "$@"//g' /entrypoint.sh; \
-#     cat /tmp/post-install.sh >> /entrypoint.sh
-
 COPY --chmod=755 ./scripts/occ /usr/bin/occ
 COPY --chmod=755 ./scripts/cron.sh /cron.sh
