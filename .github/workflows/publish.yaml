@@ -43,7 +43,6 @@ jobs:
           - app: nextcloud-notify_push
           - app: nextcloud-imaginary
           - app: jenkins
-          - app: wine64
 
     steps:
       - name: Checkout
