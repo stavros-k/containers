@@ -69,10 +69,10 @@ RUN set -ex; \
 
 # Copy the configure-scripts that will be sourced by the post-install
 COPY --chmod=755 ./configure-scripts /configure-scripts
-    
+
 # Copy the healthcheck
 COPY --chmod=755 ./scripts/healthcheck.sh /healthcheck.sh
-    
+
 # Copy post-install script to the `before-starting` hooks dir so nextcloud will run those automatically.
 COPY --chmod=755 ./scripts/post-install.sh /docker-entrypoint-hooks.d/before-starting/10-post-install.sh
 
