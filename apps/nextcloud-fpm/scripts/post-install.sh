@@ -16,7 +16,7 @@ install_app() {
     exit 1
   fi
 
-  echo "App [$app_name] installed successfuly!"
+  echo "App [$app_name] installed successfully!"
 }
 
 remove_app() {
@@ -34,7 +34,7 @@ remove_app() {
     exit 1
   fi
 
-  echo "App [$app_name] removed successfuly!"
+  echo "App [$app_name] removed successfully!"
 }
 
 # Sets a space separated values into the specified list, by default for system settings
@@ -55,7 +55,7 @@ set_list() {
 
     IDX=0
     # Replace spaces with newlines so the input can have
-    # mixed entries of space or new line seperated values
+    # mixed entries of space or new line separated values
     echo "$space_delimited_values" | tr ' ' '\n' | while IFS= read -r value; do
         # Skip empty values
         if [ -z "$value" ]; then
@@ -200,5 +200,3 @@ echo ''
 echo '--------------------------------------------------'
 
 echo 'Starting Nextcloud PHP-FPM'
-
-exec "$@"
