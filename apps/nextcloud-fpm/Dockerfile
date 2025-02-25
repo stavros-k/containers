@@ -11,6 +11,7 @@ RUN set -ex; \
         libheif1 \
         smbclient \
         libde265-0 \
+        libreoffice\
         libfcgi-bin \
         heif-gdk-pixbuf \
         imagemagick-common \
