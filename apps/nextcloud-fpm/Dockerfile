@@ -67,7 +67,7 @@ ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/${S
 RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && \
     chmod +x /usr/local/bin/supercronic
 COPY --chmod=755 ./scripts/run-cron-daemon.sh /run-cron-daemon.sh
-COPY --chmod=755 ./scripts/nc-cron.sh /nc-cron.sh
+COPY --chmod=755 ./scripts/php-cron.sh /php-cron
 
 # See https://github.com/nextcloud/docker/issues/763
 RUN set -ex; \
