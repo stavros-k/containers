@@ -23,17 +23,17 @@
     {
       enabled: true,
       matchManagers: ["dockerfile"],
-      updateTypes: ["patch", "minor", "major", "digest"],
+      matchUpdateTypes: ["patch", "minor", "major", "digest"],
     },
     {
       enabled: true,
       matchDatasources: ["jenkins-plugins"],
-      updateTypes: ["patch", "minor", "major", "pin", "digest"],
+      matchUpdateTypes: ["patch", "minor", "major", "pin", "digest"],
     },
     {
       enabled: true,
       matchDatasources: ["github-releases"],
-      updateTypes: ["patch", "minor", "major"],
+      matchUpdateTypes: ["patch", "minor", "major"],
     },
     {
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
