@@ -88,4 +88,4 @@ COPY --chmod=755 ./scripts/occ /usr/bin/occ
 COPY --chmod=755 ./scripts/php-cron /php-cron
 
 # Cron daemon
-COPY --chmod=755 ./scripts/run-cron-daemon.sh /run-cron-daemon.sh
+COPY --chmod=755 ./scripts/cron.sh /cron.sh
