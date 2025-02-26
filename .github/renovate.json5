@@ -11,7 +11,7 @@
   assignAutomerge: true,
   gitAuthor: "stavros-k <s.kois@outlook.com>",
 
-  // Functinality
+  // Functionality
   baseBranches: ["master"],
   rebaseWhen: "conflicted",
   pinDigests: true,
@@ -21,15 +21,21 @@
   commitMessageExtra: "to {{newVersion}}",
   packageRules: [
     {
+      enabled: true,
       matchManagers: ["dockerfile"],
       updateTypes: ["patch", "minor", "major", "digest"],
-      enabled: true,
     },
     {
+      enabled: true,
       matchDatasources: ["jenkins-plugins"],
-      updateTypes: ["patch","minor","major","pin","digest"],
-      enabled: true
+      updateTypes: ["patch", "minor", "major", "pin", "digest"],
     },
+    {
+      enabled: true,
+      matchDatasources: ["github-releases"],
+      updateTypes: ["patch", "minor", "major"],
+    },
+    }
     {
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
