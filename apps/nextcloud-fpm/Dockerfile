@@ -66,8 +66,6 @@ ENV SUPERCRONIC_VERSION=v0.2.33
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/supercronic-linux-amd64
 RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && \
     chmod +x /usr/local/bin/supercronic
-COPY --chmod=755 ./scripts/run-cron-daemon.sh /run-cron-daemon.sh
-COPY --chmod=755 ./scripts/php-cron /php-cron
 
 # See https://github.com/nextcloud/docker/issues/763
 RUN set -ex; \
@@ -83,6 +81,11 @@ COPY --chmod=755 ./scripts/healthcheck.sh /healthcheck.sh
 
 # Copy post-install script to the `before-starting` hooks dir so nextcloud will run those automatically.
 COPY --chmod=755 ./scripts/post-install.sh /docker-entrypoint-hooks.d/before-starting/10-post-install.sh
-
+# Wrapper for nextcloud occ
 COPY --chmod=755 ./scripts/occ /usr/bin/occ
-COPY --chmod=755 ./scripts/cron.sh /cron.sh
+
+# Wrapper for nextcloud cron.php
+COPY --chmod=755 ./scripts/php-cron /php-cron
+
+# Cron daemon
+COPY --chmod=755 ./scripts/run-cron-daemon.sh /run-cron-daemon.sh
