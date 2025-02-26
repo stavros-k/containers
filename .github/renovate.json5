@@ -35,7 +35,6 @@
       matchDatasources: ["github-releases"],
       updateTypes: ["patch", "minor", "major"],
     },
-    }
     {
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
