@@ -1,5 +1,5 @@
 #!/bin/bash
 curr_dir="$1"
-VERSION=$(cat $curr_dir/Dockerfile | grep "FROM nextcloud:" | cut -d ':' -f2 | cut -d '@' -f1)
+VERSION=$(grep "FROM nextcloud:" "$curr_dir"/Dockerfile | cut -d ':' -f2 | cut -d '@' -f1)
 
 echo "$VERSION"

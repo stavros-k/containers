@@ -1,7 +1,7 @@
 #!/bin/bash
 curr_dir="$1"
 
-curr_commit="$(cat "$curr_dir/Dockerfile" | grep "go install github.com/h2non/imaginary" | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f3 | cut -d '@' -f2)"
+curr_commit="$(grep "go install github.com/h2non/imaginary" "$curr_dir/Dockerfile" | sed -e 's/^[[:space:]]*//' | cut -d ' ' -f3 | cut -d '@' -f2)"
 imaginary_commit="$(git ls-remote https://github.com/h2non/imaginary.git refs/heads/master | cut -f1)"
 
 if [ "$imaginary_commit" = "$curr_commit" ]; then

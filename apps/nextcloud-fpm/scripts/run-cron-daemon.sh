@@ -7,6 +7,6 @@ while [ ! -f "/var/www/html/lib/versioncheck.php" ]; do
   sleep 2m
 done
 
-cron_file=${CRON_TAB_FILE:-/crontasks}
+cron_file="${CRON_TAB_FILE:-/crontasks}"
 
-/usr/local/bin/supercronic ${cron_file}
+/usr/local/bin/supercronic "${cron_file}"

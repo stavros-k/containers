@@ -5,6 +5,7 @@ echo ''
 ### Source all configure-scripts. ###
 for script in /configure-scripts/*.sh; do
   echo "Sourcing $script"
+  # shellcheck disable=SC1090
   . "$script"
 done
 
@@ -61,7 +62,7 @@ fi
 
 echo ''
 # If Imaginary is disabled but previews are enabled, configure only previews
-if [ "${NX_PREVIEWS:-"true"}" = "true" ] ; then
+if [ "${NX_PREVIEWS:-"true"}" = "true" ]; then
   echo '# Preview Generator is enabled.'
   occ_preview_generator_install
 else

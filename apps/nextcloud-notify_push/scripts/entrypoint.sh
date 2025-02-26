@@ -1,5 +1,5 @@
 #!/bin/ash
-
+# shellcheck shell=dash
 [ -n "${NEXTCLOUD_URL:?"WARN: NEXTCLOUD_URL is unset"}" ]
 
 HPB_HOST="${HPB_HOST:-kube.internal.healthcheck}"

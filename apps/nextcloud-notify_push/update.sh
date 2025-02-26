@@ -11,7 +11,7 @@ notify_push_version="$(
 		| tail -1
 )"
 
-curr_version="$(cat "$curr_dir/Dockerfile" | grep "ENV NOTIFY_PUSH_VERSION" | cut -d ' ' -f3)"
+curr_version="$(grep "ENV NOTIFY_PUSH_VERSION" "$curr_dir/Dockerfile" | cut -d ' ' -f3)"
 
 if [ "$notify_push_version" = "$curr_version" ]; then
 	echo 'Already up-to-date'
