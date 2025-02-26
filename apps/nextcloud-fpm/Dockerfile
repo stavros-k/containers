@@ -61,10 +61,11 @@ RUN set -ex; \
     # Remove the apt cache
     rm -rf /var/lib/apt/lists/*
 
-# renovate: datasource=github-releases packageName=aptible/supercronic depName=aptible/supercronic
+# renovate: datasource=github-releases depName=aptible/supercronic
 ENV SUPERCRONIC_VERSION=v0.2.27
 ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/supercronic-linux-amd64
-RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && chmod +x /usr/local/bin/supercronic
+RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && \
+    chmod +x /usr/local/bin/supercronic
 COPY --chmod=755 ./scripts/run-cron-daemon.sh /run-cron-daemon.sh
 COPY --chmod=755 ./scripts/nc-cron.sh /nc-cron.sh
 
