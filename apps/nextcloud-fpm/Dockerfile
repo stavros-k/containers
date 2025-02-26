@@ -61,6 +61,12 @@ RUN set -ex; \
     # Remove the apt cache
     rm -rf /var/lib/apt/lists/*
 
+# renovate: datasource=github-releases depName=supercronic
+ENV SUPERCRONIC_VERSION=v0.2.27
+ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/supercronic-linux-amd64
+RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && chmod +x /usr/local/bin/supercronic
+COPY --chmod=755 ./scripts/run-cron.sh /run-cron.sh
+
 # See https://github.com/nextcloud/docker/issues/763
 RUN set -ex; \
     \
