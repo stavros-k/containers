@@ -11,6 +11,10 @@ on:
     paths:
       - apps/**
 
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
   hadolint:
     name: Run Linters
