@@ -7,7 +7,6 @@ RUN apk add --no-cache ca-certificates curl
 # renovate: datasource=github-releases depName=nextcloud/notify_push
 ENV NOTIFY_PUSH_VERSION 1.0.0
 
-SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 RUN set -ex; \
 	arch="x86_64"; \
 	triplet="unknown-linux-musl"; \
