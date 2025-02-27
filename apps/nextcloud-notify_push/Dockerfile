@@ -4,7 +4,7 @@ SHELL ["/bin/ash", "-eo", "pipefail", "-c"]
 # hadolint ignore=DL3018
 RUN apk add --no-cache ca-certificates curl
 
-# https://github.com/nextcloud/notify_push/releases
+# renovate: datasource=github-releases depName=nextcloud/notify_push
 ENV NOTIFY_PUSH_VERSION 1.0.0
 
 SHELL ["/bin/ash", "-eo", "pipefail", "-c"]

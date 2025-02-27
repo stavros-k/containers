@@ -1,8 +1,8 @@
 #!/bin/ash
 # shellcheck shell=dash
-[ -n "${NEXTCLOUD_URL:?"WARN: NEXTCLOUD_URL is unset"}" ]
+[ -n "${NEXTCLOUD_URL:?"NEXTCLOUD_URL is unset"}" ]
 
-HPB_HOST="${HPB_HOST:-kube.internal.healthcheck}"
+HPB_HOST="${HPB_HOST:-docker.internal.healthcheck}"
 
 echo "Waiting Nextcloud [$NEXTCLOUD_URL] to be installed and ready. Sleeping for 3s..."
 until curl -m 5 -k -s -H "Host: $HPB_HOST" "$NEXTCLOUD_URL/status.php" | grep -q '"installed":true'; do

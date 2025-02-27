@@ -3,8 +3,8 @@ name: Update
 on:
   workflow_dispatch:
   schedule:
-      # Run every day at midnight
-    - cron: '0 0 * * *'
+    # Run every day at midnight
+    - cron: "0 0 * * *"
 
 jobs:
   update:
@@ -15,21 +15,19 @@ jobs:
     strategy:
       matrix:
         containers:
-          - app: nextcloud-fpm
-          - app: nextcloud-notify_push
           - app: nextcloud-imaginary
     steps:
-    - name: Checkout code
-      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
 
-    - name: Run script
-      run: |
-        echo "Running update script for ${{ matrix.containers.app }}"
-        script="apps/${{ matrix.containers.app }}/update.sh"
-        if [ -f "$script" ]; then
-          "$script" ./apps/${{ matrix.containers.app }}
-        fi
+      - name: Run script
+        run: |
+          echo "Running update script for ${{ matrix.containers.app }}"
+          script="apps/${{ matrix.containers.app }}/update.sh"
+          if [ -f "$script" ]; then
+            "$script" ./apps/${{ matrix.containers.app }}
+          fi
 
-    - uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # v5
-      with:
-        commit_message: Update ${{ matrix.containers.app }}
+      - uses: stefanzweifel/git-auto-commit-action@e348103e9026cc0eee72ae06630dbe30c8bf7a79 # v5
+        with:
+          commit_message: Update ${{ matrix.containers.app }}
