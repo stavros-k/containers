@@ -13,6 +13,9 @@ on:
 
 jobs:
   hadolint:
+    permissions:
+      pull-requests: write
+      contents: read
     name: Run Linters
     runs-on: ubuntu-24.04
     steps:
