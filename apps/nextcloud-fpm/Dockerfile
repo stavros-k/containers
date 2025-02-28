@@ -68,7 +68,7 @@ RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && \
     chmod +x /usr/local/bin/supercronic
 
 # renovate: datasource=github-releases depName=mikefarah/yq
-ENV YQ_VERSION=v4.2.0
+ENV YQ_VERSION=v4.45.1
 RUN wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_amd64 -O /usr/bin/yq &&\
     chmod +x /usr/local/bin/yq
 
