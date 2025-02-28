@@ -26,6 +26,7 @@ EOF
 
 occ_database() {
   echo '## Configuring Database...'
+  echo ''
 
   config_file="${NX_CONFIG_FILE_PATH:-/var/www/html/config/config.php}"
 
@@ -36,6 +37,7 @@ occ_database() {
 
   echo "Using an inline php script to update the database config instead of occ..."
   echo "Reason: https://github.com/nextcloud/server/issues/44924"
+
   update_db_config 'dbtype' 'pgsql' "${config_file}"
   update_db_config 'dbhost' "${NX_POSTGRES_HOST:?"NX_POSTGRES_HOST is unset"}" "${config_file}"
   update_db_config 'dbname' "${NX_POSTGRES_NAME:?"NX_POSTGRES_NAME is unset"}" "${config_file}"

@@ -1,6 +1,8 @@
 #!/bin/sh
 occ_collabora_install() {
   echo '## Configuring Collabora...'
+  echo ''
+
   install_app richdocuments
 
   occ config:app:set richdocuments wopi_url --value="${NX_COLLABORA_URL:?"NX_COLLABORA_URL is unset"}"
@@ -10,6 +12,8 @@ occ_collabora_install() {
 
 occ_collabora_remove() {
   echo '## Removing Collabora Configuration...'
+  echo ''
+
   remove_app richdocuments
 
   occ config:app:delete richdocuments wopi_url
