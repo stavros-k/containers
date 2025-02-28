@@ -1,17 +1,12 @@
 {
-  // General
   enabled: true,
   dependencyDashboard: true,
   dependencyDashboardTitle: "🤖 Renovate Dashboard",
   timezone: "Europe/Athens",
-
-  // People
   assigneesFromCodeOwners: true,
   reviewersFromCodeOwners: true,
   assignAutomerge: true,
   gitAuthor: "stavros-k <s.kois@outlook.com>",
-
-  // Functionality
   baseBranches: ["master"],
   rebaseWhen: "conflicted",
   pinDigests: true,
@@ -39,7 +34,6 @@
       matchUpdateTypes: ["minor", "patch", "pin", "digest"],
       automerge: true,
     },
-    // Labels
     {
       matchBaseBranches: ["master"],
       addLabels: ["master"],
@@ -63,6 +57,7 @@
   ],
   customManagers: [
     {
+      customType: "regex",
       fileMatch: ["Dockerfile"],
       matchStrings: [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)",
