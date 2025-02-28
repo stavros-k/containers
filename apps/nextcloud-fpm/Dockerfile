@@ -63,13 +63,14 @@ RUN set -ex; \
 
 # renovate: datasource=github-releases depName=aptible/supercronic
 ENV SUPERCRONIC_VERSION=v0.2.33
-ENV SUPERCRONIC_URL=https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/supercronic-linux-amd64
-RUN curl -fsSL ${SUPERCRONIC_URL} -o /usr/local/bin/supercronic && \
+ENV SUPERCRONIC_URL="https://github.com/aptible/supercronic/releases/download/${SUPERCRONIC_VERSION}/supercronic-linux-amd64"
+RUN curl -fsSL "${SUPERCRONIC_URL}" -o /usr/local/bin/supercronic && \
     chmod +x /usr/local/bin/supercronic
 
 # renovate: datasource=github-releases depName=mikefarah/yq
 ENV YQ_VERSION=v4.45.1
-RUN wget https://github.com/mikefarah/yq/releases/download/${VERSION}/yq_linux_amd64 -O /usr/bin/yq &&\
+ENV YQ_URL="https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64"
+RUN curl -fsSL "${SUPERCRONIC_URL}" -o /usr/bin/yq &&\
     chmod +x /usr/local/bin/yq
 
 # See https://github.com/nextcloud/docker/issues/763
