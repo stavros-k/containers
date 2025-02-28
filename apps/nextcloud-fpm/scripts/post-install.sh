@@ -14,8 +14,14 @@ echo ''
 echo 'Executing injected scripts...'
 echo '++++++++++++++++++++++++++++++++++++++++++++++++++'
 echo ''
+
 ### Start Configuring ###
 
+# Configure Database
+echo ''
+occ_database
+
+echo ''
 # Configure Redis
 if [ "${NX_REDIS:-"true"}" = "true" ]; then
   echo '# Redis is enabled.'
@@ -25,23 +31,24 @@ else
   occ_redis_remove
 fi
 
-# Configure Database
 echo ''
-occ_database
 # Configure General Settings
-echo ''
 occ_general
+
+echo ''
 # Configure Logging
-echo ''
 occ_logging
+
+echo ''
 # Configure URLs (Trusted Domains, Trusted Proxies, Overwrites, etc)
-echo ''
 occ_urls
-# Configure Expiration/Retention Days
+
 echo ''
+# Configure Expiration/Retention Days
 occ_expire_retention
 
 echo ''
+# Configure Notify Push
 if [ "${NX_NOTIFY_PUSH:-"true"}" = "true" ]; then
   echo '# Notify Push is enabled.'
   occ_notify_push_install
@@ -72,6 +79,7 @@ else
 fi
 
 echo ''
+# Configure ClamAV
 if [ "${NX_CLAMAV:-"false"}" = "true" ]; then
   echo '# ClamAV is enabled.'
   occ_clamav_install
@@ -81,6 +89,7 @@ else
 fi
 
 echo ''
+# Configure Collabora
 if [ "${NX_COLLABORA:-"false"}" = "true" ]; then
   echo '# Collabora is enabled.'
   occ_collabora_install
@@ -90,6 +99,7 @@ else
 fi
 
 echo ''
+# Configure OnlyOffice
 if [ "${NX_ONLYOFFICE:-"false"}" = "true" ]; then
   echo '# OnlyOffice is enabled.'
   occ_onlyoffice_install
@@ -104,6 +114,8 @@ else
   occ config:system:delete allow_local_remote_servers
 fi
 
+echo ''
+# Perform cleanups
 occ_cleanups
 
 echo ''
