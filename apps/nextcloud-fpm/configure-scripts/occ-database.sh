@@ -10,7 +10,7 @@ update_db_config() {
 
   # We Base64 encode and decode the value to safely handle special characters
   php <<EOF
-  <?php
+<?php
     \$key = '$key';
     \$value = '$value';
     \$filepath = '$filepath';
@@ -34,15 +34,14 @@ occ_database() {
     exit 1
   fi
 
+  echo "Using an inline php script to update the database config instead of occ..."
+  echo "Reason: https://github.com/nextcloud/server/issues/44924"
   update_db_config 'dbtype' 'pgsql' "${config_file}"
   update_db_config 'dbhost' "${NX_POSTGRES_HOST:?"NX_POSTGRES_HOST is unset"}" "${config_file}"
   update_db_config 'dbname' "${NX_POSTGRES_NAME:?"NX_POSTGRES_NAME is unset"}" "${config_file}"
   update_db_config 'dbuser' "${NX_POSTGRES_USER:?"NX_POSTGRES_USER is unset"}" "${config_file}"
   update_db_config 'dbpassword' "${NX_POSTGRES_PASSWORD:?"NX_POSTGRES_PASSWORD is unset"}" "${config_file}"
   update_db_config 'dbport' "${NX_POSTGRES_PORT:-5432}" "${config_file}"
-
-  # - https://github.com/nextcloud/server/issues/44924
-  # Due to a bug in Nextcloud, you cannot use `occ` to update the db config if you are not connected to the database.
 
   # occ config:system:set dbtype --value="pgsql"
   # occ config:system:set dbhost --value="${NX_POSTGRES_HOST:?"NX_POSTGRES_HOST is unset"}"
