@@ -1,6 +1,6 @@
 FROM nextcloud:31.0.0-fpm@sha256:16650be9154c9d689c9df2772af83a11515e25a9e4aa2933853a70c737e8c3ab
 
-RUN set -ex; \
+RUN set -exo; \
     \
     apt-get update; \
     apt-get install -y --no-install-recommends \
