@@ -2,6 +2,7 @@ FROM nextcloud:31.0.1-fpm@sha256:f277ddde7210f04a47daca3c3a0a6f42ff801c1e31b1f88
 
 # hadolint ignore=DL3008
 # hadolint ignore=DL4006
+# hadolint ignore=SC2086
 RUN set -ex; \
     \
     apt-get update; \
