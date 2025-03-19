@@ -11,7 +11,7 @@ plugins:
       version: "3.2.5"
   - artifactId: workflow-aggregator
     source:
-      version: 600.vb_57cdd26fdd7
+      version: 608.v67378e9d3db_1
   - artifactId: dark-theme
     source:
       version: "524.vd675b_22b_30cb_"
