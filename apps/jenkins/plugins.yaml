@@ -8,7 +8,7 @@ plugins:
       version: 489.vd4b_25144138f
   - artifactId: matrix-auth
     source:
-      version: "3.2.5"
+      version: "3.2.6"
   - artifactId: workflow-aggregator
     source:
       version: 608.v67378e9d3db_1
