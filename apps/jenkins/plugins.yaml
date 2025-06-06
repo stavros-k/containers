@@ -23,7 +23,7 @@ plugins:
       version: 235.v2b_16f8e14918
   - artifactId: job-dsl
     source:
-      version: "1.92"
+      version: "1.93"
   - artifactId: pipeline-utility-steps
     source:
       version: "2.19.0"
