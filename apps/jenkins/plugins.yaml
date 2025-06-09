@@ -14,7 +14,7 @@ plugins:
       version: 608.v67378e9d3db_1
   - artifactId: dark-theme
     source:
-      version: "564.vf07c6a_db_3a_27"
+      version: "567.v9d3ca_a_3142f5"
   - artifactId: blueocean
     source:
       version: "1.27.19"
