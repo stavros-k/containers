@@ -17,7 +17,7 @@ plugins:
       version: "567.v9d3ca_a_3142f5"
   - artifactId: blueocean
     source:
-      version: "1.27.20"
+      version: "1.27.21"
   - artifactId: markdown-formatter
     source:
       version: 235.v2b_16f8e14918
