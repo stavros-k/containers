@@ -111,6 +111,16 @@
 | `NX_ONLYOFFICE_JWT`        | OnlyOffice JWT        | `onlyoffice` |    `jwt_secret`     |  `""`   |  `random_string_of_characters`   |
 | `NX_ONLYOFFICE_JWT_HEADER` | OnlyOffice JWT Header | `onlyoffice` |    `jwt_header`     |  `""`   |         `Authorization`          |
 
+### Talk
+
+| Variable                    | Description            |  App(s)  |    Config Key(s)    | Default |                                      Example                                      |
+| --------------------------- | ---------------------- | :------: | :-----------------: | :-----: | :-------------------------------------------------------------------------------: |
+| `NX_TALK`                   | Enable Talk            |          |                     | `false` |                                      `true`                                       |
+| `NX_TALK_STUN_SERVERS`      | Talk STUN servers      | `spreed` |   `stun_servers`    |  `""`   |                              `stun1:3478 stun2:3478`                              |
+| `NX_TALK_TURN_SERVERS`      | Talk TURN servers      | `spreed` |   `turn_servers`    |  `""`   |                      `turn1,1234,secret turn2,1234,secret2`                       |
+| `NX_TALK_SIGNALING_SERVERS` | Talk Signaling servers | `spreed` | `signaling_servers` |  `""`   | `signal.example.com,true signal2.example.com,false` (true/false for verification) |
+| `NX_TALK_SIGNALING_SECRET`  | Talk Signaling secret  | `spreed` | `signaling_secret`  |  `""`   |                                   `some_secret`                                   |
+
 > Visit Nextcloud official documentation for more information about each `Config key`
 >
 > Also see [config example](https://github.com/nextcloud/server/blob/master/config/config.sample.php)

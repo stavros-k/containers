@@ -58,6 +58,16 @@ else
 fi
 
 echo ''
+# If Talk is enabled, configure it
+if [ "${NX_TALK:-"false"}" = "true" ]; then
+  echo '# Talk is enabled.'
+  occ_talk_install
+else
+  echo '# Talk is disabled.'
+  occ_talk_remove
+fi
+
+echo ''
 # If Imaginary is enabled, previews are forced enabled
 if [ "${NX_IMAGINARY:-"true"}" = "true" ]; then
   NX_PREVIEWS="true"
