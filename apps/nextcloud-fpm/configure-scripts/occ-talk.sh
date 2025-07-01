@@ -7,7 +7,7 @@ occ_talk_install() {
 
   # ie "stun1:3478 stun2:3478"
   occ config:app:delete spreed stun_servers
-  for stun_server in ${NX_TALK_STUN_SERVERS:?"NX_TALK_STUN_SERVERS is unset"}; do
+  for stun_server in ${NX_TALK_STUN_SERVER:?"NX_TALK_STUN_SERVER is unset"}; do
     occ talk:stun:add "$stun_server"
   done
 
