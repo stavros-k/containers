@@ -113,13 +113,15 @@
 
 ### Talk
 
-| Variable                    | Description            |  App(s)  |    Config Key(s)    | Default |                                      Example                                      |
-| --------------------------- | ---------------------- | :------: | :-----------------: | :-----: | :-------------------------------------------------------------------------------: |
-| `NX_TALK`                   | Enable Talk            |          |                     | `false` |                                      `true`                                       |
-| `NX_TALK_STUN_SERVERS`      | Talk STUN servers      | `spreed` |   `stun_servers`    |  `""`   |                              `stun1:3478 stun2:3478`                              |
-| `NX_TALK_TURN_SERVERS`      | Talk TURN servers      | `spreed` |   `turn_servers`    |  `""`   |                      `turn1,1234,secret turn2,1234,secret2`                       |
-| `NX_TALK_SIGNALING_SERVERS` | Talk Signaling servers | `spreed` | `signaling_servers` |  `""`   | `signal.example.com,true signal2.example.com,false` (true/false for verification) |
-| `NX_TALK_SIGNALING_SECRET`  | Talk Signaling secret  | `spreed` | `signaling_secret`  |  `""`   |                                   `some_secret`                                   |
+| Variable                          | Description                  |  App(s)  |    Config Key(s)    | Default |       Example        |
+| --------------------------------- | ---------------------------- | :------: | :-----------------: | :-----: | :------------------: |
+| `NX_TALK`                         | Enable Talk                  |          |                     | `false` |        `true`        |
+| `NX_TALK_STUN_SERVER`             | Talk STUN server             | `spreed` |   `stun_servers`    |  `""`   |     `stun1:3478`     |
+| `NX_TALK_TURN_SERVER`             | Talk TURN server             | `spreed` |   `turn_servers`    |  `""`   |     `turn1:1234`     |
+| `NX_TALK_TURN_SECRET`             | Talk TURN secret             | `spreed` |   `turn_servers`    |  `""`   |    `some_secret`     |
+| `NX_TALK_SIGNALING_SERVER`        | Talk Signaling server        | `spreed` | `signaling_servers` |  `""`   | `signal.example.com` |
+| `NX_TALK_SIGNALING_SERVER_VERIFY` | Talk Signaling server verify | `spreed` | `signaling_servers` | `true`  |       `false`        |
+| `NX_TALK_SIGNALING_SECRET`        | Talk Signaling secret        | `spreed` | `signaling_secret`  |  `""`   |    `some_secret`     |
 
 > Visit Nextcloud official documentation for more information about each `Config key`
 >
