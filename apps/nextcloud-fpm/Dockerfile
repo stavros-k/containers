@@ -1,4 +1,4 @@
-FROM nextcloud:31.0.6-fpm@sha256:d0e57831e3d75d714bf4df155325a158adf4486856f4dbc525d5b6a702ed6fbf
+FROM nextcloud:31.0.6-fpm@sha256:85b223e81f87ed79b0974532f694e2297e3ab372c6b858fe1848b3955747b08a
 
 # hadolint ignore=DL3008
 # hadolint ignore=DL4006
