@@ -53,4 +53,4 @@ plugins:
       version: 1408.vb_7d1f371781d
   - artifactId: metrics
     source:
-      version: 4.2.32-476.v5042e1c1edd7
+      version: 4.2.32-481.v75f035fdc894
