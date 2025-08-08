@@ -5,7 +5,7 @@ plugins:
       version: 1971.vf9280461ea_89
   - artifactId: mailer
     source:
-      version: 509.vc54d23fc427e
+      version: 515.vd788654779b_1
   - artifactId: matrix-auth
     source:
       version: "3.2.7"
