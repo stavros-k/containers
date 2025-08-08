@@ -3,6 +3,9 @@ plugins:
   - artifactId: configuration-as-code
     source:
       version: 1985.vdda_32d0c4ea_b_
+  - artifactId: credentials
+    source:
+      version: 1417.vd854994a_f6b_e
   - artifactId: mailer
     source:
       version: 515.vd788654779b_1
