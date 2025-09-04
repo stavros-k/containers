@@ -1,68 +1,109 @@
-FROM nextcloud:31.0.7-fpm@sha256:b4a97459cda814c868316ca782af777d409c72ffbe59cdcd11ed4a2ec52ed961
+FROM nextcloud:31.0.8-fpm
+
+# Adds SURY PHP repository (This is a workaround because IMAP php extension is no longer available in Debian Trixie)
+# https://github.com/nextcloud/docker/issues/2456
+# https://www.voodoo.business/blog/2025/08/11/trixie-php8-4-imap-missing/
+# https://wiki.debian.org/AdditionalPHPVersions (Quotes "The SURY repository is a reputable repository by web hosting professionals worldwide, but IT'S NOT A OFFICIAL DEBIAN REPOSITORY. You have been warned.")
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends gnupg2 lsb-release \
+    && echo "deb https://packages.sury.org/php $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/sury-php.list \
+    && curl -fsSL https://packages.sury.org/php/apt.gpg | gpg --dearmor -o /etc/apt/trusted.gpg.d/sury-php.gpg \
+    \
+    && apt-get update \
+    # Development files for c-client mail API (used by IMAP)
+    && apt-get install -y --no-install-recommends libc-client-dev \
+    && apt-get dist-clean \
+    \
+    # Block the repository completely for future use
+    && echo "Package: *" > /etc/apt/preferences.d/99-pin-sury \
+    && echo "Pin: origin packages.sury.org" >> /etc/apt/preferences.d/99-pin-sury \
+    && echo "Pin-Priority: -1" >> /etc/apt/preferences.d/99-pin-sury
 
 # hadolint ignore=DL3008
 # hadolint ignore=DL4006
 # hadolint ignore=SC2086
-RUN set -ex; \
+RUN set -ex \
     \
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        jq \
-        nano \
-        procps \
-        ffmpeg \
-        libheif1 \
-        smbclient \
-        libde265-0 \
-        libreoffice\
-        libfcgi-bin \
-        heif-gdk-pixbuf \
-        imagemagick-common \
-    ; \
+    && apt-get update \
+    # Install necessary runtime packages without recommended packages
+    && apt-get install -y --no-install-recommends \
+    # Tool for parsing and manipulating JSON
+    jq \
+    # Simple text editor for the terminal
+    nano \
+    # Utilities for monitoring processes
+    procps \
+    # Multimedia framework for handling audio/video
+    ffmpeg \
+    # Library for HEIF image format support
+    libheif1 \
+    # Client for accessing Windows/Samba file shares
+    smbclient \
+    # Library for H.265/HEVC video format
+    libde265-0 \
+    # Office suite (document, spreadsheet, presentation apps)
+    libreoffice \
+    # FastCGI utilities for web servers
+    libfcgi-bin \
+    # Plugin to display HEIF images in GTK applications
+    heif-gdk-pixbuf \
+    # Common files for ImageMagick (image manipulation tool)
+    imagemagick-common \
     \
-    # This command returns the list of manually installed packages
-    savedAptMark="$(apt-mark showmanual)"; \
+    # Save a list of currently manually installed packages
+    # This will be used later to restore the package state after building
+    && savedAptMark="$(apt-mark showmanual)" \
     \
-    # Install the build dependencies
-    apt-get update; \
-    apt-get install -y --no-install-recommends \
-        libbz2-dev \
-        libkrb5-dev \
-        libc-client-dev \
-        libsmbclient-dev \
-        libmagickcore-dev \
-    ; \
+    # Install build dependencies needed for compiling PHP extensions
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+    # Development files for bzip2 compression
+    libbz2-dev \
+    # Development files for Kerberos authentication
+    libkrb5-dev \
+    # Development files for the SMB client library
+    libsmbclient-dev \
+    # Development files for ImageMagick core functionality
+    libmagickcore-dev \
     \
-    # Configure the IMAP extension to use Kerberos authentication and SSL.
-    docker-php-ext-configure imap --with-kerberos --with-imap-ssl; \
-    # Install the PHP extensions
-    docker-php-ext-install \
-        # Bzip2 Compression Algorithm
-        bz2 \
-        imap \
-    ; \
-    # Install smbclient from PECL
-    pecl install smbclient; \
-    # Enable smbclient extension
-    docker-php-ext-enable smbclient; \
+    # Configure the PHP IMAP extension with additional features
+    # --with-kerberos: Add Kerberos authentication support
+    # --with-imap-ssl: Add SSL encryption support
+    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
+    # Install PHP extensions using the Docker PHP extension installer
+    && docker-php-ext-install \
+    # Adds support for bzip2 compression in PHP
+    bz2 \
+    # Adds support for IMAP mail protocol in PHP
+    imap \
+    # Install the smbclient extension from PECL (PHP Extension Community Library)
+    # This allows PHP to interact with Windows/Samba file shares
+    && pecl install smbclient \
+    # Enable the smbclient extension in PHP
+    && docker-php-ext-enable smbclient \
     \
-    # Reset apt-mark's "manual" list so that "purge --auto-remove" will remove all build dependencies
-    apt-mark auto '.*' > /dev/null; \
-    # Set the packages that were manually installed back to "manual"
-    apt-mark manual $savedAptMark; \
+    # Mark all packages as automatically installed
+    # This prepares for clean-up of packages that were only needed for building
+    && apt-mark auto '.*' > /dev/null \
+    # Restore the packages that were manually installed before we started
+    && apt-mark manual $savedAptMark \
     \
-    ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
-        | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); print so }' \
-        | sort -u \
-        | xargs -r dpkg-query --search \
-        | cut -d: -f1 \
-        | sort -u \
-        | xargs -rt apt-mark manual; \
+    # Find and mark as manually installed any shared libraries that
+    # our PHP extensions depend on, so they don't get removed in the cleanup
+    && ldd "$(php -r 'echo ini_get("extension_dir");')"/*.so \
+    | awk '/=>/ { so = $(NF-1); if (index(so, "/usr/local/") == 1) { next }; gsub("^/(usr/)?", "", so); print so }' \
+    | sort -u \
+    | xargs -rt dpkg-query --search \
+    | cut -d: -f1 \
+    | sort -u \
+    | xargs -rt apt-mark manual \
     \
-    # Remove build dependencies and packages that are no longer needed
-    apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false; \
-    # Remove the apt cache
-    rm -rf /var/lib/apt/lists/*
+    # Remove packages that were only needed for building extensions
+    # -o APT::AutoRemove::RecommendsImportant=false: Also remove recommended packages that are no longer needed
+    && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
+    # Clean up the package cache to reduce the size of the Docker image
+    && apt-get dist-clean
 
 # renovate: datasource=github-releases depName=aptible/supercronic
 ENV SUPERCRONIC_VERSION=v0.2.34
