@@ -5,7 +5,7 @@ plugins:
       version: 1985.vdda_32d0c4ea_b_
   - artifactId: credentials
     source:
-      version: 1419.v2337d1ceceef
+      version: 1442.v292d4234d1b_f
   - artifactId: mailer
     source:
       version: 522.va_995fa_cfb_8b_d
