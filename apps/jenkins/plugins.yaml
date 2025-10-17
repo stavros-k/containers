@@ -56,4 +56,4 @@ plugins:
       version: 1412.v3f305a_fb_a_117
   - artifactId: metrics
     source:
-      version: 4.2.37-487.v7d6048d8733c
+      version: 4.2.37-489.vb_6db_69b_ce753
