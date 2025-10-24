@@ -57,3 +57,6 @@ plugins:
   - artifactId: metrics
     source:
       version: 4.2.37-489.vb_6db_69b_ce753
+  - artifactId: ws-cleanup
+    source:
+      version: 0.49
