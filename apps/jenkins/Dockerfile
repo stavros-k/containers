@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.536-jdk17@sha256:f3dc26c7375d1c1d0409f9e70f8c1f3991c594986b47f20ce5db96a579440fef
+FROM jenkins/jenkins:2.537-jdk17@sha256:1cc47c1e52a32eb19ad85e1a3a5522dd8df944e9f8016217e65ef212ab44d703
 
 ENV CASC_JENKINS_CONFIG="/var/jenkins_home/casc_configs"
 ENV CASC_MERGE_STRATEGY="errorOnConflict"
