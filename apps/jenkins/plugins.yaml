@@ -20,7 +20,7 @@ plugins:
       version: "574.va_19f05d54df5"
   - artifactId: blueocean
     source:
-      version: "1.27.23"
+      version: "1.27.24"
   - artifactId: markdown-formatter
     source:
       version: 312.va_b_3dea_1413a_f
