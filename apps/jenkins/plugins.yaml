@@ -60,3 +60,6 @@ plugins:
   - artifactId: ws-cleanup
     source:
       version: 0.49
+  - artifactId: script-security
+    source:
+      version: 1385.v7d2d9ec4d909
