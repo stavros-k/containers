@@ -5,7 +5,7 @@ plugins:
       version: 2006.v001a_2ca_6b_574
   - artifactId: credentials
     source:
-      version: 1460.v48765a_c7d849
+      version: 1462.v21d5e767269e
   - artifactId: mailer
     source:
       version: 525.v2458b_d8a_1a_71
