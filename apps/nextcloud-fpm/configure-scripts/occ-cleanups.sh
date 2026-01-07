@@ -7,6 +7,6 @@ occ_cleanups() {
   echo 'This is known to cause issues with containerized Nextcloud.'
   remove_app richdocumentscode
 
-  echo '### Making sure the usage survey app is not installed...'
-  remove_app survey_client
+  echo '### Making sure the usage survey app is disabled...'
+  disable_app survey_client
 }

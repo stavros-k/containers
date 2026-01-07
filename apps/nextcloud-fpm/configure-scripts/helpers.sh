@@ -56,6 +56,27 @@ remove_app() {
   echo "App [$app_name] removed successfully!"
 }
 
+disable_app() {
+  app_name="${1:?"app_name is unset"}"
+
+  echo "Disabling [$app_name]..."
+
+  # Here the app is either enabled or not installed. Skip if not installed
+  enabled_apps=$(occ app:list | yq '.Enabled')
+  if ! echo "$enabled_apps" | grep -wq "$app_name"; then
+    echo "App [$app_name] is not installed! Skipping..."
+    return 0
+  fi
+
+  # Here the app is installed and enabled. Remove it
+  if ! occ app:disable "$app_name"; then
+    echo "Failed to disable [$app_name]..."
+    exit 1
+  fi
+
+  echo "App [$app_name] disabled successfully!"
+}
+
 # Sets a space separated values into the specified list, by default for system settings
 # Pass a 3rd argument for a different app
 set_list() {
