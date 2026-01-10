@@ -17,7 +17,4 @@ occ_general() {
 
   echo '### Configuring Maintenance Window Start...'
   occ config:system:set maintenance_window_start --type=integer --value="${NX_MAINTENANCE_WINDOW_START:-100}"
-
-  echo '## Configuring the cache dir...'
-  export XDG_CACHE_HOME=/var/www/html/.cache
 }
