@@ -46,6 +46,8 @@ RUN set -ex \
     libreoffice \
     # FastCGI utilities for web servers
     libfcgi-bin \
+    # PostScript and PDF interpreter and converter
+    ghostscript \
     # Plugin to display HEIF images in GTK applications
     heif-gdk-pixbuf \
     # Common files for ImageMagick (image manipulation tool)
