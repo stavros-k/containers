@@ -18,9 +18,9 @@ plugins:
   - artifactId: dark-theme
     source:
       version: "574.va_19f05d54df5"
-  - artifactId: blueocean
+  - artifactId: pipeline-graph-view
     source:
-      version: "1.27.25"
+      version: 752.v01113dc49630
   - artifactId: markdown-formatter
     source:
       version: 312.va_b_3dea_1413a_f
