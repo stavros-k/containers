@@ -1,4 +1,4 @@
-FROM nextcloud:32.0.4-fpm@sha256:fa4274c56ea8695133a2d77e1465d677402d25db0860cfc466d0a53f06a613e5
+FROM nextcloud:32.0.5-fpm@sha256:a1b6014f414cdc0e89114c3adf88d8f89a4207f1a08ccb822c2605a883b78b79
 
 # Adds SURY PHP repository (This is a workaround because IMAP php extension is no longer available in Debian Trixie)
 # https://github.com/nextcloud/docker/issues/2456
