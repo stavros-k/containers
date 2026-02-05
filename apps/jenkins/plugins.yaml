@@ -62,4 +62,4 @@ plugins:
       version: 0.49
   - artifactId: script-security
     source:
-      version: 1385.v7d2d9ec4d909
+      version: 1399.ve6a_66547f6e1
