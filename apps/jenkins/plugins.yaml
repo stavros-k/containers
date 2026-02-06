@@ -5,7 +5,7 @@ plugins:
       version: 2037.v8e5349845172
   - artifactId: credentials
     source:
-      version: 1480.v2246fd131e83
+      version: 1487.va_d001ede2c31
   - artifactId: mailer
     source:
       version: 525.v2458b_d8a_1a_71
