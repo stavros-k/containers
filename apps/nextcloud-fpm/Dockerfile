@@ -16,10 +16,10 @@ RUN set -ex \
     && apt-get install -y --no-install-recommends libc-client-dev \
     && apt-get dist-clean \
     \
-  # Block the repository completely for future use
-  && echo "Package: *" > /etc/apt/preferences.d/99-pin-sury \
-  && echo "Pin: origin packages.sury.org" >> /etc/apt/preferences.d/99-pin-sury \
-  && echo "Pin-Priority: -1" >> /etc/apt/preferences.d/99-pin-sury
+    # Block the repository completely for future use
+    && echo "Package: *" > /etc/apt/preferences.d/99-pin-sury \
+    && echo "Pin: origin packages.sury.org" >> /etc/apt/preferences.d/99-pin-sury \
+    && echo "Pin-Priority: -1" >> /etc/apt/preferences.d/99-pin-sury
 
 # hadolint ignore=DL3008
 # hadolint ignore=DL4006
