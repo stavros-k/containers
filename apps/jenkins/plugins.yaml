@@ -8,7 +8,7 @@ plugins:
       version: 1492.vcfb_5dc894a_e3
   - artifactId: mailer
     source:
-      version: 525.v2458b_d8a_1a_71
+      version: 534.v1b_36f5864073
   - artifactId: matrix-auth
     source:
       version: "3.2.9"
