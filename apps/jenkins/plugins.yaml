@@ -17,7 +17,7 @@ plugins:
       version: 608.v67378e9d3db_1
   - artifactId: dark-theme
     source:
-      version: "574.va_19f05d54df5"
+      version: "652.vea_da_dfea_e769"
   - artifactId: pipeline-graph-view
     source:
       version: 803.vb_88f7a_a_1cb_47
