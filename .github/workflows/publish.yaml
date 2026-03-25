@@ -91,7 +91,7 @@ jobs:
 
       - name: Log in to the Container registry
         if: steps.detect_changes.outputs.skip == 'false'
-        uses: docker/login-action@292fe2d7ee5389e283d2c71e565819146798c2e2
+        uses: docker/login-action@a0d57b8e43b6ef1cca20559d68cec2227e63fccd
         with:
           registry: ghcr.io
           username: stavros-k
