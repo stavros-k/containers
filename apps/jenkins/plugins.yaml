@@ -5,7 +5,7 @@ plugins:
       version: 2053.vb_0da_47381a_25
   - artifactId: credentials
     source:
-      version: 1497.v6ea_e85a_ce970
+      version: 1498.vd852f8831d79
   - artifactId: mailer
     source:
       version: 525.v2458b_d8a_1a_71
