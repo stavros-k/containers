@@ -41,7 +41,7 @@ plugins:
       version: 679.v74133da_b_435a_
   - artifactId: skip-notifications-trait
     source:
-      version: 576.v7a_67396e2e0b_
+      version: 625.vb_f5e11e9b_158
   - artifactId: oic-auth
     source:
       version: "4.668.v653c6b_c6cb_f5"
