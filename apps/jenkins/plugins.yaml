@@ -53,7 +53,7 @@ plugins:
       version: 1.0.6
   - artifactId: lockable-resources
     source:
-      version: 1509.va_6b_5b_5cb_0b_40
+      version: 1515.v380548282a_59
   - artifactId: metrics
     source:
       version: 4.2.37-494.v06f9a_939d33a_
