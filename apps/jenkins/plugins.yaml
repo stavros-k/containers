@@ -47,7 +47,7 @@ plugins:
       version: "4.690.v5821cf665e43"
   - artifactId: s3
     source:
-      version: 519.v0228461f2b_e0
+      version: 520.v4381b_80b_f969
   - artifactId: ansicolor
     source:
       version: 1.0.6
