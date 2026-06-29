@@ -20,7 +20,7 @@ plugins:
       version: "652.vea_da_dfea_e769"
   - artifactId: pipeline-graph-view
     source:
-      version: 951.v95f7d03ce068
+      version: 953.v23894ccf0079
   - artifactId: markdown-formatter
     source:
       version: 338.v5fe99848b_193
