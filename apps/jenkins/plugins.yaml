@@ -23,7 +23,7 @@ plugins:
       version: 953.v23894ccf0079
   - artifactId: markdown-formatter
     source:
-      version: 338.v5fe99848b_193
+      version: 346.v3c6828ddd39e
   - artifactId: job-dsl
     source:
       version: "1.93"
