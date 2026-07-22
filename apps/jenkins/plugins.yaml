@@ -2,7 +2,7 @@ plugins:
   # Only list explicitly installed plugins, Do not list dependencies
   - artifactId: configuration-as-code
     source:
-      version: 2100.vb_fd699d2a_09c
+      version: 2103.vd6f93c3e714a_
   - artifactId: credentials
     source:
       version: 1506.v948b_b_b_7dec44
