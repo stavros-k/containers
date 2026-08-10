@@ -23,7 +23,7 @@ plugins:
       version: 980.vb_db_0b_e5f683c
   - artifactId: markdown-formatter
     source:
-      version: 346.v3c6828ddd39e
+      version: 350.v70f9a_06e71fc
   - artifactId: job-dsl
     source:
       version: "1.93"
