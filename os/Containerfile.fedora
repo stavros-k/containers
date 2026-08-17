@@ -4,7 +4,8 @@ FROM quay.io/fedora/fedora-bootc:44
 # neither lands in the final image and there's no cleanup. Mounted narrowly
 # (only this step's inputs) so editing other build scripts doesn't invalidate
 # this expensive layer's cache.
-RUN --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packages.sh \
+RUN \
+  --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packages.sh \
   --mount=type=bind,source=build-rootfs/etc/yum.repos.d,target=/run/build-rootfs/etc/yum.repos.d \
   bash /tmp/packages.sh
 
@@ -13,7 +14,8 @@ RUN --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packag
 # script, kept off the expensive package layer above. Trade-off vs a step per
 # program: bumping any one re-runs them all (both are cheap). set -e so a failed
 # install fails the build.
-RUN --mount=type=bind,source=build-rootfs/scripts/programs,target=/tmp/programs \
+RUN \
+  --mount=type=bind,source=build-rootfs/scripts/programs,target=/tmp/programs \
   set -eu; for s in /tmp/programs/*.sh; do bash "$s"; done
 
 # # --- ssh: keys under /usr so a future image push can rotate them
@@ -28,5 +30,6 @@ COPY rootfs/ /
 # configure.sh: user, sudoers perms, services, boot target, lint. Runs after
 # COPY (touches the copied sudoers) and after packages (enables sddm). Mounted
 # narrowly for the same cache reason as above.
-RUN --mount=type=bind,source=build-rootfs/scripts/configure.sh,target=/tmp/configure.sh \
+RUN \
+  --mount=type=bind,source=build-rootfs/scripts/configure.sh,target=/tmp/configure.sh \
   bash /tmp/configure.sh
