@@ -5,7 +5,6 @@
 # build time via a bind mount (see Containerfile.fedora).
 set -euxo pipefail
 
-# x86_64 only, like arduino-cli.sh — the image build isn't arch-generic.
 # renovate: datasource=github-releases depName=zed-industries/zed
 version=1.15.0
 tarball="zed-linux-x86_64.tar.gz"
