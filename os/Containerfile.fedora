@@ -13,6 +13,11 @@ RUN --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packag
 RUN --mount=type=bind,source=build-rootfs/scripts/arduino-cli.sh,target=/tmp/arduino-cli.sh \
   bash /tmp/arduino-cli.sh
 
+# zed: pinned upstream tarball (not in any repo). Its own step for the same cache
+# reason as arduino-cli above.
+RUN --mount=type=bind,source=build-rootfs/scripts/zed.sh,target=/tmp/zed.sh \
+  bash /tmp/zed.sh
+
 # # --- ssh: keys under /usr so a future image push can rotate them
 # COPY root.keys /usr/etc-system/root.keys
 # RUN chmod 0600 /usr/etc-system/root.keys && \

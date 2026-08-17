@@ -23,10 +23,13 @@ pkgs=(
   chromium              # browser
   openssh-server        # remote access
   NetworkManager-wifi   # Wi-Fi backend for NetworkManager (pulls wpa_supplicant)
-  mesa-dri-drivers      # GPU drivers
+  mesa-dri-drivers      # GPU drivers (OpenGL)
+  mesa-vulkan-drivers   # Vulkan drivers — Zed renders via Vulkan, won't start without one
+  unclutter-xfixes      # hides the mouse cursor on inactivity/touch (X11)
 
   ghostty               # terminal (from the bind-mounted COPR repo scottames/ghostty)
-  code                  # VS Code (from the bind-mounted Microsoft repo)
+  # Zed (the editor) is installed from its pinned upstream tarball by zed.sh,
+  # not from a repo — see Containerfile.fedora.
 )
 
 dnf -y --setopt=reposdir="$(IFS=,; echo "${reposdir[*]}")" install "${pkgs[@]}"

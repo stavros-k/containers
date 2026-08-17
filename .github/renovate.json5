@@ -64,5 +64,17 @@
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
+    {
+      // shell install scripts (os/build-rootfs/scripts/*.sh) that pin a bare
+      // `version=…`. extractVersion strips the leading v from the GitHub tag so
+      // the bump is written back bare, keeping URLs and tarball names correct.
+      customType: "regex",
+      fileMatch: [".*\\.sh$"],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sversion=(?<currentValue>.*)",
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+      extractVersion: "^v?(?<version>.+)$",
+    },
   ],
 }

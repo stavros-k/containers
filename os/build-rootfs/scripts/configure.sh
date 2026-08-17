@@ -18,6 +18,11 @@ systemctl enable sddm sshd bootc-fetch-apply-updates.timer
 # boot to the graphical target; SDDM autologins the kiosk user into Plasma (X11)
 systemctl set-default graphical.target
 
+# timezone. Set the image default by symlinking /etc/localtime the way
+# timedatectl would; it stays changeable at runtime (timedatectl set-timezone).
+# Relative target so the link resolves against the deployment root, not the host.
+ln -sf ../usr/share/zoneinfo/Europe/Athens /etc/localtime
+
 # System-wide KDE defaults. Merged in with kwriteconfig6 rather than COPY'd so
 # Fedora's other defaults in kdeglobals are preserved.
 #

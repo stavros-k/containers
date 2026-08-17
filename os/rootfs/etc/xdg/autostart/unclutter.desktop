@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Hide idle cursor
+Comment=Hide the mouse pointer after inactivity or on touch (unclutter-xfixes)
+# --timeout 3: hide after 3s idle. --hide-on-touch: hide immediately on a touch
+# tap. --ignore-scrolling: scrolling doesn't unhide. --jitter 10: ignore tiny
+# pointer noise. X11 only, which is what the Plasma session runs.
+Exec=unclutter --timeout 3 --jitter 10 --ignore-scrolling --hide-on-touch
+X-KDE-autostart-phase=2
+NoDisplay=true
