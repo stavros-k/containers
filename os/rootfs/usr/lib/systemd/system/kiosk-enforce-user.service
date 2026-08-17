@@ -1,0 +1,13 @@
+[Unit]
+Description=Reassert image-owned kiosk-home files over local drift
+# the home-dir skeleton (tmpfiles) must exist first; finish before autologin
+After=systemd-tmpfiles-setup.service
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/lib/kiosk/enforce.sh /usr/share/kiosk/enforce/user /var/home/kiosk kiosk:kiosk
+
+[Install]
+WantedBy=multi-user.target

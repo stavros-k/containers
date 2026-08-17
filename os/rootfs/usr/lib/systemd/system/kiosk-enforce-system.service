@@ -1,0 +1,13 @@
+[Unit]
+Description=Reassert image-owned system config over local drift
+# be in place before anything reads the enforced files (SDDM, etc.)
+After=local-fs.target
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/lib/kiosk/enforce.sh /usr/share/kiosk/enforce/system / root:root
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,5 @@
+[General]
+TerminalApplication[$i]=ghostty
+
+[KDE]
+LookAndFeelPackage[$i]=org.kde.breezedark.desktop

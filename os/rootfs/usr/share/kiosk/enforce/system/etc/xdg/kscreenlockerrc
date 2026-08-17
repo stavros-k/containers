@@ -1,0 +1,3 @@
+[Daemon]
+Autolock[$i]=false
+LockOnResume[$i]=false

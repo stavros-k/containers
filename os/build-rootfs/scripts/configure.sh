@@ -12,8 +12,15 @@ useradd -u 1000 -M -d /var/home/kiosk -G wheel kiosk
 chmod 0440 /etc/sudoers.d/kiosk
 visudo -c
 
-# enable the display manager, ssh, and automatic bootc updates
-systemctl enable sddm sshd bootc-fetch-apply-updates.timer
+# the enforce helper (run by the kiosk-enforce-*.service units) must be executable
+chmod 0755 /usr/lib/kiosk/enforce.sh
+
+# enable the display manager, ssh, automatic bootc updates, and the two enforce
+# units that stamp image-owned config back over any local drift on each boot
+systemctl enable sddm sshd \
+  bootc-fetch-apply-updates.timer \
+  kiosk-enforce-system.service \
+  kiosk-enforce-user.service
 
 # boot to the graphical target; SDDM autologins the kiosk user into Plasma (X11)
 systemctl set-default graphical.target
@@ -22,18 +29,6 @@ systemctl set-default graphical.target
 # timedatectl would; it stays changeable at runtime (timedatectl set-timezone).
 # Relative target so the link resolves against the deployment root, not the host.
 ln -sf ../usr/share/zoneinfo/Europe/Athens /etc/localtime
-
-# System-wide KDE defaults. Merged in with kwriteconfig6 rather than COPY'd so
-# Fedora's other defaults in kdeglobals are preserved.
-#
-# Ghostty is the default terminal (Konsole is gone).
-kwriteconfig6 --file /etc/xdg/kdeglobals --group General --key TerminalApplication ghostty
-
-# Dark theme. startplasma reads this key at login and, when it differs from the
-# theme recorded in the user's ~/.config/kdedefaults, writes the package's
-# defaults (colours, icons, decorations) there. Seeding the home directory at
-# build time isn't an option: /var/home is not carried by the image.
-kwriteconfig6 --file /etc/xdg/kdeglobals --group KDE --key LookAndFeelPackage org.kde.breezedark.desktop
 
 # final sanity check on the composed image
 bootc container lint
