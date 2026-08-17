@@ -28,8 +28,8 @@ pkgs=(
   unclutter-xfixes      # hides the mouse cursor on inactivity/touch (X11)
 
   ghostty               # terminal (from the bind-mounted COPR repo scottames/ghostty)
-  # Zed (the editor) is installed from its pinned upstream tarball by zed.sh,
-  # not from a repo — see Containerfile.fedora.
+  # Zed (the editor) is installed from its pinned upstream tarball by
+  # programs/zed.sh, not from a repo — see Containerfile.fedora.
 )
 
 dnf -y --setopt=reposdir="$(IFS=,; echo "${reposdir[*]}")" install "${pkgs[@]}"

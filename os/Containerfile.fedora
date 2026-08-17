@@ -8,15 +8,13 @@ RUN --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packag
   --mount=type=bind,source=build-rootfs/etc/yum.repos.d,target=/run/build-rootfs/etc/yum.repos.d \
   bash /tmp/packages.sh
 
-# arduino-cli: pinned upstream binary (not in any repo). Its own step so bumping
-# the version doesn't invalidate the expensive package layer above.
-RUN --mount=type=bind,source=build-rootfs/scripts/arduino-cli.sh,target=/tmp/arduino-cli.sh \
-  bash /tmp/arduino-cli.sh
-
-# zed: pinned upstream tarball (not in any repo). Its own step for the same cache
-# reason as arduino-cli above.
-RUN --mount=type=bind,source=build-rootfs/scripts/zed.sh,target=/tmp/zed.sh \
-  bash /tmp/zed.sh
+# programs: pinned upstream binaries/tarballs (not in any repo), one install
+# script each. A single step bind-mounts the whole programs/ dir and runs every
+# script, kept off the expensive package layer above. Trade-off vs a step per
+# program: bumping any one re-runs them all (both are cheap). set -e so a failed
+# install fails the build.
+RUN --mount=type=bind,source=build-rootfs/scripts/programs,target=/tmp/programs \
+  set -eu; for s in /tmp/programs/*.sh; do bash "$s"; done
 
 # # --- ssh: keys under /usr so a future image push can rotate them
 # COPY root.keys /usr/etc-system/root.keys
