@@ -71,7 +71,7 @@
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sversion=(?<currentValue>.*)",
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
-      extractVersion: "^v?(?<version>.+)$",
+      extractVersionTemplate: "^v?(?<version>.+)$",
     },
   ],
 }
