@@ -5,8 +5,11 @@
 # installed the desktop (it enables sddm).
 set -euxo pipefail
 
-# the one user. -M because /var/home is not carried by the image
-useradd -u 1000 -M -d /var/home/kiosk -G wheel kiosk
+# the one user. Defined once in rootfs/usr/lib/sysusers.d/kiosk.conf and applied
+# here so the built image carries the passwd/group entries; systemd-sysusers
+# reapplies that same file on every boot. No home dir is created either way —
+# /var/home is not carried by the image, tmpfiles.d makes it at boot.
+systemd-sysusers /usr/lib/sysusers.d/kiosk.conf
 
 # sudoers dropped in from rootfs/ must be 0440 and valid
 chmod 0440 /etc/sudoers.d/kiosk

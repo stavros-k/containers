@@ -4,9 +4,14 @@ FROM quay.io/fedora/fedora-bootc:44@sha256:aa286e6cb122f57c68db4e6d23fccc690e1b0
 # neither lands in the final image and there's no cleanup. Mounted narrowly
 # (only this step's inputs) so editing other build scripts doesn't invalidate
 # this expensive layer's cache.
+#
+# Each extra .repo goes straight to the path dnf already reads, one mount per
+# file, so packages.sh needs no reposdir override and keeps finding the base
+# repos wherever the distro moves them. Mounting the whole directory would
+# instead shadow /etc/yum.repos.d and hide those base repos.
 RUN \
   --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packages.sh \
-  --mount=type=bind,source=build-rootfs/etc/yum.repos.d,target=/run/build-rootfs/etc/yum.repos.d \
+  --mount=type=bind,source=build-rootfs/etc/yum.repos.d/ghostty.repo,target=/etc/yum.repos.d/ghostty.repo \
   bash /tmp/packages.sh
 
 # programs: pinned upstream binaries/tarballs (not in any repo), one install
