@@ -47,5 +47,9 @@ rm -rf \
   /var/lib/dnf/* \
   /var/log/dnf5.log* \
   /var/lib/xkb/README.compiled \
-  /var/lib/authselect/checksum \
-  /run/*
+  /var/lib/authselect/checksum
+
+# /run is runtime-only too, but best-effort: the builder keeps its own
+# resolv.conf mounted under /run/systemd, which can't be removed and isn't
+# committed to the layer anyway.
+rm -rf /run/* 2>/dev/null || true
