@@ -23,12 +23,6 @@ RUN \
   --mount=type=bind,source=build-rootfs/scripts/programs,target=/tmp/programs \
   set -eu; for s in /tmp/programs/*.sh; do bash "$s"; done
 
-# # --- ssh: keys under /usr so a future image push can rotate them
-# COPY root.keys /usr/etc-system/root.keys
-# RUN chmod 0600 /usr/etc-system/root.keys && \
-#   echo 'AuthorizedKeysFile /usr/etc-system/%u.keys' \
-#   > /etc/ssh/sshd_config.d/30-auth-system.conf
-
 # static config: copied verbatim so it persists in the image
 COPY rootfs/ /
 
