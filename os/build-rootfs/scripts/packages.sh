@@ -36,18 +36,17 @@ dnf -y install "${pkgs[@]}"
 
 dnf clean all
 
-# bootc wants /var and /run effectively empty in the image: anything left there
-# is applied only on first boot and never again on update, so it silently goes
-# stale (`bootc container lint`, checks var-tmpfiles/var-log/nonempty-run-tmp).
-# Everything removed here is regenerable cache or per-machine state. The dirs
-# that packages still expect to find are recreated on every boot instead, by
-# rootfs/usr/lib/tmpfiles.d/kiosk-var.conf.
-rm -rf \
-  /var/cache/* \
-  /var/lib/dnf/* \
-  /var/log/dnf5.log* \
-  /var/lib/xkb/README.compiled \
-  /var/lib/authselect/checksum
+# Build logs don't belong in the image: content under /var is applied only on
+# first boot and never again on update, so it just goes stale (`bootc container
+# lint`, check var-log). These are pure noise, so nothing has to recreate them.
+#
+# Deliberately NOT clearing /var/cache or /var/lib/dnf. `dnf clean all` above
+# already reclaims ~143 MB; emptying what's left saves under 3 MB compressed on
+# a 2.5 GB image, and only silences the var-tmpfiles warning at the price of a
+# hand-maintained tmpfiles.d list putting the package-owned dirs back. That list
+# has to be re-checked every time the package set changes, so the warning is the
+# better trade — the dirs are empty and their packages are happy to own them.
+rm -f /var/log/dnf5.log*
 
 # /run is runtime-only too, but best-effort: the builder keeps its own
 # resolv.conf mounted under /run/systemd, which can't be removed and isn't
