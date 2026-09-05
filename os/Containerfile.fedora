@@ -1,4 +1,4 @@
-FROM quay.io/fedora/fedora-bootc:44@sha256:778cafb9040cd2fb91d3ae7bf68bff6e775714cdd6ee47cbd9970646c40fd2cf
+FROM quay.io/fedora/fedora-bootc:46@sha256:b45713abee3f6081c9f0212b71ccea56e39f73f0512bcee3083ad76d4cd7aadb
 
 # packages.sh + the third-party repo files are bind-mounted (not copied), so
 # neither lands in the final image and there's no cleanup. Mounted narrowly
