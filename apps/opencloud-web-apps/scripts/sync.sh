@@ -1,8 +1,16 @@
 #!/bin/sh
-# Replaces the OpenCloud Web apps directory with the apps listed in $APPS.
+# Replaces the OpenCloud Web apps directory ($APPS_DIR) with the apps listed in $APPS.
 set -eu
 
-dst=/var/lib/opencloud/web/assets/apps
+dst=${APPS_DIR:-/var/lib/opencloud/web/assets/apps}
+
+# It gets replaced as a whole, so refuse anything that holds more than apps
+for path in "$dst"/*; do
+	if [ -e "$path" ] && [ ! -f "$path/manifest.json" ]; then
+		echo "$dst is not an apps directory, found $path"
+		exit 1
+	fi
+done
 
 rm -rf "$dst.new"
 mkdir -p "$dst.new"
