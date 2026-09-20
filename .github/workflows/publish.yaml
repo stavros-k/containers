@@ -55,6 +55,7 @@ jobs:
           - app: nextcloud-notify_push
           - app: jenkins
           - app: opencloud-web-apps
+          - app: tika-ocr
 
     steps:
       - name: Checkout

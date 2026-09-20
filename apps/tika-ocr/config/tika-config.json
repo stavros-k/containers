@@ -1,0 +1,16 @@
+{
+  "server": {},
+  "parse-context": {
+    "pdf-parser": {
+      "ocr": {
+        "strategy": "AUTO",
+        "strategyAuto": {
+          "totalCharsPerPage": 1000000
+        }
+      }
+    },
+    "tesseract-ocr-parser": {
+      "language": "ell+eng"
+    }
+  }
+}
