@@ -32,7 +32,14 @@ pkgs=(
   # programs/zed.sh, not from a repo — see Containerfile.fedora.
 )
 
-dnf -y install "${pkgs[@]}"
+# Packages kept out of the image. Meant for weak deps the stack drags in that a
+# kiosk never wants; excluding something a listed package hard-requires fails
+# the install, which is the signal to drop it here instead.
+excludes=(
+  plasma-welcome        # first-run wizard popped on login (started by its own kded module)
+)
+
+dnf -y install "${excludes[@]/#/--exclude=}" "${pkgs[@]}"
 
 dnf clean all
 
