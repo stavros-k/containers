@@ -1,0 +1,23 @@
+# Register this machine's Splashtop Streamer with the team, once, unattended.
+# The deploy code comes from the optional build arg (see Containerfile.fedora);
+# images built without it don't ship the file and this unit never runs.
+#
+# Runs every boot but only acts until the deploy has succeeded: `deploy` writes
+# CloudTeamCode= into global.conf, and ExecCondition skips the unit once it's
+# there (a deploy by hand counts too). A failed deploy exits non-zero, so a
+# machine that boots before the network is up just retries until it gets through.
+[Unit]
+Description=Register Splashtop Streamer with the team
+Wants=network-online.target
+After=network-online.target SRStreamer.service
+ConditionPathExists=/usr/lib/kiosk/splashtop-deploy-code
+
+[Service]
+Type=oneshot
+ExecCondition=/bin/sh -c '! grep -q "^CloudTeamCode=" /var/lib/splashtop-streamer/config/global.conf'
+ExecStart=/bin/sh -c 'exec /usr/bin/splashtop-streamer deploy "$(cat /usr/lib/kiosk/splashtop-deploy-code)"'
+Restart=on-failure
+RestartSec=30
+
+[Install]
+WantedBy=multi-user.target

@@ -31,11 +31,13 @@ visudo -c
 chmod 0755 /usr/lib/kiosk/enforce.sh
 
 # enable the display manager, ssh, automatic bootc updates, and the two enforce
-# units that stamp image-owned config back over any local drift on each boot
+# units that stamp image-owned config back over any local drift on each boot, and
+# the unattended Splashtop deploy (a no-op in images built without the code)
 systemctl enable sddm sshd \
   bootc-fetch-apply-updates.timer \
   kiosk-enforce-system.service \
-  kiosk-enforce-user.service
+  kiosk-enforce-user.service \
+  splashtop-deploy.service
 
 # boot to the graphical target; SDDM autologins the kiosk user into Plasma (X11)
 systemctl set-default graphical.target

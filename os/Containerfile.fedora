@@ -26,6 +26,20 @@ RUN \
 # static config: copied verbatim so it persists in the image
 COPY rootfs/ /
 
+# Optional Splashtop deploy code, given at build time because the repo is
+# public:  --build-arg SPLASHTOP_DEPLOY_CODE=<code>
+# Without it no file is shipped and splashtop-deploy.service skips itself
+# (deploy by hand: `splashtop-streamer deploy <code>`).
+#
+# A build arg rather than a --secret on purpose: BuildKit keeps secrets out of
+# the cache key, so adding or changing the code would silently reuse a cached
+# layer without it. The code ships in the image either way (file root-only, but
+# anyone who can pull the image can read it, also via its build history).
+ARG SPLASHTOP_DEPLOY_CODE=
+RUN if [ -n "$SPLASHTOP_DEPLOY_CODE" ]; then \
+    printf '%s\n' "$SPLASHTOP_DEPLOY_CODE" | install -D -m 0600 /dev/stdin /usr/lib/kiosk/splashtop-deploy-code; \
+  fi
+
 # configure.sh: user, sudoers perms, services, boot target, lint. Runs after
 # COPY (touches the copied sudoers) and after packages (enables sddm). Mounted
 # narrowly for the same cache reason as above.

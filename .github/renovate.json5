@@ -65,6 +65,18 @@
       addLabels: ["patch"],
     },
   ],
+  customDatasources: {
+    // Splashtop publishes no release feed; its "Download Splashtop Streamer for
+    // Linux" help-center article carries the current version-pinned links, and
+    // the Zendesk API serves that article as JSON (the HTML page blocks bots).
+    "splashtop-streamer": {
+      defaultRegistryUrlTemplate: "https://support-splashtopbusiness.splashtop.com/api/v2/help_center/en-us/articles/360035513772.json",
+      format: "json",
+      transformTemplates: [
+        '{"releases": [{"version": $match(article.body, /STB_CSRS_CentOS_v([0-9.]+)_x86_64\\.tar\\.gz/)[0].groups[0]}], "homepage": article.html_url}',
+      ],
+    },
+  },
   customManagers: [
     {
       customType: "regex",
