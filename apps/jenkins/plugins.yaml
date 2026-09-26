@@ -63,3 +63,6 @@ plugins:
   - artifactId: script-security
     source:
       version: 1429.v0810f1b_530f5
+  - artifactId: basic-branch-build-strategies
+    source:
+      version: 317.v85b_331d6cc42
