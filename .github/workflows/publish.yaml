@@ -53,7 +53,6 @@ jobs:
         containers:
           - app: nextcloud-fpm
           - app: nextcloud-notify_push
-          - app: jenkins
           - app: opencloud-web-apps
           - app: tika-ocr
 
