@@ -4,13 +4,13 @@
 
 ### General
 
-| Variable                      | Description                            |  App(s)  |     Config Key(s)      |  Default   |   Example   |
-| ----------------------------- | -------------------------------------- | :------: | :--------------------: | :--------: | :---------: |
-| `NX_RUN_OPTIMIZE`             | Runs optimize/repair/migration scripts |          |                        |   `true`   |   `false`   |
-| `NX_MAINTENANCE_WINDOW_START` | Sets the maintenance window start      |          |                        |   `100`    |     `1`     |
-| `NX_DEFAULT_PHONE_REGION`     | Default phone region                   | `system` | `default_phone_region` |    `GR`    |    `US`     |
-| `NX_SHARED_FOLDER_NAME`       | Name of shared folder                  | `system` |  `share_folder_name`   |    `/`     |  `Shared`   |
-| `NX_MAX_CHUNK_SIZE`           | Maximum chunk size                     | `files`  |    `max_chunk_size`    | `10485760` | `104857600` |
+| Variable                      | Description                            |  App(s)  |       Config Key(s)       |  Default   |   Example   |
+| ----------------------------- | -------------------------------------- | :------: | :-----------------------: | :--------: | :---------: |
+| `NX_RUN_OPTIMIZE`             | Runs optimize/repair/migration scripts |          |                           |   `true`   |   `false`   |
+| `NX_MAINTENANCE_WINDOW_START` | Sets the maintenance window start      |          |                           |   `100`    |     `1`     |
+| `NX_DEFAULT_PHONE_REGION`     | Default phone region                   | `system` |  `default_phone_region`   |    `GR`    |    `US`     |
+| `NX_SHARED_FOLDER_NAME`       | Name of shared folder                  | `system` |    `share_folder_name`    |    `/`     |  `Shared`   |
+| `NX_MAX_CHUNK_SIZE`           | Maximum chunk size                     | `files`  | `chunked_upload.max_size` | `10485760` | `104857600` |
 
 ### Logging
 

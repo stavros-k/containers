@@ -13,7 +13,10 @@ occ_general() {
   occ config:system:set share_folder --value="${NX_SHARED_FOLDER_NAME:-Shared}"
 
   echo '### Configuring Max Chunk Size for Files...'
-  occ config:app:set files max_chunk_size --value="${NX_MAX_CHUNKSIZE:-10485760}"
+  # Since Nextcloud 31 the chunk size is read from the system config key,
+  # the legacy "files/max_chunk_size" app config key is no longer used.
+  occ config:system:set files.chunked_upload.max_size --type=integer --value="${NX_MAX_CHUNKSIZE:-10485760}"
+  occ config:app:delete files max_chunk_size
 
   echo '### Configuring Maintenance Window Start...'
   occ config:system:set maintenance_window_start --type=integer --value="${NX_MAINTENANCE_WINDOW_START:-100}"
