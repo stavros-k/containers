@@ -5,7 +5,7 @@ FROM opencloudeu/web-extensions:draw-io-2.2.0@sha256:d890d6e1bea09cdb7f9f31e7e4e
 FROM opencloudeu/web-extensions:external-sites-2.1.0@sha256:c0a48cd3c26f63c11d80b4138da26aa86baf05ec35d0e897ffc479ad24b99a01 AS external-sites
 FROM opencloudeu/web-extensions:importer-2.0.0@sha256:24cc8e17da6790368ac0f3c8b32f28f29858ccc3b7effd174f9c9fda932949e8 AS importer
 FROM opencloudeu/web-extensions:json-viewer-2.1.0@sha256:fe43f1bb92d62c283ea6ed4a8b8d069f8ff4cfcaa75acbdec08fd9c256705df4 AS json-viewer
-FROM opencloudeu/web-extensions:maps-3.1.0@sha256:e0d8d8166266ff7fb0ba5dbba4800d086314a04d8e02eb65ca6524c9c421c124 AS maps
+FROM opencloudeu/web-extensions:maps-3.1.1@sha256:b7044f892ea82d997a6b66216259cde452a2145b060a4f8696a879a7048f16c2 AS maps
 FROM opencloudeu/web-extensions:pastebin-2.1.0@sha256:e7d5686be8d581f48b3b4c0c3f468bec10dbaadeb935a00ac23a3644456455f0 AS pastebin
 FROM opencloudeu/web-extensions:progress-bars-2.1.0@sha256:53933b5dbbae03b75e9cc78d775b8b8fd1d6bc651b73dfffcd66df120ef1c951 AS progress-bars
 FROM opencloudeu/web-extensions:unzip-2.2.0@sha256:9dda5058dcd7f036342a80583a19b6a5d7af1d42cc1c4a678f38d5d8c3e30cb4 AS unzip
