@@ -6,7 +6,7 @@
 set -euxo pipefail
 
 # renovate: datasource=github-releases depName=zed-industries/zed
-version=1.22.0
+version=1.23.2
 tarball="zed-linux-x86_64.tar.gz"
 url="https://github.com/zed-industries/zed/releases/download/v${version}/${tarball}"
 
