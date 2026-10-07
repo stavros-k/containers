@@ -1,5 +1,5 @@
 FROM opencloudeu/web-extensions:arcade-3.0.0@sha256:edde27eff55251c846fb8fb1b3b7f0356d43ce34bb14cb55b03f910fc797785d AS arcade
-FROM opencloudeu/web-extensions:bpmn-1.1.0@sha256:fccf8d578bc2da3cfcd6a1a6b09e8fe25625aff194f5b6dda8caf5d46502c140 AS bpmn
+FROM opencloudeu/web-extensions:bpmn-1.1.1@sha256:7defe644a50060e1f6db503a716eb4e043507bf2503e8ef68b817a513dbcd5a0 AS bpmn
 FROM opencloudeu/web-extensions:calculator-2.1.0@sha256:44fa52cd3984ffb5accea3e1364b5f81c48a6941dfe86117a6339e2b9614bf7e AS calculator
 FROM opencloudeu/web-extensions:draw-io-2.2.0@sha256:d890d6e1bea09cdb7f9f31e7e4ea3c22d00d48fed71202be435571fcefd99878 AS draw-io
 FROM opencloudeu/web-extensions:external-sites-2.1.0@sha256:c0a48cd3c26f63c11d80b4138da26aa86baf05ec35d0e897ffc479ad24b99a01 AS external-sites
