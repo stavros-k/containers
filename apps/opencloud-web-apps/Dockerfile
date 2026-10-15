@@ -1,7 +1,9 @@
+FROM opencloudeu/web-extensions:apollon-1.0.1@sha256:4d2f326884ceb0fe47c6765fadd6d331470f6b3dca00f92c2a2b6dafe0f64ef6 AS apollon
 FROM opencloudeu/web-extensions:arcade-3.0.0@sha256:edde27eff55251c846fb8fb1b3b7f0356d43ce34bb14cb55b03f910fc797785d AS arcade
 FROM opencloudeu/web-extensions:bpmn-1.1.1@sha256:7defe644a50060e1f6db503a716eb4e043507bf2503e8ef68b817a513dbcd5a0 AS bpmn
 FROM opencloudeu/web-extensions:calculator-2.1.0@sha256:44fa52cd3984ffb5accea3e1364b5f81c48a6941dfe86117a6339e2b9614bf7e AS calculator
 FROM opencloudeu/web-extensions:draw-io-2.2.0@sha256:d890d6e1bea09cdb7f9f31e7e4ea3c22d00d48fed71202be435571fcefd99878 AS draw-io
+FROM opencloudeu/web-extensions:excalidraw-1.1.0@sha256:9bb0ea0609d45d07dd1100e8ad3a131d11b592538ad5c9f9c5c6a6625765ad4f AS excalidraw
 FROM opencloudeu/web-extensions:external-sites-2.1.0@sha256:c0a48cd3c26f63c11d80b4138da26aa86baf05ec35d0e897ffc479ad24b99a01 AS external-sites
 FROM opencloudeu/web-extensions:importer-2.0.1@sha256:90ff4fa09b3c248c5e2556d189610ea4a43253381b502bd2f5d474e251e99cef AS importer
 FROM opencloudeu/web-extensions:json-viewer-2.1.0@sha256:fe43f1bb92d62c283ea6ed4a8b8d069f8ff4cfcaa75acbdec08fd9c256705df4 AS json-viewer
@@ -12,10 +14,12 @@ FROM opencloudeu/web-extensions:unzip-2.2.1@sha256:9a71251417a4e76dafa15fcddff95
 
 FROM alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
 
+COPY --from=apollon /web/apps/apollon /apps/apollon
 COPY --from=arcade /web/apps/arcade /apps/arcade
 COPY --from=bpmn /web/apps/bpmn /apps/bpmn
 COPY --from=calculator /web/apps/calculator /apps/calculator
 COPY --from=draw-io /web/apps/draw-io /apps/draw-io
+COPY --from=excalidraw /web/apps/excalidraw /apps/excalidraw
 COPY --from=external-sites /web/apps/external-sites /apps/external-sites
 COPY --from=importer /web/apps/importer /apps/importer
 COPY --from=json-viewer /web/apps/json-viewer /apps/json-viewer
