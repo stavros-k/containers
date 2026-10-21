@@ -12,7 +12,7 @@ FROM opencloudeu/web-extensions:pastebin-2.2.0@sha256:f54c9ae1e5fdb19f6649b60d7c
 FROM opencloudeu/web-extensions:progress-bars-2.1.0@sha256:53933b5dbbae03b75e9cc78d775b8b8fd1d6bc651b73dfffcd66df120ef1c951 AS progress-bars
 FROM opencloudeu/web-extensions:unzip-2.2.1@sha256:9a71251417a4e76dafa15fcddff9540cbdcdbf0813ac347049e900654a3df448 AS unzip
 
-FROM alpine:3.24.2@sha256:294b683cb724975bec92580e1e685676bd4b50bda910ddb8c51d4cabeaec77e6
+FROM alpine:3.24.3@sha256:1b7232cda4ca3dc20b5d1247bdc9bfb631f2661d15d323bdd6fccc035ed1a9e7
 
 COPY --from=apollon /web/apps/apollon /apps/apollon
 COPY --from=arcade /web/apps/arcade /apps/arcade
