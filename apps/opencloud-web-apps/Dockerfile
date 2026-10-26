@@ -1,4 +1,4 @@
-FROM opencloudeu/web-extensions:apollon-1.0.1@sha256:4d2f326884ceb0fe47c6765fadd6d331470f6b3dca00f92c2a2b6dafe0f64ef6 AS apollon
+FROM opencloudeu/web-extensions:apollon-1.1.0@sha256:cb2c4c09fadc64c779e5ae5c66d25ddb4c56a28c14fb890464bd92f6d8652e09 AS apollon
 FROM opencloudeu/web-extensions:arcade-3.0.0@sha256:edde27eff55251c846fb8fb1b3b7f0356d43ce34bb14cb55b03f910fc797785d AS arcade
 FROM opencloudeu/web-extensions:bpmn-1.1.1@sha256:7defe644a50060e1f6db503a716eb4e043507bf2503e8ef68b817a513dbcd5a0 AS bpmn
 FROM opencloudeu/web-extensions:calculator-2.1.0@sha256:44fa52cd3984ffb5accea3e1364b5f81c48a6941dfe86117a6339e2b9614bf7e AS calculator
