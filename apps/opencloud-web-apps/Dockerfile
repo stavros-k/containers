@@ -4,7 +4,7 @@ FROM opencloudeu/web-extensions:bpmn-1.1.1@sha256:7defe644a50060e1f6db503a716eb4
 FROM opencloudeu/web-extensions:calculator-2.1.0@sha256:44fa52cd3984ffb5accea3e1364b5f81c48a6941dfe86117a6339e2b9614bf7e AS calculator
 FROM opencloudeu/web-extensions:draw-io-2.2.0@sha256:d890d6e1bea09cdb7f9f31e7e4ea3c22d00d48fed71202be435571fcefd99878 AS draw-io
 FROM opencloudeu/web-extensions:excalidraw-1.1.0@sha256:9bb0ea0609d45d07dd1100e8ad3a131d11b592538ad5c9f9c5c6a6625765ad4f AS excalidraw
-FROM opencloudeu/web-extensions:external-sites-2.1.0@sha256:c0a48cd3c26f63c11d80b4138da26aa86baf05ec35d0e897ffc479ad24b99a01 AS external-sites
+FROM opencloudeu/web-extensions:external-sites-2.2.0@sha256:6706a938f3e7938059dfeed3d9ccc551025dd01ab8c722cb022b3edf24db2a4e AS external-sites
 FROM opencloudeu/web-extensions:importer-2.0.1@sha256:90ff4fa09b3c248c5e2556d189610ea4a43253381b502bd2f5d474e251e99cef AS importer
 FROM opencloudeu/web-extensions:json-viewer-2.1.0@sha256:fe43f1bb92d62c283ea6ed4a8b8d069f8ff4cfcaa75acbdec08fd9c256705df4 AS json-viewer
 FROM opencloudeu/web-extensions:maps-3.1.1@sha256:b7044f892ea82d997a6b66216259cde452a2145b060a4f8696a879a7048f16c2 AS maps
