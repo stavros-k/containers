@@ -19,7 +19,7 @@
 set -euxo pipefail
 
 # renovate: datasource=custom.splashtop-streamer depName=splashtop-streamer versioning=loose
-version=3.8.2.0
+version=3.8.6.0
 tarball="STB_CSRS_CentOS_v${version}_x86_64.tar.gz"
 url="https://download.splashtop.com/linux/${tarball}"
 rpm="Splashtop_Streamer_CentOS_x86_64.rpm"
