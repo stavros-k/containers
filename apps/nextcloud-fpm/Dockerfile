@@ -1,4 +1,4 @@
-FROM nextcloud:35.0.2-fpm@sha256:a31782bc5e7535c26f7869189d38d433e53e55576487f686ed5cfbdd5d11e282
+FROM nextcloud:35.0.2-fpm@sha256:a95dee2ba3e6be69840baac100dc81741f145427a92d0489711a85819d8cb448
 
 # Add SURY PHP repository to get c-client library (libc-client-dev)
 # The c-client library is no longer available in Debian Trixie
