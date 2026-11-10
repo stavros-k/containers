@@ -6,7 +6,7 @@
 set -euxo pipefail
 
 # renovate: datasource=github-releases depName=arduino/arduino-cli
-version=1.5.1
+version=1.6.0
 base="https://github.com/arduino/arduino-cli/releases/download/v${version}"
 tarball="arduino-cli_${version}_Linux_64bit.tar.gz"
 
