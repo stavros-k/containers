@@ -11,32 +11,53 @@ set -euxo pipefail
 # /var/home is not carried by the image, tmpfiles.d makes it at boot.
 systemd-sysusers /usr/lib/sysusers.d/kiosk.conf
 
-# sudoers and the SSH auth policy live in the enforce factory tree, so
-# kiosk-enforce-system stamps them back over local drift on every boot. They're
-# installed into /etc here as well so they're already in effect on the very
-# first boot: sshd.service and kiosk-enforce-system.service both start around
-# multi-user.target with no ordering between them, and visudo needs the /etc
-# copy to check it.
+# Image-owned config, reasserted over local drift on every boot. The canonical
+# copies live in a read-only factory tree that mirrors absolute paths:
+#   enforce/system/etc/foo -> /etc/foo
+#   enforce/user/.config/foo -> /var/home/kiosk/.config/foo
+# To enforce another file, drop it in the tree; this generates a tmpfiles.d
+# entry for every file in it. L+ removes whatever is at the path (a local edit,
+# a file a tool swapped in for the link) and puts back a symlink into the tree.
+# systemd-tmpfiles-setup.service applies it in sysinit, before sshd and the
+# display manager, so nothing reads a drifted copy, and in-place edits fail
+# outright since the target is on read-only /usr. Parent dirs in /etc are
+# created root-owned by tmpfiles; dirs in the home get explicit `d` lines so
+# they're kiosk-owned. Note that a user file enforced this way is read-only to
+# the kiosk user's apps, so only enforce config they should not write.
 #
-# enforce.sh replays the *source* file's mode onto the destination, and git only
-# carries the exec bit — so 0440 has to be set on the factory copy here, or a
-# checked-out 0644 would be stamped over sudoers on every boot.
-factory=/usr/share/kiosk/enforce/system
-chmod 0440 "$factory/etc/sudoers.d/kiosk"
-install -D -m 0440 "$factory/etc/sudoers.d/kiosk" /etc/sudoers.d/kiosk
-install -D -m 0644 "$factory/etc/ssh/sshd_config.d/30-kiosk-auth.conf" /etc/ssh/sshd_config.d/30-kiosk-auth.conf
+# sudo checks the mode of the link's target, and git only carries the exec bit,
+# so 0440 has to be set on the factory copy here.
+factory=/usr/share/kiosk/enforce
+home=/var/home/kiosk
+chmod 0440 "$factory/system/etc/sudoers.d/kiosk"
+
+# list paths under $1 of find type $2, relative with a leading /; tmpfiles.d
+# fields are whitespace-separated, so refuse names that would split
+tree() {
+  [ -d "$1" ] || return 0
+  (cd "$1" && find . -mindepth 1 -type "$2" | sort) | while IFS= read -r p; do
+    case $p in *[[:space:]]*) echo "configure.sh: whitespace in $1${p#.}" >&2; return 1 ;; esac
+    printf '%s\n' "${p#.}"
+  done
+}
+{
+  echo "# Generated at build time by configure.sh from $factory; edits are lost."
+  tree "$factory/system" f | while read -r p; do printf 'L+ %s - - - - %s\n' "$p" "$factory/system$p"; done
+  tree "$factory/user" d | while read -r p; do printf 'd %s 0755 kiosk kiosk - -\n' "$home$p"; done
+  tree "$factory/user" f | while read -r p; do printf 'L+ %s - - - - %s\n' "$home$p" "$factory/user$p"; done
+} >/usr/lib/tmpfiles.d/kiosk-enforce.conf
+cat /usr/lib/tmpfiles.d/kiosk-enforce.conf
+
+# Apply the /etc part now too, so the built image already carries the links and
+# visudo checks sudoers through the link, the way sudo will read it. (/var is
+# left to first boot; bootc doesn't ship image /var content to running hosts.)
+systemd-tmpfiles --create --prefix=/etc /usr/lib/tmpfiles.d/kiosk-enforce.conf
 visudo -c
 
-# the enforce helper (run by the kiosk-enforce-*.service units) must be executable
-chmod 0755 /usr/lib/kiosk/enforce.sh
-
-# enable the display manager, ssh, automatic bootc updates, and the two enforce
-# units that stamp image-owned config back over any local drift on each boot, and
-# the unattended Splashtop deploy (a no-op in images built without the code)
+# enable the display manager, ssh, automatic bootc updates, and the unattended
+# Splashtop deploy (a no-op in images built without the code)
 systemctl enable sddm sshd \
   bootc-fetch-apply-updates.timer \
-  kiosk-enforce-system.service \
-  kiosk-enforce-user.service \
   splashtop-deploy.service
 
 # boot to the graphical target; SDDM autologins the kiosk user into Plasma (X11)
