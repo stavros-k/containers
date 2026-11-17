@@ -2,15 +2,15 @@ FROM opencloudeu/web-extensions:apollon-1.1.0@sha256:cb2c4c09fadc64c779e5ae5c66d
 FROM opencloudeu/web-extensions:arcade-3.0.0@sha256:edde27eff55251c846fb8fb1b3b7f0356d43ce34bb14cb55b03f910fc797785d AS arcade
 FROM opencloudeu/web-extensions:bpmn-1.1.1@sha256:7defe644a50060e1f6db503a716eb4e043507bf2503e8ef68b817a513dbcd5a0 AS bpmn
 FROM opencloudeu/web-extensions:calculator-2.1.0@sha256:44fa52cd3984ffb5accea3e1364b5f81c48a6941dfe86117a6339e2b9614bf7e AS calculator
-FROM opencloudeu/web-extensions:draw-io-2.2.0@sha256:d890d6e1bea09cdb7f9f31e7e4ea3c22d00d48fed71202be435571fcefd99878 AS draw-io
+FROM opencloudeu/web-extensions:draw-io-2.2.1@sha256:334455bb42002f4b5c49608d3a7dcc844ba1b1e3104d6ee40763ced5cf43ce06 AS draw-io
 FROM opencloudeu/web-extensions:excalidraw-1.1.0@sha256:9bb0ea0609d45d07dd1100e8ad3a131d11b592538ad5c9f9c5c6a6625765ad4f AS excalidraw
 FROM opencloudeu/web-extensions:external-sites-2.2.0@sha256:6706a938f3e7938059dfeed3d9ccc551025dd01ab8c722cb022b3edf24db2a4e AS external-sites
-FROM opencloudeu/web-extensions:importer-2.0.1@sha256:90ff4fa09b3c248c5e2556d189610ea4a43253381b502bd2f5d474e251e99cef AS importer
+FROM opencloudeu/web-extensions:importer-2.0.2@sha256:febe93fd35cb2296cbd3faccb991fb54a225f010cddb8d32369c5ec191f2fe57 AS importer
 FROM opencloudeu/web-extensions:json-viewer-2.1.0@sha256:fe43f1bb92d62c283ea6ed4a8b8d069f8ff4cfcaa75acbdec08fd9c256705df4 AS json-viewer
 FROM opencloudeu/web-extensions:maps-3.1.1@sha256:b7044f892ea82d997a6b66216259cde452a2145b060a4f8696a879a7048f16c2 AS maps
-FROM opencloudeu/web-extensions:pastebin-2.2.0@sha256:f54c9ae1e5fdb19f6649b60d7c81f229c8b7ac2cd00de1c26d88adb40e90e07e AS pastebin
+FROM opencloudeu/web-extensions:pastebin-2.2.1@sha256:b38ae1c99caa6abb4f596b74546e42828c264f774bf758c9700426972baa9253 AS pastebin
 FROM opencloudeu/web-extensions:progress-bars-2.1.0@sha256:53933b5dbbae03b75e9cc78d775b8b8fd1d6bc651b73dfffcd66df120ef1c951 AS progress-bars
-FROM opencloudeu/web-extensions:unzip-2.2.1@sha256:9a71251417a4e76dafa15fcddff9540cbdcdbf0813ac347049e900654a3df448 AS unzip
+FROM opencloudeu/web-extensions:unzip-2.2.2@sha256:995f9e4389613d5618bbb50d786be616fb8edafc4ce2a63cf55cc3781b789db7 AS unzip
 
 FROM alpine:3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
 
