@@ -10,7 +10,7 @@ FROM opencloudeu/web-extensions:json-viewer-2.1.0@sha256:fe43f1bb92d62c283ea6ed4
 FROM opencloudeu/web-extensions:maps-3.1.1@sha256:b7044f892ea82d997a6b66216259cde452a2145b060a4f8696a879a7048f16c2 AS maps
 FROM opencloudeu/web-extensions:pastebin-2.2.1@sha256:b38ae1c99caa6abb4f596b74546e42828c264f774bf758c9700426972baa9253 AS pastebin
 FROM opencloudeu/web-extensions:progress-bars-2.1.0@sha256:53933b5dbbae03b75e9cc78d775b8b8fd1d6bc651b73dfffcd66df120ef1c951 AS progress-bars
-FROM opencloudeu/web-extensions:unzip-2.2.2@sha256:995f9e4389613d5618bbb50d786be616fb8edafc4ce2a63cf55cc3781b789db7 AS unzip
+FROM opencloudeu/web-extensions:unzip-2.2.3@sha256:6ad5fc4742f3a867276ff245710d220ccc78b998ce687e9cfb0de7f8e99eb61b AS unzip
 
 FROM alpine:3.24.4@sha256:f59abe656b692d901e184be3445e084786602108599d2a51d229c0f5a48c71bf
 
