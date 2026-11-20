@@ -18,7 +18,7 @@ RUN set -ex; \
 	\
 	ls -l /ell.traineddata /eng.traineddata /osd.traineddata
 
-FROM apache/tika:4.2.0-full@sha256:4774eaac44f86cdf648ae7b5a367016eaf6f9052adec31e5cff07cff1a0c6e24
+FROM apache/tika:4.2.0-full@sha256:12a6b0332f1c047dc80489f336ca39fb2332e1810e75cc84e7b07a9b502c1cb0
 
 # Greek is missing from the languages upstream installs (eng ita fra spa deu jpn);
 # osd drives orientation and script detection on skewed scans
