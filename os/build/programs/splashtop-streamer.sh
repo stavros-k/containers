@@ -63,6 +63,12 @@ for d in config log dump .keyring; do
   ln -s "$state/$d" "$app/$d"
 done
 
+# The RPM ships its polkit rule twice: as a rules.d JS rule in /usr
+# (what polkit uses) and as a legacy .pkla in /var,
+# which bootc would only ever lay down on first install.
+# Same rule (sudo/wheel may change the streamer's settings), so drop the /var copy.
+rm -f /var/lib/polkit-1/localauthority/10-vendor.d/com.splashtop.streamer.pkla
+
 # %post already enables it; explicit so the image doesn't depend on that
 systemctl enable SRStreamer.service
 

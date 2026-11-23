@@ -83,11 +83,19 @@ RUN \
 # the cache key, so adding or changing the code would silently reuse a cached
 # layer without it. The code ships in the image either way (file root-only, but
 # anyone who can pull the image can read it, also via its build history).
-# Declared this late so changing it rebuilds only this step and the lint.
+# Declared this late so changing it rebuilds only the last few cheap steps.
 ARG SPLASHTOP_DEPLOY_CODE=
 RUN \
   --mount=type=bind,source=build/configure/splashtop-deploy-code.sh,target=/tmp/splashtop-deploy-code.sh \
   bash /tmp/splashtop-deploy-code.sh
 
-# bootc's own checks on the finished image; last, so it sees what ships
-RUN bootc container lint
+# var.sh: tidies what the build left in /var (see there). Right before the
+# lint, so it comes after every step that could write there.
+RUN \
+  --mount=type=bind,source=build/configure/var.sh,target=/tmp/var.sh \
+  bash /tmp/var.sh
+
+# bootc's own checks on the finished image; last, so it sees what ships.
+# Warnings fail the build too: one left standing teaches everyone to skip
+# past the lint output.
+RUN bootc container lint --fatal-warnings --no-truncate
