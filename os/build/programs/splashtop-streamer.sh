@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 # Install Splashtop Streamer (remote access). It's not in any repo, so we fetch
 # Splashtop's official version-pinned tarball (over HTTPS) and install the RPM
-# inside it. Run at build time via a bind mount (see
-# Containerfile).
+# inside it. Run at build time via a bind mount (see Containerfile).
 #
 # The RPM assumes a writable /opt: it keeps its state (config/ with the deploy
 # code, log/, dump/, .keyring/) inside /opt/splashtop-streamer, which is
