@@ -1,0 +1,20 @@
+#!/bin/sh
+# Register this machine's Splashtop Streamer with the team, once. Run at boot by
+# splashtop-deploy.service (see there); safe to run by hand too.
+set -eu
+
+code_file=/etc/kiosk/splashtop-deploy-code
+conf=/var/lib/splashtop-streamer/config/global.conf
+
+# 1. no code, nothing to do
+[ -f "$code_file" ] || exit 0
+
+# 2. already registered (e.g. deployed by hand): the code isn't needed any more
+if grep -q '^CloudTeamCode=' "$conf" 2>/dev/null; then
+  rm -f "$code_file"
+  exit 0
+fi
+
+# 3. register. If it fails, set -e exits here and the code stays for the retry.
+splashtop-streamer deploy "$(cat "$code_file")"
+rm -f "$code_file"

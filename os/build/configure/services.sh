@@ -3,7 +3,7 @@
 set -euxo pipefail
 
 # the display manager, ssh, automatic bootc updates, and the unattended
-# Splashtop deploy (a no-op in images built without the code)
+# Splashtop deploy (a no-op unless the installer wrote a deploy code)
 systemctl enable \
   sddm \
   sshd \

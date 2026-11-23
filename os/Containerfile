@@ -76,19 +76,6 @@ RUN \
   --mount=type=bind,source=build/configure/timezone.sh,target=/tmp/timezone.sh \
   bash /tmp/timezone.sh
 
-# Optional Splashtop deploy code, given at build time because the repo is
-# public:  --build-arg SPLASHTOP_DEPLOY_CODE=<code>
-#
-# A build arg rather than a --secret on purpose: BuildKit keeps secrets out of
-# the cache key, so adding or changing the code would silently reuse a cached
-# layer without it. The code ships in the image either way (file root-only, but
-# anyone who can pull the image can read it, also via its build history).
-# Declared this late so changing it rebuilds only the last few cheap steps.
-ARG SPLASHTOP_DEPLOY_CODE=
-RUN \
-  --mount=type=bind,source=build/configure/splashtop-deploy-code.sh,target=/tmp/splashtop-deploy-code.sh \
-  bash /tmp/splashtop-deploy-code.sh
-
 # var.sh: tidies what the build left in /var (see there). Right before the
 # lint, so it comes after every step that could write there.
 RUN \
