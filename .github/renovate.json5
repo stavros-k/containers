@@ -45,6 +45,15 @@
       automerge: true,
     },
     {
+      // quay.io repos like fedora/fedora-bootc rebuild their tags daily and
+      // prune the previous manifest right away (yesterday's digest is already
+      // a 404), so a pinned digest breaks the build within ~24h. Track the
+      // floating tags instead.
+      matchDatasources: ["docker"],
+      matchPackageNames: ["quay.io/**"],
+      pinDigests: false,
+    },
+    {
       matchBaseBranches: ["master"],
       addLabels: ["master"],
     },
