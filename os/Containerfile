@@ -18,20 +18,38 @@ RUN \
   --mount=type=bind,source=build/repos/ghostty.repo,target=/etc/yum.repos.d/ghostty.repo \
   bash /tmp/packages.sh
 
-# programs: pinned upstream binaries/tarballs (not in any repo), one install
-# script each. A single step bind-mounts the whole programs/ dir and runs every
-# script, kept off the expensive package layer above. Trade-off vs a step per
-# program: bumping any one re-runs them all (both are cheap). set -e so a failed
-# install fails the build.
+# programs: pinned upstream releases (not in any repo), one install script and
+# one step each, so bumping one rebuilds only its own step and the ones after
+# it. Ordered from least to most often bumped (Zed gets a Renovate PR most
+# weeks), heaviest first. A new script in build/programs needs its own step
+# here.
 #
 # Downloads go to a tmpfs (TMPDIR, so the scripts' mktemp lands there): it's
 # never part of the layer, so nothing they fetch or unpack can leak into the
 # image, even when a script fails halfway, and they need no cleanup.
 RUN \
   --mount=type=tmpfs,target=/var/tmp/build \
-  --mount=type=bind,source=build/programs,target=/tmp/programs \
   --mount=type=bind,source=build/lib,target=/tmp/lib \
-  set -eu; for s in /tmp/programs/*.sh; do TMPDIR=/var/tmp/build bash "$s"; done
+  --mount=type=bind,source=build/programs/arduino-ide.sh,target=/tmp/arduino-ide.sh \
+  TMPDIR=/var/tmp/build bash /tmp/arduino-ide.sh
+
+RUN \
+  --mount=type=tmpfs,target=/var/tmp/build \
+  --mount=type=bind,source=build/lib,target=/tmp/lib \
+  --mount=type=bind,source=build/programs/arduino-cli.sh,target=/tmp/arduino-cli.sh \
+  TMPDIR=/var/tmp/build bash /tmp/arduino-cli.sh
+
+RUN \
+  --mount=type=tmpfs,target=/var/tmp/build \
+  --mount=type=bind,source=build/lib,target=/tmp/lib \
+  --mount=type=bind,source=build/programs/splashtop-streamer.sh,target=/tmp/splashtop-streamer.sh \
+  TMPDIR=/var/tmp/build bash /tmp/splashtop-streamer.sh
+
+RUN \
+  --mount=type=tmpfs,target=/var/tmp/build \
+  --mount=type=bind,source=build/lib,target=/tmp/lib \
+  --mount=type=bind,source=build/programs/zed.sh,target=/tmp/zed.sh \
+  TMPDIR=/var/tmp/build bash /tmp/zed.sh
 
 # static config: copied verbatim so it persists in the image
 COPY rootfs/ /
