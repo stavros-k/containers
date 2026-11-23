@@ -1,0 +1,11 @@
+{
+  // KDE config files are INI-style but have no extension, so they open as
+  // plain text by default.
+  "files.associations": {
+    "**/etc/xdg/kdeglobals": "ini",
+    "**/etc/xdg/*rc": "ini"
+  },
+  // Follow the "# shellcheck source=" lines in os/build (same as
+  // os/build/.shellcheckrc, for when the extension doesn't pick that up).
+  "shellcheck.customArgs": ["-x"]
+}

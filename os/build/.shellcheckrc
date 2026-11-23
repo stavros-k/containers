@@ -1,0 +1,6 @@
+# The build scripts source helpers from /tmp/lib
+# (where the Containerfile mounts build/lib);
+# their "# shellcheck source=" lines point at the repo copies,
+# relative to each script.
+source-path=SCRIPTDIR
+external-sources=true

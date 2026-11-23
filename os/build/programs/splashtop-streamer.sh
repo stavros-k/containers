@@ -16,6 +16,8 @@
 # streamer's own self-update is off (SRStreamer.service.d/10-no-self-update.conf)
 # and an outdated streamer risks losing compatibility with Splashtop's service.
 set -euxo pipefail
+# shellcheck source=../lib/dnf.sh
+source /tmp/lib/dnf.sh
 
 # renovate: datasource=custom.splashtop-streamer depName=splashtop-streamer versioning=loose
 version=3.8.6.0
@@ -26,10 +28,7 @@ rpm="Splashtop_Streamer_CentOS_x86_64.rpm"
 app=/opt/splashtop-streamer
 state=/var/lib/splashtop-streamer
 
-tmp="$(mktemp -d)"
-trap 'rm -rf "$tmp"' EXIT
-cd "$tmp"
-
+cd "$(mktemp -d)"
 curl -fsSL -o "$tarball" "$url"
 tar -xzf "$tarball" --no-same-owner "$rpm"
 
@@ -67,7 +66,4 @@ done
 # %post already enables it; explicit so the image doesn't depend on that
 systemctl enable SRStreamer.service
 
-dnf clean all
-rm -f /var/log/dnf5.log*
-# dnf's runtime lock dir; /run isn't committed anyway, but lint flags it
-rm -rf /run/dnf
+dnf_clean

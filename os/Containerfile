@@ -9,8 +9,12 @@ FROM quay.io/fedora/fedora-bootc:45
 # file, so packages.sh needs no reposdir override and keeps finding the base
 # repos wherever the distro moves them. Mounting the whole directory would
 # instead shadow /etc/yum.repos.d and hide those base repos.
+#
+# build/lib/ holds helpers the scripts source. This step mounts only dnf.sh, so
+# editing the install helpers doesn't rerun the package install.
 RUN \
   --mount=type=bind,source=build/packages.sh,target=/tmp/packages.sh \
+  --mount=type=bind,source=build/lib/dnf.sh,target=/tmp/lib/dnf.sh \
   --mount=type=bind,source=build/repos/ghostty.repo,target=/etc/yum.repos.d/ghostty.repo \
   bash /tmp/packages.sh
 
@@ -19,40 +23,53 @@ RUN \
 # script, kept off the expensive package layer above. Trade-off vs a step per
 # program: bumping any one re-runs them all (both are cheap). set -e so a failed
 # install fails the build.
+#
+# Downloads go to a tmpfs (TMPDIR, so the scripts' mktemp lands there): it's
+# never part of the layer, so nothing they fetch or unpack can leak into the
+# image, even when a script fails halfway, and they need no cleanup.
 RUN \
+  --mount=type=tmpfs,target=/var/tmp/build \
   --mount=type=bind,source=build/programs,target=/tmp/programs \
-  set -eu; for s in /tmp/programs/*.sh; do bash "$s"; done
+  --mount=type=bind,source=build/lib,target=/tmp/lib \
+  set -eu; for s in /tmp/programs/*.sh; do TMPDIR=/var/tmp/build bash "$s"; done
 
 # static config: copied verbatim so it persists in the image
 COPY rootfs/ /
 
+# Configuration, one script per concern, each its own step. Runs after COPY
+# (enforce.sh needs the factory tree, user.sh the sysusers.d file) and after
+# packages (services.sh enables sddm). Each step mounts only its own script.
+RUN \
+  --mount=type=bind,source=build/configure/user.sh,target=/tmp/user.sh \
+  bash /tmp/user.sh
+
+# enforce.sh generates tmpfiles.d/kiosk-enforce.conf from the repo's factory
+# tree, mounted so it can tell our files from Fedora's in /usr/share/factory.
+RUN \
+  --mount=type=bind,source=build/configure/enforce.sh,target=/tmp/enforce.sh \
+  --mount=type=bind,source=rootfs/usr/share/factory,target=/tmp/factory \
+  bash /tmp/enforce.sh
+
+RUN \
+  --mount=type=bind,source=build/configure/services.sh,target=/tmp/services.sh \
+  bash /tmp/services.sh
+
+RUN \
+  --mount=type=bind,source=build/configure/timezone.sh,target=/tmp/timezone.sh \
+  bash /tmp/timezone.sh
+
 # Optional Splashtop deploy code, given at build time because the repo is
 # public:  --build-arg SPLASHTOP_DEPLOY_CODE=<code>
-# Without it no file is shipped and splashtop-deploy.service skips itself
-# (deploy by hand: `splashtop-streamer deploy <code>`).
 #
 # A build arg rather than a --secret on purpose: BuildKit keeps secrets out of
 # the cache key, so adding or changing the code would silently reuse a cached
 # layer without it. The code ships in the image either way (file root-only, but
 # anyone who can pull the image can read it, also via its build history).
+# Declared this late so changing it rebuilds only this step and the lint.
 ARG SPLASHTOP_DEPLOY_CODE=
-RUN if [ -n "$SPLASHTOP_DEPLOY_CODE" ]; then \
-    printf '%s\n' "$SPLASHTOP_DEPLOY_CODE" | install -D -m 0600 /dev/stdin /usr/lib/kiosk/splashtop-deploy-code; \
-  fi
-
-# configure.sh: user, enforced config, services, boot target. Runs after COPY
-# (applies the copied tmpfiles.d) and after packages (enables sddm). Mounted
-# narrowly for the same cache reason as above.
 RUN \
-  --mount=type=bind,source=build/configure.sh,target=/tmp/configure.sh \
-  bash /tmp/configure.sh
+  --mount=type=bind,source=build/configure/splashtop-deploy-code.sh,target=/tmp/splashtop-deploy-code.sh \
+  bash /tmp/splashtop-deploy-code.sh
 
-# lint.sh: checks on the finished image, so it stays the last step. Changes
-# nothing, and editing a check rebuilds only this layer. The repo's factory
-# tree is mounted so the lint can tell our files from Fedora's in
-# /usr/share/factory. Images built on top of this one end with the same step,
-# mounting their own factory tree.
-RUN \
-  --mount=type=bind,source=build/lint.sh,target=/tmp/lint.sh \
-  --mount=type=bind,source=rootfs/usr/share/factory,target=/tmp/factory \
-  bash /tmp/lint.sh
+# bootc's own checks on the finished image; last, so it sees what ships
+RUN bootc container lint
