@@ -2,7 +2,7 @@
 # Install Splashtop Streamer (remote access). It's not in any repo, so we fetch
 # Splashtop's official version-pinned tarball (over HTTPS) and install the RPM
 # inside it. Run at build time via a bind mount (see
-# Containerfile.fedora).
+# Containerfile).
 #
 # The RPM assumes a writable /opt: it keeps its state (config/ with the deploy
 # code, log/, dump/, .keyring/) inside /opt/splashtop-streamer, which is
@@ -40,7 +40,7 @@ tar -xzf "$tarball" --no-same-owner "$rpm"
 # the user sysusers recreates at boot. Written here rather than in rootfs/
 # because rootfs/ is COPY'd after this step and the user must exist now.
 install -D -m 0644 /dev/stdin /usr/lib/sysusers.d/splashtop-streamer.conf <<'EOF'
-# Splashtop Streamer service user; see build-rootfs/scripts/programs/splashtop-streamer.sh
+# Splashtop Streamer service user; see os/build/programs/splashtop-streamer.sh in the image source
 u splashtop-streamer 850 "Splashtop Remote Streamer" /opt/splashtop-streamer /sbin/nologin
 EOF
 systemd-sysusers /usr/lib/sysusers.d/splashtop-streamer.conf

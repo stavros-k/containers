@@ -1,5 +1,5 @@
 # Register this machine's Splashtop Streamer with the team, once, unattended.
-# The deploy code comes from the optional build arg (see Containerfile.fedora);
+# The deploy code comes from the optional build arg (see Containerfile);
 # images built without it don't ship the file and this unit never runs.
 #
 # Runs every boot but only acts until the deploy has succeeded: `deploy` writes

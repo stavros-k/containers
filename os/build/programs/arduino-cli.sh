@@ -2,7 +2,7 @@
 # Install arduino-cli. It's not in Fedora's repos and has no trusted COPR, so we
 # fetch Arduino's official release binary (over HTTPS) and drop it in
 # /usr/local/bin (a real dir on fedora-bootc, so it persists in the image).
-# Run at build time via a bind mount (see Containerfile.fedora).
+# Run at build time via a bind mount (see Containerfile).
 set -euxo pipefail
 
 # renovate: datasource=github-releases depName=arduino/arduino-cli

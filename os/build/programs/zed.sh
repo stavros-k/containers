@@ -2,7 +2,7 @@
 # Install the Zed editor. It's not in Fedora's repos and has no trusted COPR, so
 # we fetch Zed's official release tarball (over HTTPS) and unpack it under
 # /usr/local (a real dir on fedora-bootc, so it persists in the image). Run at
-# build time via a bind mount (see Containerfile.fedora).
+# build time via a bind mount (see Containerfile).
 set -euxo pipefail
 
 # renovate: datasource=github-releases depName=zed-industries/zed

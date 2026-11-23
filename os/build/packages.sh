@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Install all packages for the kiosk image. This script and the third-party
-# repo files under etc/yum.repos.d/ are bind-mounted at build time (see
-# Containerfile.fedora), never copied, so they leave no trace in the final
-# image and need no cleanup.
+# repo files under build/repos/ are bind-mounted at build time (see
+# Containerfile), never copied, so they leave no trace in the final image and
+# need no cleanup.
 set -euxo pipefail
 
 # No reposdir override here: the extra .repo files are bind-mounted straight
@@ -29,7 +29,7 @@ pkgs=(
 
   ghostty               # terminal (from the bind-mounted COPR repo scottames/ghostty)
   # Zed (the editor) is installed from its pinned upstream tarball by
-  # programs/zed.sh, not from a repo — see Containerfile.fedora.
+  # programs/zed.sh, not from a repo — see Containerfile.
 )
 
 # Packages kept out of the image. Meant for weak deps the stack drags in that a

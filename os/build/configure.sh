@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Configure the kiosk image: the one user, enforced config, services, boot
-# target. Run at build time via a bind mount (see Containerfile.fedora) AFTER
+# target. Run at build time via a bind mount (see Containerfile) AFTER
 # rootfs/ has been COPY'd in (it applies the copied kiosk-enforce tmpfiles.d)
 # and AFTER packages.sh has installed the desktop (it enables sddm).
 set -euxo pipefail

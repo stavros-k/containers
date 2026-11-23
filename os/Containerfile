@@ -10,8 +10,8 @@ FROM quay.io/fedora/fedora-bootc:45
 # repos wherever the distro moves them. Mounting the whole directory would
 # instead shadow /etc/yum.repos.d and hide those base repos.
 RUN \
-  --mount=type=bind,source=build-rootfs/scripts/packages.sh,target=/tmp/packages.sh \
-  --mount=type=bind,source=build-rootfs/etc/yum.repos.d/ghostty.repo,target=/etc/yum.repos.d/ghostty.repo \
+  --mount=type=bind,source=build/packages.sh,target=/tmp/packages.sh \
+  --mount=type=bind,source=build/repos/ghostty.repo,target=/etc/yum.repos.d/ghostty.repo \
   bash /tmp/packages.sh
 
 # programs: pinned upstream binaries/tarballs (not in any repo), one install
@@ -20,7 +20,7 @@ RUN \
 # program: bumping any one re-runs them all (both are cheap). set -e so a failed
 # install fails the build.
 RUN \
-  --mount=type=bind,source=build-rootfs/scripts/programs,target=/tmp/programs \
+  --mount=type=bind,source=build/programs,target=/tmp/programs \
   set -eu; for s in /tmp/programs/*.sh; do bash "$s"; done
 
 # static config: copied verbatim so it persists in the image
@@ -44,5 +44,5 @@ RUN if [ -n "$SPLASHTOP_DEPLOY_CODE" ]; then \
 # COPY (applies the copied tmpfiles.d) and after packages (enables sddm). Mounted
 # narrowly for the same cache reason as above.
 RUN \
-  --mount=type=bind,source=build-rootfs/scripts/configure.sh,target=/tmp/configure.sh \
+  --mount=type=bind,source=build/configure.sh,target=/tmp/configure.sh \
   bash /tmp/configure.sh
