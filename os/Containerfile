@@ -40,12 +40,19 @@ RUN if [ -n "$SPLASHTOP_DEPLOY_CODE" ]; then \
     printf '%s\n' "$SPLASHTOP_DEPLOY_CODE" | install -D -m 0600 /dev/stdin /usr/lib/kiosk/splashtop-deploy-code; \
   fi
 
-# configure.sh: user, enforced config, services, boot target, lint. Runs after
-# COPY (applies the copied tmpfiles.d) and after packages (enables sddm). Mounted
-# narrowly for the same cache reason as above. The repo's factory tree is
-# mounted too, so the lint can tell our files from Fedora's in
-# /usr/share/factory.
+# configure.sh: user, enforced config, services, boot target. Runs after COPY
+# (applies the copied tmpfiles.d) and after packages (enables sddm). Mounted
+# narrowly for the same cache reason as above.
 RUN \
   --mount=type=bind,source=build/configure.sh,target=/tmp/configure.sh \
-  --mount=type=bind,source=rootfs/usr/share/factory,target=/tmp/factory \
   bash /tmp/configure.sh
+
+# lint.sh: checks on the finished image, so it stays the last step. Changes
+# nothing, and editing a check rebuilds only this layer. The repo's factory
+# tree is mounted so the lint can tell our files from Fedora's in
+# /usr/share/factory. Images built on top of this one end with the same step,
+# mounting their own factory tree.
+RUN \
+  --mount=type=bind,source=build/lint.sh,target=/tmp/lint.sh \
+  --mount=type=bind,source=rootfs/usr/share/factory,target=/tmp/factory \
+  bash /tmp/lint.sh
