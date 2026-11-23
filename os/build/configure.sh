@@ -12,7 +12,7 @@ set -euxo pipefail
 systemd-sysusers /usr/lib/sysusers.d/kiosk.conf
 
 # Image-owned config, reasserted over local drift on every boot: the factory
-# tree /usr/share/kiosk/enforce/system mirrors absolute paths, and
+# tree /usr/share/factory mirrors absolute paths, and
 # tmpfiles.d/kiosk-enforce.conf copies each file back over /etc at boot (see
 # there for how and why).
 #
@@ -20,17 +20,17 @@ systemd-sysusers /usr/lib/sysusers.d/kiosk.conf
 # checks the exact sudoers file that boot will write. The conf is hand-written,
 # and both ways it can fall out of step with the factory tree are silent
 # (systemd-tmpfiles skips a C line with a missing source and still exits 0),
-# so check both here: every factory file has a C line, every C line's source
-# exists.
+# so check both here: every factory file from the repo has a C line, every C
+# line's source exists. The first check walks the repo's copy (bind-mounted at
+# /tmp/factory), not /usr/share/factory, which also holds Fedora's own files.
 conf=/usr/lib/tmpfiles.d/kiosk-enforce.conf
-factory=/usr/share/kiosk/enforce/system
 systemd-tmpfiles --create --remove "$conf"
 while IFS= read -r f; do
-  grep -q "^C ${f#.} " "$conf" || { echo "configure.sh: ${f#.} is in $factory but not in $conf" >&2; exit 1; }
-done < <(cd "$factory" && find . -type f)
-while IFS= read -r src; do
-  [ -f "$src" ] || { echo "configure.sh: $conf copies $src, which doesn't exist" >&2; exit 1; }
-done < <(awk '$1 == "C" { print $7 }' "$conf")
+  grep -q "^C ${f#.} " "$conf" || { echo "configure.sh: ${f#.} is in rootfs/usr/share/factory but not in $conf" >&2; exit 1; }
+done < <(cd /tmp/factory && find . -type f)
+while IFS= read -r path; do
+  [ -f "/usr/share/factory$path" ] || { echo "configure.sh: $conf copies /usr/share/factory$path, which doesn't exist" >&2; exit 1; }
+done < <(awk '$1 == "C" { print $2 }' "$conf")
 visudo -c
 
 # enable the display manager, ssh, automatic bootc updates, and the unattended
