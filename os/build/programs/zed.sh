@@ -7,7 +7,7 @@ set -euxo pipefail
 source /tmp/lib/install.sh
 
 # renovate: datasource=github-releases depName=zed-industries/zed
-version=1.29.3
+version=1.30.2
 
 cd "$(mktemp -d)"
 curl -fsSL -o zed.tar.gz "https://github.com/zed-industries/zed/releases/download/v${version}/zed-linux-x86_64.tar.gz"
